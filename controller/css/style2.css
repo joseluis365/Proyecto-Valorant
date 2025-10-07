@@ -1,0 +1,62 @@
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: white;
+  overflow: hidden;
+  background-image: url('../multimedia/img/fondo_sala.png');
+}
+.info-mapa {
+  position: relative;
+  transition: transform 0.3s ease;
+  transform-origin: center center;
+}
+.container-mapa:hover .info-mapa {
+  transform: scale(1.05);
+}
+.container-mapa:hover .nombre-mapa {
+  color:#d6374c;
+}
+.container-mapa.selected .nombre-mapa {
+  color: #d6374c;
+}
+.mapa {
+  display: block;
+  z-index: 0;
+}
+.marco {
+  position: absolute;
+  top: -11%;
+  left: -4%;
+  width: 540px;
+  height: 375px;
+  z-index: 1;
+}
+.nombre-mapa {
+  position: absolute;
+  bottom: -30%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2rem;
+  font-weight: bold;
+  z-index: 2;
+}
+.title {
+  font-family: "Fugaz One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 5rem;
+  letter-spacing: 0.001px;
+}
+.boton-custom {
+  background-color: #f93e57 !important;
+  border-radius: 0% !important;
+  height: 25% !important;
+  border-bottom: 2px solid #ccc !important;
+  border-color: none !important; 
+}
+
+.boton-custom:hover {
+  background-color: #d6374c !important;
+  border-color: none !important; 
+}
