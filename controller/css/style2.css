@@ -5,7 +5,51 @@ body, html {
   color: white;
   overflow: hidden;
   background-image: url('../multimedia/img/fondo_sala.png');
+  background-size: cover;
 }
+.top-bar {
+      display: flex;
+      align-items: center;
+      padding: 15px 30px;
+      background-color: transparent;
+    }
+
+    .back-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: #9ca3af; /* gris suave */
+      transition: color 0.2s;
+    }
+
+    .back-link:hover {
+      color: #fff;
+    }
+
+    .back-icon {
+      width: 14px;
+      height: 14px;
+      border-left: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      transform: rotate(45deg);
+      margin-right: 8px;
+    }
+
+    .text-muted {
+      letter-spacing: 1px;
+      color: inherit !important;
+    }
+
+    .text-light {
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    .divider {
+      color: #9ca3af;
+      margin: 0 8px;
+    }
+
 .info-mapa {
   position: relative;
   transition: transform 0.3s ease;
@@ -48,6 +92,19 @@ body, html {
   font-size: 5rem;
   letter-spacing: 0.001px;
 }
+.title-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 15%;
+}
+.subtitle {
+  font-family: "Fugaz One", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 1.2rem;
+  letter-spacing: 0.001px;
+}
 .boton-custom {
   background-color: #f93e57 !important;
   border-radius: 0% !important;
@@ -59,4 +116,50 @@ body, html {
 .boton-custom:hover {
   background-color: #d6374c !important;
   border-color: none !important; 
+}
+.container-arma {
+  position: relative;
+  padding: 40px;
+  background-color: #9ca3af22;
+  width: 250px;
+  height: 150px;
+  border: 3px solid #ccc3;
+}
+.container-arma::before {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 30px; 
+  width: 60px; 
+  height: 3px; 
+  background-color: rgba(10, 32, 45, 0.8);
+  transform: skewX(-40deg);
+}
+.container-arma::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  right: 30px;
+  width: 60px;
+  height: 3px;
+  background-color: rgba(10, 32, 45, 0.8);
+  transform: skewX(40deg);
+}
+.container-arma:hover {
+  border: 4px solid #d6374c;
+  overflow: hidden;
+  background: linear-gradient(to bottom, #9ca3af22, #d6374c55);
+
+}
+.container-arma:hover .img {
+  transform: scale(1.15);
+}
+.img {
+  width: 100%;
+  transition: transform 0.2s ease;
+}
+.columna {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
 }
