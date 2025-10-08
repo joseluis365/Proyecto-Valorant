@@ -8,47 +8,41 @@ body, html {
   background-size: cover;
 }
 .top-bar {
-      display: flex;
-      align-items: center;
-      padding: 15px 30px;
-      background-color: transparent;
-    }
-
-    .back-link {
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-      color: #9ca3af; /* gris suave */
-      transition: color 0.2s;
-    }
-
-    .back-link:hover {
-      color: #fff;
-    }
-
-    .back-icon {
-      width: 14px;
-      height: 14px;
-      border-left: 2px solid currentColor;
-      border-bottom: 2px solid currentColor;
-      transform: rotate(45deg);
-      margin-right: 8px;
-    }
-
-    .text-muted {
-      letter-spacing: 1px;
-      color: inherit !important;
-    }
-
-    .text-light {
-      font-weight: 600;
-      letter-spacing: 1px;
-    }
-
-    .divider {
-      color: #9ca3af;
-      margin: 0 8px;
-    }
+  display: flex;
+  align-items: center;
+  padding: 15px 30px;
+  background-color: transparent;
+}
+.back-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #9ca3af; /* gris suave */
+  transition: color 0.2s;
+}
+.back-link:hover {
+  color: #fff;
+}
+.back-icon {
+  width: 14px;
+  height: 14px;
+  border-left: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  margin-right: 8px;
+}
+.text-muted {
+  letter-spacing: 1px;
+  color: inherit !important;
+}
+.text-light {
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+.divider {
+  color: #9ca3af;
+  margin: 0 8px;
+}
 
 .info-mapa {
   position: relative;
@@ -94,9 +88,8 @@ body, html {
 }
 .title-container {
   display: flex;
-  justify-content: center;
+  justify-content:center !important;
   align-items: center;
-  margin-right: 15%;
 }
 .subtitle {
   font-family: "Fugaz One", sans-serif;

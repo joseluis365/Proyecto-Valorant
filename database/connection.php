@@ -1,7 +1,7 @@
 <?php
     class database{
         private $hostname = "localhost" ;
-        private $database = "ejercicio" ;
+        private $database = "valorant" ;
         private $username = "root";
         private $password = "";
         private $charset = "utf8";
