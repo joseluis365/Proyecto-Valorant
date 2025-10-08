@@ -5,11 +5,11 @@
         private $username = "root";
         private $password = "";
         private $charset = "utf8";
-
+        private $port = "33065";
         function conectar()
         {
             try{
-                $conexion = "mysql:host=". $this->hostname ."; dbname=" . $this->database . "; charset=" .$this->charset;
+                $conexion = "mysql:host=". $this->hostname .";port=" . $this->port . "; dbname=" . $this->database . "; charset=" .$this->charset;
                 $option = [
                     PDO::ATTR_ERRMODE => PDO:: ERRMODE_EXCEPTION,
                     PDO::ATTR_EMULATE_PREPARES => false 
