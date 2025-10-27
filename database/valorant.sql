@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1:33065
--- Tiempo de generación: 08-10-2025 a las 23:00:39
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 27-10-2025 a las 06:55:02
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -40,15 +40,31 @@ CREATE TABLE `arma` (
   `id_tipo_arma` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `arma`
+--
+
+INSERT INTO `arma` (`id_arma`, `nombre_arma`, `descrip_arma`, `img_arma`, `img_fondo`, `balas`, `video_arma`, `dano_cabeza`, `dano_cuerpo`, `id_tipo_arma`) VALUES
+(1, 'Classic', 'Ligera y versátil, el arma por defecto es todo un clásico.', 'img-pistola1.png', 'fondo_pistola1.png', 15, 'video_pistola1.mp4', 10, 7, 2),
+(2, 'Ghost', 'Con silenciador, precisa y estupenda a cualquier distancia.', 'img-pistola2.png', 'fondo_pistola2.png', 12, 'video_pistola2.mp4', 5, 3, 2),
+(3, 'Sheriff', 'Perfecto para aquellos que busquen siempre el disparo a la cabeza.', 'img-pistola3.png', 'fondo_pistola3.png', 6, 'video_pistola3.mp4', 12, 4, 2),
+(4, 'Spectre', 'Ante la duda, apostad por el Spectre', 'img-fusil1.png', 'fondo_fusil1.png', 30, 'video_fusil1.mp4', 20, 10, 3),
+(5, 'Vandal', 'Esta precisa y potente arma es temible a media distancia.', 'img-fusil2.png', 'fondo_fusil2.png', 25, 'video_fusil2.mp4', 25, 15, 3),
+(6, 'Odin', 'Esta monstruosidad podrá traeros la gloria en el campo.', 'img-fusil3.png', 'fondo_fusil3.png', 40, 'video_fusil3.mp4', 20, 15, 3),
+(7, 'Marshal', 'Respirad hondo y conseguid que se arrepientan de doblar la esquina.', 'img-franco1.png', 'fondo_franco1.png', 5, 'video_franco1.mp4', 25, 15, 4),
+(8, 'Outlaw', 'Dos cañones, un impacto único. La elección idónea.', 'img-franco2.png', 'fondo_franco2.png', 6, 'video_franco2.mp4', 30, 15, 4),
+(9, 'Operator', 'Poneos cómodos, porque la zona es vuestra.', 'img-franco3.png', 'fondo_franco3.png', 4, 'video_franco3.mp4', 35, 20, 4),
+(10, 'Navaja Tactica', 'Una solución de lo más íntima.', 'img-cuchillo.png', 'fondo_cuchillo.png', 0, 'video_cuchillo.mp4', 20, 10, 1);
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `avatar`
+-- Estructura de tabla para la tabla `banner`
 --
 
-CREATE TABLE `avatar` (
-  `id_avatar` int(11) NOT NULL,
-  `avatar` varchar(255) NOT NULL
+CREATE TABLE `banner` (
+  `id_banner` int(11) NOT NULL,
+  `banner` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -61,6 +77,14 @@ CREATE TABLE `estado` (
   `id_estado` int(11) NOT NULL,
   `tipo_estado` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `estado`
+--
+
+INSERT INTO `estado` (`id_estado`, `tipo_estado`) VALUES
+(1, 'Activo'),
+(2, 'Bloqueado');
 
 -- --------------------------------------------------------
 
@@ -134,9 +158,19 @@ CREATE TABLE `rango` (
   `id_rango` int(11) NOT NULL,
   `nombre_rango` varchar(100) NOT NULL,
   `icono` varchar(255) DEFAULT NULL,
-  `descripcion_rango` text DEFAULT NULL,
   `puntos_requeridos` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `rango`
+--
+
+INSERT INTO `rango` (`id_rango`, `nombre_rango`, `icono`, `puntos_requeridos`) VALUES
+(1, 'Platino', 'platino.png', 0),
+(2, 'Diamante', 'diamante.png', 500),
+(3, 'Ascendente', 'ascendente.png', 1000),
+(4, 'Inmortal', 'inmortal.png', 1500),
+(5, 'Radiante', 'radiante.png', 2000);
 
 -- --------------------------------------------------------
 
@@ -165,6 +199,16 @@ CREATE TABLE `tipo_arma` (
   `tipo_arma` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `tipo_arma`
+--
+
+INSERT INTO `tipo_arma` (`id_tipo_arma`, `tipo_arma`) VALUES
+(1, 'Melee'),
+(2, 'Pistola'),
+(3, 'Ametralladora'),
+(4, 'Francotirador');
+
 -- --------------------------------------------------------
 
 --
@@ -175,6 +219,14 @@ CREATE TABLE `tip_user` (
   `id_tipo_user` int(11) NOT NULL,
   `tipo_user` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `tip_user`
+--
+
+INSERT INTO `tip_user` (`id_tipo_user`, `tipo_user`) VALUES
+(1, 'Usuario'),
+(2, 'Administrador');
 
 -- --------------------------------------------------------
 
@@ -188,13 +240,28 @@ CREATE TABLE `user` (
   `usuario` varchar(100) NOT NULL,
   `email` varchar(150) NOT NULL,
   `contrasena` varchar(255) NOT NULL,
-  `banner` varchar(255) DEFAULT NULL,
+  `avatar` varchar(255) DEFAULT 'avatar_logo.jpeg',
   `ultimo_login` datetime DEFAULT NULL,
   `id_tipo_user` int(11) DEFAULT NULL,
   `id_estado` int(11) DEFAULT NULL,
   `id_rango` int(11) DEFAULT NULL,
-  `id_avatar` int(11) DEFAULT NULL
+  `id_banner` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `user`
+--
+
+INSERT INTO `user` (`id_user`, `nombre`, `usuario`, `email`, `contrasena`, `avatar`, `ultimo_login`, `id_tipo_user`, `id_estado`, `id_rango`, `id_banner`) VALUES
+(3, 'Luis', 'Zeus', 'luis123@gmail.com', '$2y$12$BSCnQ/ifAw3.8df8HzuOLO6YpcF/AuoIuGL7REq7v5sjtJJgR4BQ6', 'avatar_logo.jpeg', '2025-10-27 05:30:42', 1, 1, 1, NULL),
+(4, 'Jordan', 'Dark', 'jordan1234@gmail.com123', '$2y$12$wLfrTWRV4U8yHnPkWHncU.PwCFNY./7fSYERt.ChlYAh9Smx5JX1m', 'avatar_logo.jpeg', NULL, 1, 2, 1, NULL),
+(5, 'Didier', 'Didi', 'didier1234@gmail.com123', '$2y$12$Oc.odDJqtDd8MriQr05UNui24jzfvIkCawZT5PXqWQK7Vi4joaP9W', 'avatar_logo.jpeg', NULL, 1, 1, 1, NULL),
+(6, 'Dylan', 'Sova', 'Dilan12345@gmail.com', '$2y$12$BZI5bRyjxE6z9QcAvORu4ebiOEFZChP.7RkcbP4P/GhvJ1ooLMMZu', 'avatar_logo.jpeg', NULL, 1, 2, 1, NULL),
+(7, 'Jose', 'Kakaroto', 'jose1234@gmail.com', '$2y$12$KqJN4aiifk8XHFr2vaupnuOn0n98IJOZyuTn9xLn18n9hSXdCsQS2', 'avatar_logo.jpeg', NULL, 1, 1, 1, NULL),
+(8, 'Luisa', 'James', 'luisa12345@gmail.com', '$2y$12$svmLAndZNUNSFOiBk7d/SecMaWDkGGSontq5bqKY3Lor2Rm32YO5C', 'avatar_logo.jpeg', NULL, 1, 1, 1, NULL),
+(10, 'Stevan', 'GmStevan', 'bastobrayan246@gmail.com', '$2y$12$BpB6gqwrURvrOJNlxmvP6OvbRkI.Z/Fh6eN8R9tuYXTfr6OdmPSiG', 'avatar_logo.jpeg', '2025-10-27 06:51:30', 2, 1, 5, NULL),
+(11, 'tata', 'Dagsa', 'tata123@gmail.com', '$2y$12$0ue7Ys./hpWtuy2rQZFq9.iAWnB5QLDbKeHN6HFR1SHOKFA3nqS8m', 'avatar_logo.jpeg', NULL, 1, 1, 1, NULL),
+(12, 'Juan Suaza', 'Deimon_zz', 'juansuaza1528@gmail.com', '$2y$12$LpqSaDNgcT5srNV5zGcKH.I0.NxZ3FJXAAbVobPPLrOERuhsHX3CO', 'avatar_logo.jpeg', NULL, 1, 2, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -234,10 +301,10 @@ ALTER TABLE `arma`
   ADD KEY `id_tipo_arma` (`id_tipo_arma`);
 
 --
--- Indices de la tabla `avatar`
+-- Indices de la tabla `banner`
 --
-ALTER TABLE `avatar`
-  ADD PRIMARY KEY (`id_avatar`);
+ALTER TABLE `banner`
+  ADD PRIMARY KEY (`id_banner`);
 
 --
 -- Indices de la tabla `estado`
@@ -311,7 +378,7 @@ ALTER TABLE `user`
   ADD KEY `id_tipo_user` (`id_tipo_user`),
   ADD KEY `id_estado` (`id_estado`),
   ADD KEY `id_rango` (`id_rango`),
-  ADD KEY `id_avatar` (`id_avatar`);
+  ADD KEY `id_avatar` (`id_banner`);
 
 --
 -- Indices de la tabla `user_personaje`
@@ -337,19 +404,19 @@ ALTER TABLE `usuario_sala`
 -- AUTO_INCREMENT de la tabla `arma`
 --
 ALTER TABLE `arma`
-  MODIFY `id_arma` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_arma` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT de la tabla `avatar`
+-- AUTO_INCREMENT de la tabla `banner`
 --
-ALTER TABLE `avatar`
-  MODIFY `id_avatar` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `banner`
+  MODIFY `id_banner` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `estado`
 --
 ALTER TABLE `estado`
-  MODIFY `id_estado` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_estado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `mapa`
@@ -379,7 +446,7 @@ ALTER TABLE `personaje`
 -- AUTO_INCREMENT de la tabla `rango`
 --
 ALTER TABLE `rango`
-  MODIFY `id_rango` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_rango` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `sala`
@@ -391,19 +458,19 @@ ALTER TABLE `sala`
 -- AUTO_INCREMENT de la tabla `tipo_arma`
 --
 ALTER TABLE `tipo_arma`
-  MODIFY `id_tipo_arma` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_tipo_arma` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `tip_user`
 --
 ALTER TABLE `tip_user`
-  MODIFY `id_tipo_user` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_tipo_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `user_personaje`
@@ -457,7 +524,7 @@ ALTER TABLE `user`
   ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`id_tipo_user`) REFERENCES `tip_user` (`id_tipo_user`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `user_ibfk_2` FOREIGN KEY (`id_estado`) REFERENCES `estado` (`id_estado`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `user_ibfk_3` FOREIGN KEY (`id_rango`) REFERENCES `rango` (`id_rango`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `user_ibfk_4` FOREIGN KEY (`id_avatar`) REFERENCES `avatar` (`id_avatar`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `user_ibfk_4` FOREIGN KEY (`id_banner`) REFERENCES `banner` (`id_banner`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `user_personaje`

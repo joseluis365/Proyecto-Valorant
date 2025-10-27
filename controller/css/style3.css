@@ -1,0 +1,364 @@
+body, html {
+  height: 100%;
+  margin: 0;
+  overflow-x: hidden;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+.login-custom {
+  overflow-y: hidden;
+  background-image: url("../img/fondo3.jpg");
+}
+
+.login-custom1 {
+  overflow-y: hidden;
+}
+
+section {
+  scroll-snap-align: start;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: 25vh;
+}
+
+.personajes-section1 {
+  background-image: url("../img/fondo3.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh; /* ocupa toda la pantalla */
+  position: relative;
+}
+
+.container {
+  top: 30%;
+  right: 5%;
+}
+
+.container1 {
+  display: flex;
+  justify-content: center;
+  gap: 4%;
+}
+
+
+
+.personajes-section1 .container1 {
+  position: relative;
+  z-index: 1;
+}
+
+.personajes-section::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 0;
+}
+.personajes-section .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Hero con imagen de fondo */
+.hero {
+  position: relative;
+  height: 100vh;
+}
+
+/* Oscurecer la imagen */
+.hero .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: -1;
+}
+
+.hero .content {
+  position: relative;
+  z-index: 2;
+}
+
+.cabeza {
+  height: 70px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: #111 !important;
+}
+
+.bg-video {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+}
+
+.boton-custom {
+    background-color: rgb(235, 67, 67) !important;
+    border-radius: 0% !important;
+    height: 25% !important;
+    border-bottom: 2px solid #ccc !important;
+    border-color: none !important; 
+}
+
+.boton-custom:hover {
+    background-color: rgb(238, 216, 216) !important;
+    color: black !important;
+    border-color: none !important; 
+}
+
+/* Contenedor de imagen */
+.card-img-container1 {
+  position: relative;
+  overflow: hidden;
+  width: 250px;
+  height: 25%;
+}
+
+.card-img-container2 {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 25%;
+}
+
+
+/* Imagen */
+.card-img-top1 {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center; 
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.card-img-top2 {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center; 
+  display: block;
+  transition: transform 0.5s ease;  
+}
+
+/* Overlay (información que aparece al pasar) */
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.516);
+  color: #fff;
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1.2rem;
+  text-align: center;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  transform: translateY(20%);
+}
+
+.card-overlay2 {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.516);
+  color: #fff;
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1.2rem;
+  text-align: center;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  transform: translateY(20%);
+}
+
+/* Efectos de hover */
+.card-hover:hover .card-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-hover:hover .card-overlay2 {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-hover:hover .card-img-top1 {
+  transform: scale(1.08);
+}
+
+.card-hover:hover .card-img-top2 {
+  transform: scale(1.08);
+}
+
+
+/* Estilos del texto */
+.card-overlay h5 {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.card-overlay p {
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+
+.card-overlay p {
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+
+.text-custom {
+  display: flex;
+  align-items: center; 
+  margin-left: 2%;
+}
+
+.text-custom1 {
+  text-align: center;
+}
+
+.card-img-top {
+  transition: transform 0.5s ease; /* suaviza el zoom */
+}
+
+.card:hover .card-img-top {
+  transform: scale(1.08); /* zoom solo en la imagen */
+}
+
+.card {
+  overflow: hidden; /* evita que la imagen se salga del borde */
+}
+
+.hover-link:hover {
+  color: #fff !important;
+  text-decoration: underline;
+  transition: 0.3s ease;
+}
+
+.social-link {
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-link:hover {
+  color: #e74c3c !important;
+  transform: scale(1.2);
+}
+
+.left-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 50px;
+  background-color: #fefefe;
+  position: relative;
+}
+
+.left-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-top: 100px solid black;     /* altura */
+  border-right: 100px solid transparent; /* base */
+}
+
+.left-section::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-top: 100px solid black;
+  border-left: 100px solid transparent;
+}
+
+.right-section video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.form-control, 
+.btn {
+  border-radius: 10px;
+}
+
+.btn-custom {
+  background-color: #060606ed !important;
+  color: rgb(255, 255, 255) !important;
+  transition: 0.3s;
+}
+
+.btn-custom:hover {
+  background-color: #6b6767e8 !important;
+}
+
+.form-control:focus {
+  border-color: #ccc !important;
+  box-shadow: 0 0 0 0.25rem rgba(66, 62, 63, 0.25) !important; 
+}
+
+#toggleSound {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 33px;
+  height: 33px;
+  font-size: 0.8rem;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+#toggleSound:hover {
+  background-color: #3a3a3aed;
+  color: white;
+  transform: scale(1.1);
+}
+
+body {
+  background-color: #e2dfdf !important;
+}
+
+.top-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  padding: 15px 30px;
+  background-color: transparent;
+  z-index: 1000; /* por si hay otros elementos encima */
+}
+
+.jugar1{
+  font-family: 'Bebas Neue', sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 1rem; /* puedes ajustar el tamaño */
+  margin-bottom: 10px;
+}
+
+.mad {
+  display: flex;
+}
