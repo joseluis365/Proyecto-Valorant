@@ -116,7 +116,7 @@
         </div>
       </div>
     <div class="position-absolute bottom-0 end-0 mb-3" style="margin-right: 5px;">
-      <button id="btn-audio" class="btn btn-custom">🔊</button>
+      <button id="btn-audio" class="btn btn-custom">🔇</button>
     </div>
     </div>
 
@@ -132,10 +132,10 @@
   btn.addEventListener("click", () => {
     if (video.muted) {
       video.muted = false;
-      btn.textContent = "🔇";
+      btn.textContent = "🔊";
     } else {
       video.muted = true;
-      btn.textContent = "🔊";
+      btn.textContent = "🔇";
     }
   });
 (function () {

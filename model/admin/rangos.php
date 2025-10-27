@@ -77,26 +77,7 @@ $rangos = $sql->fetchAll(PDO::FETCH_ASSOC);
         </div>
         <?php endforeach; ?>
 
-        <!-- <div class="d-flex flex-column align-items-center"> 
-            <div class="text-align-center sub-container">
-                <p style="margin-bottom: 5px;">Platino</p>
-            </div>
-            <div class="image-container">
-                <img src="../../controller/multimedia/rangos/platino.png" alt="Rango Platino en Valorant">
-            </div>
-        </div> -->
-        <!-- <div>
-            <img src="../../controller/multimedia/rangos/diamante.png" alt="Rango Diamante en Valorant">
-        </div>
-        <div>
-            <img src="../../controller/multimedia/rangos/ascendente.png" alt="Rango Ascendente en Valorant" width="130">
-        </div>
-        <div>
-            <img src="../../controller/multimedia/rangos/Inmortal.png" alt="Rango Inmortal en Valorant" width="150">
-        </div>
-        <div>
-            <img src="../../controller/multimedia/rangos/radiante.png" alt="Rango Radiante en Valorant">
-        </div> -->
+
     </div>
 </body>
 </html>

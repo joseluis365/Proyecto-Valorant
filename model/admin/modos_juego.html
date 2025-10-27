@@ -26,7 +26,7 @@
     <div class="title-container d-flex justify-content-center align-items-start">
         <h1 class="title">MODOS DE JUEGO</h1>
     </div>
-    <form id="mapForm">
+    <form id="mapForm" action="listar_salas.php" method="POST">
     <div class="container d-flex justify-content-evenly align-items-start" style="margin-top: 6rem;">
 
         <div class="container-mapa d-flex align-items-center" data-mapa="CORRODE">
@@ -50,43 +50,47 @@
     </div>
     
     <div class=" d-flex justify-content-center">
-        <button type="submit" class=" mt-3 btn btn-danger boton-custom btn-lg">SELECCIONAR</button>
+        <button id="btnSeleccionar" type="button" class="mt-3 btn btn-danger boton-custom btn-lg">SELECCIONAR</button>
+
     </div>
 
     <input type="hidden" name="mapaSeleccionado" id="mapaSeleccionado">
+    <input type="hidden" name="tipoJuego" id="tipoJuego">
     </form>
 
     <script>
-    const mapas = document.querySelectorAll('.container-mapa');
-    const inputMapa = document.getElementById('mapaSeleccionado');
-    const texto = document.querySelector('.texto');
+const mapas = document.querySelectorAll('.container-mapa');
+const inputMapa = document.getElementById('mapaSeleccionado');
+const inputTipoJuego = document.getElementById('tipoJuego');
+const texto = document.querySelector('.texto');
 
-    mapas.forEach(mapa => {
+mapas.forEach(mapa => {
     mapa.addEventListener('click', () => {
-        // Quitar selección anterior
         mapas.forEach(m => m.classList.remove('selected'));
         mapa.classList.add('selected');
         const nombreMapa = mapa.dataset.mapa;
         inputMapa.value = nombreMapa;
 
-        // Cambiar texto y color según el mapa seleccionado
         if (nombreMapa === 'CORRODE') {
-            texto.textContent = 'Has seleccionado el mapa CORRODE: combate 1 vs 1 en un especio cerrado e ideal para mostrar quien es mejor';
+            inputTipoJuego.value = '1vs1';
+            texto.textContent = 'Has seleccionado CORRODE: combate 1 vs 1 en un espacio cerrado ideal para duelos rápidos.';
         } else if (nombreMapa === 'ASCENT') {
-            texto.textContent = 'Has seleccionado el mapa ASCENT: Combate todos contra todos, maximo 5 jugadores en espacio abierto';
+            inputTipoJuego.value = 'Multijugador';
+            texto.textContent = 'Has seleccionado ASCENT: Combate abierto hasta 5 jugadores, todos contra todos.';
         } else {
+            inputTipoJuego.value = '';
             texto.textContent = '';
         }
-        });
     });
+});
 
-    // Validar antes de enviar
-    document.getElementById('mapForm').addEventListener('submit', e => {
-        if (!inputMapa.value) {
-        e.preventDefault();
+document.getElementById('btnSeleccionar').addEventListener('click', e => {
+    if (!inputMapa.value || !inputTipoJuego.value) {
         alert('Por favor selecciona un mapa antes de continuar.');
-        }
-    });
-    </script>
+        return;
+    }
+    document.getElementById('mapForm').submit();
+});
+</script>
 </body>
 </html>
