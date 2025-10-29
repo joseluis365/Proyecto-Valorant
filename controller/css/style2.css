@@ -357,13 +357,21 @@ body, html {
 
 .jugar3 {
   font-family: 'Bebas Neue', sans-serif;
-  font-weight: 700;
+  font-weight: 1000;
   text-transform: uppercase;
   letter-spacing: 1px;
-  font-size: 1.0rem; /* puedes ajustar el tamaño */
+  font-size: 1.8rem; /* puedes ajustar el tamaño */
   margin-bottom: 10px;
 }
 
+.jugar4 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-weight: 1000;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 1.4rem; /* puedes ajustar el tamaño */
+  margin-bottom: 10px;
+}
 
 .dato {
   color: #3662e6; /* o el color que desees */

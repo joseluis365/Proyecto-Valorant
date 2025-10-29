@@ -4,7 +4,6 @@ require_once("../../database/connection.php");
 $db = new Database;
 
 $con = $db-> conectar();
->>>>>>> main
 
 $id_user = $_SESSION['id_usuario'];
 

@@ -2,7 +2,6 @@
 session_start();
 require_once("../../database/connection.php");
 $db = new Database;
-
 $con = $db-> conectar();
 
 $id_user = $_SESSION['id_usuario'];
@@ -86,7 +85,7 @@ $fila = $sql->fetch(PDO::FETCH_ASSOC);
     <span class="rombo rombo-activo align-items-center" style="background-color: #dc3545;"></span>
   </div>
   <a href="modos_juego.php" class="jugar  d-flex align-items-center text-danger fs-1 text-decoration-none">JUGAR</a>
-</> maindiv>
+</div>
 
 <div class="d-flex menu-option1">
   <div class="d-flex align-items-center">
@@ -99,7 +98,6 @@ $fila = $sql->fetch(PDO::FETCH_ASSOC);
   <div class="d-flex align-items-center">
     <span class="rombo"></span>
   </div>
-
   <a href="coleccion.php" class=" d-flex align-items-center text-white text-decoration-none">COLECCIÓN</a>
 </div>
 
@@ -203,5 +201,3 @@ $fila = $sql->fetch(PDO::FETCH_ASSOC);
 
 </body>
 </html>
-
-

@@ -40,6 +40,8 @@ if (isset($_POST['consulta'])) {
             ON user.id_estado = estado.id_estado
             INNER JOIN rango
             ON user.id_rango = rango.id_rango
+            INNER JOIN avatar
+            ON user.id_avatar = avatar.id_avatar
             INNER JOIN tip_user
             ON user.id_tipo_user = tip_user.id_tipo_user
             WHERE estado.id_estado IN (1,2)
@@ -49,7 +51,6 @@ if (isset($_POST['consulta'])) {
             OR rango.nombre_rango LIKE '%".$q."%'
             OR estado.tipo_estado LIKE '%".$q."%'
             OR user.email LIKE '%".$q."%')";
->>>>>>> main
 }
 
 $result = $mysqli->query($query);
