@@ -88,7 +88,7 @@ $banners = $sql->fetchAll(PDO::FETCH_ASSOC);
                     <p class="mb-2 subtitle fw-bold">TU BANNER ACTUAL</p>
                     <img src="../../controller/multimedia/banners/<?= htmlspecialchars(
                         $banners[array_search($userBanner, array_column($banners, 'id_banner'))]['banner']
-                    ) ?>" class="preview-img borde">
+                    ) ?>" class="preview-img borde" style="width: 230px;">
                 <?php endif; ?>
                 
                 

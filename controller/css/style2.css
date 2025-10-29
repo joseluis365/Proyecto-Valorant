@@ -256,25 +256,25 @@ body, html {
   margin-bottom: 20px;
 }
 .banner-item {
-    cursor: pointer;
-    transition: transform .2s;
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 1px;
+  cursor: pointer;
+  transition: transform .2s;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 1px;
 }
 .banner-item:hover {
     transform: scale(1.03);
 }
 .preview-img {
-    max-width: auto;
-    height: 500px;
-    border-radius: 10px;
+  max-width: auto;
+  height: 500px;
+  border-radius: 10px;
 }
 .borde {
-    border: 2px solid #36e4a5;
-    border-radius: 10px;
-    padding: 2px;
+  border: 2px solid #36e4a5;
+  border-radius: 10px;
+  padding: 2px;
 }
 .banners {
   border-top: 5px solid #eee7;
@@ -355,24 +355,24 @@ body, html {
   font-weight: 600; /* opcional */
 }
 .banner-frame {
-    position: relative;
-    width: 300px; /* ajusta según el tamaño que desees */
-    height: 550px;
-    background-image: url(../multimedia/banners/marco_banner.png);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 2;
+  position: relative;
+  width: 300px; /* ajusta según el tamaño que desees */
+  height: 550px;
+  background-image: url(../multimedia/banners/marco_banner.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
 }
 .banner-img {
-    position: absolute;
-    transform: translate(0%, -25%);
-    width: 78%;
-    height: 54%;
-    object-fit: cover;
+  position: absolute;
+  transform: translate(0%, -25%);
+  width: 78%;
+  height: 54%;
+  object-fit: cover;
 }
 .nombre {
   font-family: 'Fugaz One';
@@ -382,12 +382,12 @@ body, html {
   transform: translate(0%, -20%);
 }
 .icono-rango {
-    position: absolute;
-    top: 79%;
-    transform: translate(0%, -25%);
-    width: 90px;
-    height: 90px;
-    object-fit: cover;
+  position: absolute;
+  top: 79%;
+  transform: translate(0%, -25%);
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
 }
 .esperando-jugador {
   background-color: #849dde20;
