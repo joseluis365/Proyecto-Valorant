@@ -7,12 +7,26 @@ body, html {
   background-image: url('../multimedia/img/fondo_sala.png');
   background-size: cover;
 }
+
+.madre {
+  display: flex;
+  justify-content: space-between;
+}
+
 .top-bar {
   display: flex;
   align-items: center;
   padding: 15px 30px;
   background-color: transparent;
 }
+
+.top-bar1 {
+  display: flex;
+  align-items: center;
+  padding: 15px 30px;
+  background-color: transparent;
+}
+
 .back-link {
   display: flex;
   align-items: center;
@@ -31,6 +45,16 @@ body, html {
   transform: rotate(45deg);
   margin-right: 8px;
 }
+
+.back-icon1 {
+  width: 14px;
+  height: 14px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(-45deg);
+  margin-left: 8px;
+}
+
 .text-muted {
   letter-spacing: 1px;
   color: inherit !important;
@@ -282,4 +306,96 @@ body, html {
 .container-avatar:hover {
   border: 3px solid #36e4a5;
   transform: scale(1.05);
+}
+
+.list-group-item {
+  background-color: #dbdbdb98;
+  border: none;
+  border-bottom: 1px solid #333;
+  color: white;
+  transition: background 0.3s;
+}
+
+.list-group-item:hover {
+  background-color: #e4e4e4e4;
+}
+
+.text-muted {
+  color: #bbb !important;
+}
+
+.jugar {
+  font-family: 'Bebas Neue', sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 3rem; /* puedes ajustar el tamaño */
+  margin-bottom: 10px;
+}
+
+.jugar1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 2rem; /* puedes ajustar el tamaño */
+  margin-bottom: 10px;
+}
+
+.jugar2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 1rem; /* puedes ajustar el tamaño */
+  margin-bottom: 10px;
+}
+.dato {
+  color: #3662e6; /* o el color que desees */
+  font-weight: 600; /* opcional */
+}
+.banner-frame {
+    position: relative;
+    width: 300px; /* ajusta según el tamaño que desees */
+    height: 550px;
+    background-image: url(../multimedia/banners/marco_banner.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+.banner-img {
+    position: absolute;
+    transform: translate(0%, -25%);
+    width: 78%;
+    height: 54%;
+    object-fit: cover;
+}
+.nombre {
+  font-family: 'Fugaz One';
+  font-weight: 200;
+  position: absolute;
+  top: 65%;
+  transform: translate(0%, -20%);
+}
+.icono-rango {
+    position: absolute;
+    top: 79%;
+    transform: translate(0%, -25%);
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+}
+.esperando-jugador {
+  background-color: #849dde20;
+  border-radius: 0;
+  border-top: 2px solid #c6d3f3d8;
+  width: 150px;
+  height: 250px;
+}
+.xx {
+  margin-top: -3%;
 }

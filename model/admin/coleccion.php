@@ -3,7 +3,7 @@ session_start();
 require_once "../../database/connection.php";
 $db = new database;
 $con = $db->conectar();
-$id_user = 1;
+$id_user = $_SESSION['id_usuario'];
 $avatar = $con->prepare("SELECT id_avatar FROM user WHERE id_user = :id");
 $avatar->execute([':id' => $id_user]);
 $idAvatar = $avatar->fetchColumn();
@@ -52,7 +52,7 @@ $banners = $sql->fetchAll(PDO::FETCH_ASSOC);
 
 
     <div class="top-bar">
-    <a href="lobby.html" class="back-link">
+    <a href="lobby.php" class="back-link">
         <div class="back-icon"></div>
         <span class="text-muted">ATRÁS</span>
     </a>

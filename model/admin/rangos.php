@@ -2,7 +2,7 @@
 session_start();
 require_once("../../database/connection.php");
 $db = new database;
-$con = $db->conectar();
+$con = $db-> conectar();
 
 $sql = $con->prepare("SELECT * FROM rango ORDER BY id_rango ASC");
 $sql->execute();
@@ -24,7 +24,7 @@ $rangos = $sql->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
     <div class="top-bar">
-    <a href="lobby.html" class="back-link">
+    <a href="lobby.php" class="back-link">
         <div class="back-icon"></div>
         <span class="text-muted">ATRÁS</span>
     </a>

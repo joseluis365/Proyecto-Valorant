@@ -12,9 +12,9 @@ $con = $db-> conectar();
 if (!isset($_GET['tipoJuego']) || !isset($_GET['mapa'])) {
     header("Location: listar_salas.php");
     exit;
-}
+}   
 
-$user_id     = 1;
+$user_id = $_SESSION['id_usuario'];
 $nombreSala = $_GET['nombre_sala'];
 $tipoJuego   = $_GET['tipoJuego'];
 $mapaNombre  = $_GET['mapa'];
@@ -41,7 +41,7 @@ $maxJugadores = ($tipoJuego === "1vs1") ? 2 : 5;
 
 // INSERTAR LA SALA
 $stmt = $con->prepare("INSERT INTO sala (nombre_sala, tipo_juego, id_mapa, max_jugadores, id_nivel_min, estado, fecha_creacion)
-                       VALUES (?, ?, ?, ?, ?, 'Disponible', NOW())");
+                       VALUES (?, ?, ?, ?, ?, 'disponible', NOW())");
 $stmt->execute([$nombreSala, $tipoJuego, $id_mapa, $maxJugadores, $id_rango]);
 
 $id_sala = $con->lastInsertId();

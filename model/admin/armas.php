@@ -41,7 +41,7 @@ foreach ($armas as $arma) {
 </head>
 <body>
     <div class="top-bar">
-    <a href="lobby.html" class="back-link">
+    <a href="lobby.php" class="back-link">
         <div class="back-icon"></div>
         <span class="text-muted">ATRÁS</span>
     </a>

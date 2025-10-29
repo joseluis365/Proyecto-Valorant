@@ -10,7 +10,7 @@ if (!isset($_GET['id_sala'])) {
     exit;
 }
 
-$user_id = $_SESSION['user_id'];
+$user_id = $_SESSION['id_usuario'];
 $id_sala = $_GET['id_sala'];
 
 /* 1. Verificar que el usuario es host */

@@ -2,8 +2,13 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
+<<<<<<< HEAD
 -- Servidor: 127.0.0.1:3307
 -- Tiempo de generación: 27-10-2025 a las 23:20:03
+=======
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 27-10-2025 a las 06:55:02
+>>>>>>> sombrah
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -59,12 +64,18 @@ INSERT INTO `arma` (`id_arma`, `nombre_arma`, `descrip_arma`, `img_arma`, `img_f
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `avatar`
+-- Estructura de tabla para la tabla `banner`
 --
 
+<<<<<<< HEAD
 CREATE TABLE `avatar` (
   `id_avatar` int(11) NOT NULL,
   `avatar` varchar(150) NOT NULL
+=======
+CREATE TABLE `banner` (
+  `id_banner` int(11) NOT NULL,
+  `banner` varchar(255) NOT NULL
+>>>>>>> sombrah
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -118,6 +129,7 @@ CREATE TABLE `estado` (
 --
 
 INSERT INTO `estado` (`id_estado`, `tipo_estado`) VALUES
+<<<<<<< HEAD
 (1, 'Activo');
 
 -- --------------------------------------------------------
@@ -142,6 +154,10 @@ CREATE TABLE `log_disparos` (
   `meta_info` varchar(255) DEFAULT NULL,
   `fecha` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+=======
+(1, 'Activo'),
+(2, 'Bloqueado');
+>>>>>>> sombrah
 
 -- --------------------------------------------------------
 
@@ -304,8 +320,13 @@ CREATE TABLE `tip_user` (
 --
 
 INSERT INTO `tip_user` (`id_tipo_user`, `tipo_user`) VALUES
+<<<<<<< HEAD
 (1, 'Administrador'),
 (2, 'Usuario');
+=======
+(1, 'Usuario'),
+(2, 'Administrador');
+>>>>>>> sombrah
 
 -- --------------------------------------------------------
 
@@ -319,16 +340,43 @@ CREATE TABLE `user` (
   `usuario` varchar(100) NOT NULL,
   `email` varchar(150) NOT NULL,
   `contrasena` varchar(255) NOT NULL,
+<<<<<<< HEAD
   `avatar` varchar(255) DEFAULT NULL,
+=======
+  `avatar` varchar(255) DEFAULT 'avatar_logo.jpeg',
+>>>>>>> sombrah
   `ultimo_login` datetime DEFAULT NULL,
   `id_tipo_user` int(11) DEFAULT NULL,
   `id_estado` int(11) DEFAULT NULL,
   `id_rango` int(11) DEFAULT NULL,
+<<<<<<< HEAD
   `id_banner` int(11) DEFAULT NULL,
   `id_avatar` int(11) NOT NULL,
   `id_personaje` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+=======
+  `id_banner` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `user`
+--
+
+INSERT INTO `user` (`id_user`, `nombre`, `usuario`, `email`, `contrasena`, `avatar`, `ultimo_login`, `id_tipo_user`, `id_estado`, `id_rango`, `id_banner`) VALUES
+(3, 'Luis', 'Zeus', 'luis123@gmail.com', '$2y$12$BSCnQ/ifAw3.8df8HzuOLO6YpcF/AuoIuGL7REq7v5sjtJJgR4BQ6', 'avatar_logo.jpeg', '2025-10-27 05:30:42', 1, 1, 1, NULL),
+(4, 'Jordan', 'Dark', 'jordan1234@gmail.com123', '$2y$12$wLfrTWRV4U8yHnPkWHncU.PwCFNY./7fSYERt.ChlYAh9Smx5JX1m', 'avatar_logo.jpeg', NULL, 1, 2, 1, NULL),
+(5, 'Didier', 'Didi', 'didier1234@gmail.com123', '$2y$12$Oc.odDJqtDd8MriQr05UNui24jzfvIkCawZT5PXqWQK7Vi4joaP9W', 'avatar_logo.jpeg', NULL, 1, 1, 1, NULL),
+(6, 'Dylan', 'Sova', 'Dilan12345@gmail.com', '$2y$12$BZI5bRyjxE6z9QcAvORu4ebiOEFZChP.7RkcbP4P/GhvJ1ooLMMZu', 'avatar_logo.jpeg', NULL, 1, 2, 1, NULL),
+(7, 'Jose', 'Kakaroto', 'jose1234@gmail.com', '$2y$12$KqJN4aiifk8XHFr2vaupnuOn0n98IJOZyuTn9xLn18n9hSXdCsQS2', 'avatar_logo.jpeg', NULL, 1, 1, 1, NULL),
+(8, 'Luisa', 'James', 'luisa12345@gmail.com', '$2y$12$svmLAndZNUNSFOiBk7d/SecMaWDkGGSontq5bqKY3Lor2Rm32YO5C', 'avatar_logo.jpeg', NULL, 1, 1, 1, NULL),
+(10, 'Stevan', 'GmStevan', 'bastobrayan246@gmail.com', '$2y$12$BpB6gqwrURvrOJNlxmvP6OvbRkI.Z/Fh6eN8R9tuYXTfr6OdmPSiG', 'avatar_logo.jpeg', '2025-10-27 06:51:30', 2, 1, 5, NULL),
+(11, 'tata', 'Dagsa', 'tata123@gmail.com', '$2y$12$0ue7Ys./hpWtuy2rQZFq9.iAWnB5QLDbKeHN6HFR1SHOKFA3nqS8m', 'avatar_logo.jpeg', NULL, 1, 1, 1, NULL),
+(12, 'Juan Suaza', 'Deimon_zz', 'juansuaza1528@gmail.com', '$2y$12$LpqSaDNgcT5srNV5zGcKH.I0.NxZ3FJXAAbVobPPLrOERuhsHX3CO', 'avatar_logo.jpeg', NULL, 1, 2, 1, NULL);
+
+-- --------------------------------------------------------
+
+>>>>>>> sombrah
 --
 -- Volcado de datos para la tabla `user`
 --
@@ -372,10 +420,10 @@ ALTER TABLE `arma`
   ADD KEY `id_tipo_arma` (`id_tipo_arma`);
 
 --
--- Indices de la tabla `avatar`
+-- Indices de la tabla `banner`
 --
-ALTER TABLE `avatar`
-  ADD PRIMARY KEY (`id_avatar`);
+ALTER TABLE `banner`
+  ADD PRIMARY KEY (`id_banner`);
 
 --
 -- Indices de la tabla `banner`
@@ -465,8 +513,19 @@ ALTER TABLE `user`
   ADD KEY `id_tipo_user` (`id_tipo_user`),
   ADD KEY `id_estado` (`id_estado`),
   ADD KEY `id_rango` (`id_rango`),
+<<<<<<< HEAD
   ADD KEY `id_avatar` (`id_banner`),
   ADD KEY `user_ibfk_5` (`id_avatar`),
+=======
+  ADD KEY `id_avatar` (`id_banner`);
+
+--
+-- Indices de la tabla `user_personaje`
+--
+ALTER TABLE `user_personaje`
+  ADD PRIMARY KEY (`id_user_per`),
+  ADD KEY `id_user` (`id_user`),
+>>>>>>> sombrah
   ADD KEY `id_personaje` (`id_personaje`);
 
 --
@@ -488,8 +547,9 @@ ALTER TABLE `arma`
   MODIFY `id_arma` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT de la tabla `avatar`
+-- AUTO_INCREMENT de la tabla `banner`
 --
+<<<<<<< HEAD
 ALTER TABLE `avatar`
   MODIFY `id_avatar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
@@ -498,11 +558,16 @@ ALTER TABLE `avatar`
 --
 ALTER TABLE `banner`
   MODIFY `id_banner` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+=======
+ALTER TABLE `banner`
+  MODIFY `id_banner` int(11) NOT NULL AUTO_INCREMENT;
+>>>>>>> sombrah
 
 --
 -- AUTO_INCREMENT de la tabla `estado`
 --
 ALTER TABLE `estado`
+<<<<<<< HEAD
   MODIFY `id_estado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
@@ -510,6 +575,9 @@ ALTER TABLE `estado`
 --
 ALTER TABLE `log_disparos`
   MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT;
+=======
+  MODIFY `id_estado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+>>>>>>> sombrah
 
 --
 -- AUTO_INCREMENT de la tabla `mapa`
@@ -563,7 +631,17 @@ ALTER TABLE `tip_user`
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
+<<<<<<< HEAD
   MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+=======
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT de la tabla `user_personaje`
+--
+ALTER TABLE `user_personaje`
+  MODIFY `id_user_per` int(11) NOT NULL AUTO_INCREMENT;
+>>>>>>> sombrah
 
 --
 -- AUTO_INCREMENT de la tabla `usuario_sala`
@@ -625,9 +703,20 @@ ALTER TABLE `user`
   ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`id_tipo_user`) REFERENCES `tip_user` (`id_tipo_user`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `user_ibfk_2` FOREIGN KEY (`id_estado`) REFERENCES `estado` (`id_estado`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `user_ibfk_3` FOREIGN KEY (`id_rango`) REFERENCES `rango` (`id_rango`) ON DELETE SET NULL ON UPDATE CASCADE,
+<<<<<<< HEAD
   ADD CONSTRAINT `user_ibfk_4` FOREIGN KEY (`id_banner`) REFERENCES `banner` (`id_banner`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `user_ibfk_5` FOREIGN KEY (`id_avatar`) REFERENCES `avatar` (`id_avatar`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `user_ibfk_6` FOREIGN KEY (`id_personaje`) REFERENCES `personaje` (`id_personaje`) ON DELETE CASCADE ON UPDATE CASCADE;
+=======
+  ADD CONSTRAINT `user_ibfk_4` FOREIGN KEY (`id_banner`) REFERENCES `banner` (`id_banner`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `user_personaje`
+--
+ALTER TABLE `user_personaje`
+  ADD CONSTRAINT `user_personaje_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_personaje_ibfk_2` FOREIGN KEY (`id_personaje`) REFERENCES `personaje` (`id_personaje`) ON DELETE CASCADE ON UPDATE CASCADE;
+>>>>>>> sombrah
 
 --
 -- Filtros para la tabla `usuario_sala`

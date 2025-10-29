@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_POST['tipoJuego'])) {
 
 $tipoJuego = $_POST['tipoJuego'];
 $mapaSeleccionado = $_POST['mapaSeleccionado'];
-$user_id = 1;
+$user_id = $_SESSION['id_usuario'];
 
 
 // Obtiene rango del usuario
@@ -75,7 +75,7 @@ if ($tipoJuego === "1vs1") {
 </head>
 <body class="text-light" style="background-image: url('<?php echo $fondo; ?>');">
     <div class="top-bar">
-    <a href="lobby.html" class="back-link">
+    <a href="modos_juego.php" class="back-link">
         <div class="back-icon"></div>
         <span class="text-muted">ATRÁS</span>
     </a>
@@ -112,8 +112,8 @@ if ($tipoJuego === "1vs1") {
 
     <div class="col-12 col-md-3">
       <a href="join_sala.php?id_sala=<?php echo $sala['id_sala']; ?>" 
-         class="btn btn-danger boton-custom btn-lg">
-         Unirse
+          class="btn btn-danger boton-custom btn-lg">
+          Unirse
       </a>
     </div>
 

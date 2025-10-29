@@ -4,60 +4,60 @@ require_once "../../database/connection.php";
 $db = new database;
 $con = $db->conectar();
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit;
+if (!isset($_SESSION['id_usuario'])) {
+    die("No autenticado");
 }
 
-if (!isset($_GET['id_sala'])) {
-    header("Location: modos_juego.php");
-    exit;
-}
+$user_id = intval($_SESSION['id_usuario']);
+$id_sala = intval($_GET['id_sala'] ?? 0);
 
-$user_id = $_SESSION['user_id'];
-$id_sala = $_GET['id_sala'];
+try {
+    $con->beginTransaction();
 
-/* 1. ELIMINAR JUGADOR DE LA SALA */
-$stmt = $con->prepare("DELETE FROM usuario_sala WHERE id_sala = ? AND id_user = ?");
-$stmt->execute([$id_sala, $user_id]);
+    // 1️⃣ Eliminar al usuario de la sala
+    $stmt = $con->prepare("DELETE FROM usuario_sala WHERE id_sala = ? AND id_user = ?");
+    $stmt->execute([$id_sala, $user_id]);
 
-/* 2. VERIFICAR SI QUEDAN JUGADORES */
-$stmt = $con->prepare("SELECT id_user, rol FROM usuario_sala WHERE id_sala = ? ORDER BY id_usu_sala ASC");
-$stmt->execute([$id_sala]);
-$jugadoresRestantes = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-if (count($jugadoresRestantes) == 0) {
-    // 3. SI NO QUEDA NADIE → ELIMINAR SALA
-    $stmt = $con->prepare("DELETE FROM sala WHERE id_sala = ?");
+    // 2️⃣ Revisar cuántos jugadores quedan en la sala
+    $stmt = $con->prepare("SELECT COUNT(*) FROM usuario_sala WHERE id_sala = ?");
     $stmt->execute([$id_sala]);
+    $totalJugadores = intval($stmt->fetchColumn());
+
+    if ($totalJugadores == 0) {
+        // 3️⃣ Si no quedan jugadores, revisar que la sala no esté en juego
+        $stmt = $con->prepare("SELECT estado FROM sala WHERE id_sala = ?");
+        $stmt->execute([$id_sala]);
+        $estado = $stmt->fetchColumn();
+
+        if ($estado === 'disponible') {
+            // 4️⃣ Eliminar la sala si está vacía y no ha comenzado
+            $stmt = $con->prepare("DELETE FROM sala WHERE id_sala = ?");
+            $stmt->execute([$id_sala]);
+        }
+    } else {
+        // 5️⃣ Si aún hay jugadores, verificar que quede un host
+        $stmt = $con->prepare("SELECT COUNT(*) FROM usuario_sala WHERE id_sala = ? AND rol = 'Host'");
+        $stmt->execute([$id_sala]);
+        $hayHost = intval($stmt->fetchColumn());
+
+        if ($hayHost == 0) {
+            // reasignar host al jugador más antiguo
+            $stmt = $con->prepare("SELECT id_user FROM usuario_sala WHERE id_sala = ? ORDER BY joined_at ASC LIMIT 1");
+            $stmt->execute([$id_sala]);
+            $nuevoHost = $stmt->fetchColumn();
+            if ($nuevoHost) {
+                $stmt = $con->prepare("UPDATE usuario_sala SET rol = 'Host' WHERE id_sala = ? AND id_user = ?");
+                $stmt->execute([$id_sala, $nuevoHost]);
+            }
+        }
+    }
+
+    $con->commit();
 
     header("Location: listar_salas.php");
     exit;
+} catch (Exception $e) {
+    $con->rollBack();
+    die("Error al salir de la sala: " . $e->getMessage());
 }
 
-/* 4. SI EL QUE SE FUE ERA HOST → TRANSFERIR HOST */
-$eraHost = false;
-foreach ($jugadoresRestantes as $j) {
-    if ($j['rol'] === 'Host') {
-        $eraHost = false; // Aún hay un host
-        break;
-    }
-}
-
-// Si ya no queda host, asignar el primero de la lista como nuevo host
-if (!$eraHost) {
-    // ver si hay algún host todavía
-    $verificarHost = $con->prepare("SELECT COUNT(*) FROM usuario_sala WHERE id_sala = ? AND rol = 'Host'");
-    $verificarHost->execute([$id_sala]);
-    $existeHost = $verificarHost->fetchColumn();
-
-    if ($existeHost == 0) {
-        $nuevoHost = $jugadoresRestantes[0]['id_user'];
-        $stmt = $con->prepare("UPDATE usuario_sala SET rol = 'Host' WHERE id_sala = ? AND id_user = ?");
-        $stmt->execute([$id_sala, $nuevoHost]);
-    }
-}
-
-/* 5. REDIRIGIR A LISTAR SALAS */
-header("Location: listar_salas.php");
-exit;

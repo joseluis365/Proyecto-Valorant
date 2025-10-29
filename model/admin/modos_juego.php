@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modos de juego</title>
+    <link rel="shortcut icon" href="../../controller/multimedia/img/icono_valorant.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../../controller/css/style2.css">
+</head>
+<body>
+    
+    <div class="top-bar">
+    <a href="lobby.php" class="back-link">
+        <div class="back-icon"></div>
+        <span class="text-muted">ATRÁS</span>
+    </a>
+    <span class="divider">//</span>
+    <span class="text-light">SALA</span>
+    </div>
+    
+    <div class="title-container d-flex justify-content-center align-items-start">
+        <h1 class="title">MODOS DE JUEGO</h1>
+    </div>
+    <form id="mapForm" action="listar_salas.php" method="POST">
+    <div class="container d-flex justify-content-evenly align-items-start" style="margin-top: 6rem;">
+
+        <div class="container-mapa d-flex align-items-center" data-mapa="CORRODE">
+            <div class="info-mapa">
+                <img src="../../controller/multimedia/Mapas/Corrode/mapa_corrode.webp" alt="imagen del mapa Corrode" class="mapa" width="500" height="281.250">
+                <img src="../../controller/multimedia/img/marco.png" alt="marco" class="marco">
+                <p class="nombre-mapa">CORRODE</p>
+            </div>
+        </div>
+
+        <div class="container-mapa d-flex align-items-center" data-mapa="ASCENT">
+            <div class="info-mapa">
+                <img src="../../controller/multimedia/Mapas/Ascent/mapa_ascent.webp" alt="imagen del mapa Ascent" class="mapa" width="500" height="281.250">
+                <img class="marco" src="../../controller/multimedia/img/marco.png" alt="marco" width="670" height="460">
+                <p class="nombre-mapa">ASCENT</p>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center align-items-end" style="margin-top:10%">
+    <p class="texto "></p>
+    </div>
+    
+    <div class=" d-flex justify-content-center">
+        <button id="btnSeleccionar" type="button" class="mt-3 btn btn-danger boton-custom btn-lg">SELECCIONAR</button>
+
+    </div>
+
+    <input type="hidden" name="mapaSeleccionado" id="mapaSeleccionado">
+    <input type="hidden" name="tipoJuego" id="tipoJuego">
+    </form>
+
+    <script>
+const mapas = document.querySelectorAll('.container-mapa');
+const inputMapa = document.getElementById('mapaSeleccionado');
+const inputTipoJuego = document.getElementById('tipoJuego');
+const texto = document.querySelector('.texto');
+
+mapas.forEach(mapa => {
+    mapa.addEventListener('click', () => {
+        mapas.forEach(m => m.classList.remove('selected'));
+        mapa.classList.add('selected');
+        const nombreMapa = mapa.dataset.mapa;
+        inputMapa.value = nombreMapa;
+
+        if (nombreMapa === 'CORRODE') {
+            inputTipoJuego.value = '1vs1';
+            texto.textContent = 'Has seleccionado CORRODE: combate 1 vs 1 en un espacio cerrado ideal para duelos rápidos.';
+        } else if (nombreMapa === 'ASCENT') {
+            inputTipoJuego.value = 'Multijugador';
+            texto.textContent = 'Has seleccionado ASCENT: Combate abierto hasta 5 jugadores, todos contra todos.';
+        } else {
+            inputTipoJuego.value = '';
+            texto.textContent = '';
+        }
+    });
+});
+
+document.getElementById('btnSeleccionar').addEventListener('click', e => {
+    if (!inputMapa.value || !inputTipoJuego.value) {
+        alert('Por favor selecciona un mapa antes de continuar.');
+        return;
+    }
+    document.getElementById('mapForm').submit();
+});
+</script>
+</body>
+</html>
