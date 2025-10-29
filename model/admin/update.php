@@ -51,7 +51,7 @@ if (isset($_POST['desbloquear'])) {
         $mail->addAddress($usuario['email'], $usuario['nombre']);
 
         $mail->isHTML(true);
-        $mail->Subject = '¡Tu cuenta ha sido activada!';
+        $mail->Subject = 'Tu cuenta ha sido activada';
         $mail->Body    = "
             <h2>¡Buenas noticias, {$usuario['nombre']}!</h2>
             <p>Tu cuenta ha sido <b>activada</b> nuevamente y ya puedes ingresar al sistema.</p>
