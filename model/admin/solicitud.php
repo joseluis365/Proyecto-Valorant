@@ -2,7 +2,9 @@
 session_start();
 require_once("../../database/connection.php");
 $db = new Database;
-$con = $db->conectar();
+
+$con = $db-> conectar();
+>>>>>>> main
 
 $id_user = $_SESSION['id_usuario'];
 
@@ -16,13 +18,13 @@ $sql->execute();
 $fila = $sql->fetch(PDO::FETCH_ASSOC);
 ?>
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Solicitudes de Jugadores</title>
+  <title>Solicitudes de Jugadores | Valorant</title>
+  <link rel="shortcut icon" href="../../controller/multimedia/img/icono_valorant.png" type="image/x-icon">
   <link rel="stylesheet" href="../../controller/css/style2.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -36,7 +38,6 @@ $fila = $sql->fetch(PDO::FETCH_ASSOC);
 </head>
 
 <body class="bg-light login-custom">
-  <div class="madre">
     <div class="top-bar">
       <a href="lobby.php" class="back-link">
         <div class="back-icon"></div>
@@ -45,15 +46,6 @@ $fila = $sql->fetch(PDO::FETCH_ASSOC);
       <span class="divider">//</span>
       <span class="text-light">SOLICITUD</span>
     </div>
-      <div class="top-bar1">
-        <span class="text-light">TODO</span>
-        <span class="divider">//</span>
-        <a href="todos_up.php" class="back-link">
-          <span class="text-muted">ENTRAR</span>
-          <div class="back-icon1"></div>
-        </a>
-      </div>
-  </div>
 
   <main class="container py-4">
     <header class="mb-4">

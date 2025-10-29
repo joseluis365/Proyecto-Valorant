@@ -17,35 +17,39 @@ if (isset($_GET['pagina'])) {
 $empieza = ($pagina - 1) * $por_pagina;
 
 $salida = "";
-$query = $query = "SELECT * FROM user 
-          INNER JOIN estado 
-          ON user.id_estado = estado.id_estado
-          INNER JOIN rango
-          ON user.id_rango = rango.id_rango
-          INNER JOIN tip_user
-          ON user.id_tipo_user = tip_user.id_tipo_user
-          WHERE estado.id_estado IN (1,2)
-          AND tip_user.tipo_user != 'Administrador'
-          ORDER BY user.id_user 
-          LIMIT $empieza, $por_pagina";
+
+$query = $query = "SELECT *, avatar.avatar FROM user 
+            INNER JOIN estado 
+            ON user.id_estado = estado.id_estado
+            INNER JOIN avatar
+            ON user.id_avatar = avatar.id_avatar
+            INNER JOIN rango
+            ON user.id_rango = rango.id_rango
+            INNER JOIN tip_user
+            ON user.id_tipo_user = tip_user.id_tipo_user
+            WHERE estado.id_estado IN (1,2)
+            AND tip_user.tipo_user != 'Administrador'
+            ORDER BY user.id_user 
+            LIMIT $empieza, $por_pagina";
 
 
 if (isset($_POST['consulta'])) {
     $q = $mysqli->real_escape_string($_POST['consulta']);
     $query = "SELECT * FROM user 
-          INNER JOIN estado 
-          ON user.id_estado = estado.id_estado
-          INNER JOIN rango
-          ON user.id_rango = rango.id_rango
-          INNER JOIN tip_user
-          ON user.id_tipo_user = tip_user.id_tipo_user
-          WHERE estado.id_estado IN (1,2)
-          AND tip_user.tipo_user != 'Administrador'
-          AND (user.usuario LIKE '%".$q."%' 
-          OR user.id_user LIKE '%".$q."%'
-          OR rango.nombre_rango LIKE '%".$q."%'
-          OR estado.tipo_estado LIKE '%".$q."%'
-          OR user.email LIKE '%".$q."%')";
+            INNER JOIN estado 
+            ON user.id_estado = estado.id_estado
+            INNER JOIN rango
+            ON user.id_rango = rango.id_rango
+            INNER JOIN tip_user
+            ON user.id_tipo_user = tip_user.id_tipo_user
+            WHERE estado.id_estado IN (1,2)
+            AND tip_user.tipo_user != 'Administrador'
+            AND (user.usuario LIKE '%".$q."%' 
+            OR user.id_user LIKE '%".$q."%'
+            OR rango.nombre_rango LIKE '%".$q."%'
+            OR estado.tipo_estado LIKE '%".$q."%'
+            OR user.email LIKE '%".$q."%')";
+>>>>>>> main
 }
 
 $result = $mysqli->query($query);
@@ -58,7 +62,8 @@ if ($result->num_rows > 0) {
     while ($fila = $result->fetch_assoc()) {
 
         // Generar una imagen de perfil provisional (puedes cambiar por tu campo real)
-        $avatar = "../../controller/img/" . $fila['avatar'];
+
+        $avatar = "../../controller/multimedia/avatars/" . $fila['avatar'];
 
         $colorEstado = ($fila['id_estado'] == 1) ? 'text-success' : 'text-danger';
 

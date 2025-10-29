@@ -33,22 +33,23 @@ try {
             $_SESSION['id_usuario'] = $fila['id_user'];
 
             // Lógica de acceso según tipo y estado
-            if ($fila['id_tipo_user'] == 1 && $fila['id_estado'] == 1) {
+            if ($fila['id_tipo_user'] == 2 && $fila['id_estado'] == 1) {
+
                 echo json_encode(["entrar" => "Bienvenido usuario", "redirect" => "model/usuario/lobby_offi.php"]);
                 exit();
             }
 
-            if ($fila['id_tipo_user'] == 1 && $fila['id_estado'] == 2) {
+            if ($fila['id_tipo_user'] == 2 && $fila['id_estado'] == 2) {
                 echo json_encode(["error" => "Tu cuenta está bloqueada. Comunícate con un administrador."]);
                 exit();
             }
 
-            if ($fila['id_tipo_user'] == 2 && $fila['id_estado'] == 1) {
+            if ($fila['id_tipo_user'] == 1 && $fila['id_estado'] == 1) {
                 echo json_encode(["entrar" => "Bienvenido administrador", "redirect" => "model/admin/lobby.php"]);
                 exit();
             }
 
-            if ($fila['id_tipo_user'] == 2 && $fila['id_estado'] == 2) {
+            if ($fila['id_tipo_user'] == 1 && $fila['id_estado'] == 2) {
                 echo json_encode(["error" => "Tu cuenta de administrador está bloqueada."]);
                 exit();
             }

@@ -48,6 +48,7 @@ if (isset($_POST['desbloquear'])) {
         $mail->Port       = 587;
 
         $mail->setFrom('bastobrayan246@gmail.com', 'Administrador Valorant');
+
         $mail->addAddress($usuario['email'], $usuario['nombre']);
 
         $mail->isHTML(true);

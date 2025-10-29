@@ -2,7 +2,7 @@
 session_start();
 require_once("database/connection.php");
 $db = new Database;
-$con = $db->conectar();
+$con = $db-> conectar();
 ?>
 
 <!DOCTYPE html>

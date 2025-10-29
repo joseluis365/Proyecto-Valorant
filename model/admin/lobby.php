@@ -2,14 +2,16 @@
 session_start();
 require_once("../../database/connection.php");
 $db = new Database;
-$con = $db->conectar();
+
+$con = $db-> conectar();
 
 $id_user = $_SESSION['id_usuario'];
 
-$sql = $con->prepare("SELECT user.*, tip_user.tipo_user, rango.*
+$sql = $con->prepare("SELECT user.*, tip_user.tipo_user, rango.*, avatar.avatar
     FROM user
     INNER JOIN tip_user ON user.id_tipo_user = tip_user.id_tipo_user
     INNER JOIN rango ON user.id_rango = rango.id_rango
+    INNER JOIN avatar ON user.id_avatar = avatar.id_avatar
     WHERE user.id_user = $id_user");
 
 $sql->execute();
@@ -38,7 +40,7 @@ $fila = $sql->fetch(PDO::FETCH_ASSOC);
   <div class="overlay"></div>
   <!-- Panel lateral derecho -->
   <div class="position-absolute top-0 end-0 mt-5 me-4 d-flex flex-column gap-3" style="width: 18rem; margin-right: 5rem !important;">
-    <a href="modos_juego.html" class="text-decoration-none">
+    <a href="modos_juego.php" class="text-decoration-none">
     <div class="card-custom card1 text-white mt-3 d-flex flex-column justify-content-end" id="card-1">
   <div class="bg layer-a"></div>
   <div class="bg layer-b"></div>
@@ -65,7 +67,7 @@ $fila = $sql->fetch(PDO::FETCH_ASSOC);
 
   <header class="d-flex justify-content-end align-items-center">
     <p class="mt-3 fw-bold" style="font-size: large;"> Puntos <?php echo $fila['puntos_requeridos'];?></p>
-    <img src="../../controller/multimedia/rangos/<?php echo $fila['icono'];?>"  alt="Rango diamante" height="50" width="40" style="margin-left: 5px; margin-right: 5px; margin-top: 5px;">
+    <img src="../../controller/multimedia/rangos/<?php echo $fila['icono'];?>"  alt="Rango diamante" height="50" width="50" style="margin-left: 5px; margin-right: 5px; margin-top: 5px;">
     <h3 class="mt-1" style="margin-right: 15px; font-family: sans-serif;"><?php echo $fila['usuario']; ?></h3>
     <a href="" class="d-flex">
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icono" style="width: 40px; margin-right: 10px;">
@@ -84,7 +86,7 @@ $fila = $sql->fetch(PDO::FETCH_ASSOC);
     <span class="rombo rombo-activo align-items-center" style="background-color: #dc3545;"></span>
   </div>
   <a href="modos_juego.php" class="jugar  d-flex align-items-center text-danger fs-1 text-decoration-none">JUGAR</a>
-</div>
+</> maindiv>
 
 <div class="d-flex menu-option1">
   <div class="d-flex align-items-center">
@@ -97,7 +99,8 @@ $fila = $sql->fetch(PDO::FETCH_ASSOC);
   <div class="d-flex align-items-center">
     <span class="rombo"></span>
   </div>
-  <a href="#" class=" d-flex align-items-center text-white text-decoration-none">COLECCIÓN</a>
+
+  <a href="coleccion.php" class=" d-flex align-items-center text-white text-decoration-none">COLECCIÓN</a>
 </div>
 
 <div class="d-flex menu-option1">
@@ -129,7 +132,7 @@ $fila = $sql->fetch(PDO::FETCH_ASSOC);
     
 
     <div class="image-container card bg-secondary text-white mb-3" style="border-radius: 0;">
-      <img src="../../controller/img/<?php echo $fila['avatar'];?>" class="card-img-top" alt="Imagen noticia">
+      <img src="../../controller/multimedia/avatars/<?php echo $fila['avatar'];?>" class="card-img-top" alt="Imagen noticia">
         <div class="info-card">
           <h3><?php echo $fila['usuario'];?></h3>
           <p><?php echo $fila['nombre_rango'];?></p>

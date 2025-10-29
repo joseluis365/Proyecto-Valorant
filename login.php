@@ -9,10 +9,11 @@ $con = $db->conectar();
 <html lang="en">
 
 <head>
-    <title>Reporte Usuarios</title>
+    <title>Inicio Usuarios</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
+    <link rel="shortcut icon" href="controller/multimedia/img/icono_valorant.png" type="image/x-icon">
     <link rel="stylesheet" href="controller/css/style3.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -31,7 +32,8 @@ $con = $db->conectar();
                     <img src="controller/img/riot_icono1.png" alt="Logo" width="120" class="img-fluid">
                 </div>
                 <h2 class="jugar mb-4 text-center fw-bold mt-2">INICIAR SESIÓN</h2>
-                <form id="login" method="POST" enctype="multipart/form-data">
+
+                <form id="login" method="POST">
                     <div class="mb-2 col-md-8 text-center mx-auto">
                         <label for="nombre" class="form-label">Usuario</label>
                         <input type="text" class="form-control py-2" id="usuario" name="usuario" class="form-control" placeholder="Tú Usuario">

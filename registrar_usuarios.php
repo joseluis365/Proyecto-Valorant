@@ -28,9 +28,10 @@ try {
         } else {
             $pass_cifrado = password_hash($contrasena, PASSWORD_DEFAULT, array("cost" => 12));
 
-            $id_tipo_user = 1; // Usuario normal
+            $id_tipo_user = 2; // Usuario normal
             $id_estado = 2;    // Bloqueado
             $id_rango = 1;     // Platino
+            $id_avatar = 1;
 
             $sql = $con->prepare("INSERT INTO user (nombre, usuario, email, contrasena, id_tipo_user, id_estado, id_rango)
             VALUES ('$nombre', '$usuario', '$email', '$pass_cifrado', '$id_tipo_user', '$id_estado', '$id_rango')");

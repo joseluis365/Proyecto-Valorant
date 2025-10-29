@@ -1,0 +1,98 @@
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: white;
+  overflow-x: hidden;
+  background-size: cover;
+}
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 0;
+}
+
+/* Asegura que el contenido quede por encima del overlay */
+body > * {
+  position: relative;
+  z-index: 1;
+}
+.top-bar {
+  display: flex;
+  align-items: center;
+  padding: 15px 30px;
+  background-color: transparent;
+}
+.back-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #9ca3af;
+  transition: color 0.2s;
+}
+.back-link:hover {
+  color: #fff;
+}
+.back-icon {
+  width: 14px;
+  height: 14px;
+  border-left: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  margin-right: 8px;
+}
+.text-muted {
+  letter-spacing: 1px;
+  color: inherit !important;
+}
+.text-light {
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+.divider {
+  color: #9ca3af;
+  margin: 0 8px;
+}
+.title {
+  font-family: "Fugaz One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 4rem;
+  letter-spacing: 0.001px;
+}
+.subtitle {
+  font-family: "Fugaz One", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 3rem;
+  letter-spacing: 0.001px;
+}
+.sala {
+  background-color: #2a2e33ee;
+}
+.boton-custom {
+  background-color: #f93e57 !important;
+  border-radius: 0% !important;
+  height: 25%;
+  border-bottom: 2px solid #ccc !important;
+  border-color: none !important; 
+}
+.boton-custom:hover {
+  background-color: #d6374c !important;
+  border-color: none; 
+}
+.boton {
+  background-color: #e9e9eb !important;
+  border-radius: 0% !important;
+  height: 25%;
+  border: 2px solid #ccc !important;
+  border-color: none !important; 
+  font-family: 'Fugaz One', sans-serif;
+}
+.boton:hover {
+  border: 3px solid #e15064 !important;
+  border-color: none !important; 
+  color: #111;
+}

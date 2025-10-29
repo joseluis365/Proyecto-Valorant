@@ -97,7 +97,7 @@ $fila = $sql->fetch(PDO::FETCH_ASSOC);
   <div class="d-flex align-items-center">
     <span class="rombo"></span>
   </div>
-  <a href="#" class=" d-flex align-items-center text-white text-decoration-none">COLECCIÓN</a>
+  <a href="coleccion.php" class=" d-flex align-items-center text-white text-decoration-none">COLECCIÓN</a>
 </div>
 
 <div class="d-flex menu-option1">
@@ -137,7 +137,7 @@ $fila = $sql->fetch(PDO::FETCH_ASSOC);
         </div>
       </div>
     <div class="position-absolute bottom-0 end-0 mb-3" style="margin-right: 5px;">
-      <button id="btn-audio" class="btn btn-custom">🔊</button>
+      <button id="btn-audio" class="btn btn-custom">🔇</button>
     </div>
     </div>
 

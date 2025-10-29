@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 27-10-2025 a las 06:55:02
+-- Servidor: 127.0.0.1:3307
+-- Tiempo de generación: 29-10-2025 a las 20:31:23
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -59,6 +59,28 @@ INSERT INTO `arma` (`id_arma`, `nombre_arma`, `descrip_arma`, `img_arma`, `img_f
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `avatar`
+--
+
+CREATE TABLE `avatar` (
+  `id_avatar` int(11) NOT NULL,
+  `avatar` varchar(150) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `avatar`
+--
+
+INSERT INTO `avatar` (`id_avatar`, `avatar`) VALUES
+(1, 'avatar_001.jpg'),
+(2, 'avatar_002.jpg'),
+(3, 'avatar_003.jpg'),
+(4, 'avatar_004.jpg'),
+(5, 'avatar_005.jpeg');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `banner`
 --
 
@@ -66,6 +88,19 @@ CREATE TABLE `banner` (
   `id_banner` int(11) NOT NULL,
   `banner` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `banner`
+--
+
+INSERT INTO `banner` (`id_banner`, `banner`) VALUES
+(1, 'banner_001.jpg'),
+(2, 'banner_002.jpg'),
+(3, 'banner_003.jpg'),
+(4, 'banner_004.jpg'),
+(5, 'banner_005.jpg'),
+(6, 'banner_006.jpg'),
+(7, 'banner_007.jpg');
 
 -- --------------------------------------------------------
 
@@ -89,6 +124,29 @@ INSERT INTO `estado` (`id_estado`, `tipo_estado`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `log_disparos`
+--
+
+CREATE TABLE `log_disparos` (
+  `id_log` int(11) NOT NULL,
+  `id_partida` int(11) NOT NULL,
+  `id_sala` int(11) DEFAULT NULL,
+  `id_atacante` int(11) NOT NULL,
+  `id_objetivo` int(11) NOT NULL,
+  `id_arma` int(11) DEFAULT NULL,
+  `tipo_disparo` enum('cabeza','cuerpo') NOT NULL,
+  `dano_aplicado` int(11) NOT NULL,
+  `puntos_otorgados` int(11) NOT NULL DEFAULT 0,
+  `es_eliminacion` tinyint(1) NOT NULL DEFAULT 0,
+  `vida_inicial` int(11) DEFAULT NULL,
+  `vida_final` int(11) DEFAULT NULL,
+  `meta_info` varchar(255) DEFAULT NULL,
+  `fecha` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `mapa`
 --
 
@@ -97,6 +155,14 @@ CREATE TABLE `mapa` (
   `nombre_mapa` varchar(100) NOT NULL,
   `imagen_mapa` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `mapa`
+--
+
+INSERT INTO `mapa` (`id_mapa`, `nombre_mapa`, `imagen_mapa`) VALUES
+(1, 'ASCENT', 'ascent.png'),
+(2, 'CORRODE', 'corrode.png');
 
 -- --------------------------------------------------------
 
@@ -121,18 +187,11 @@ CREATE TABLE `partida` (
 
 CREATE TABLE `partida_jugador` (
   `id_partida_jugador` int(11) NOT NULL,
-  `id_partida` int(11) DEFAULT NULL,
-  `id_objetivo` int(11) DEFAULT NULL,
-  `id_atacante` int(11) DEFAULT NULL,
-  `dano_causado` int(11) DEFAULT NULL,
-  `dano_recibido` int(11) DEFAULT NULL,
-  `vida_inicial` int(11) DEFAULT NULL,
-  `vida_final` int(11) DEFAULT NULL,
-  `kills` int(11) DEFAULT NULL,
-  `subtotal_puntos` int(11) DEFAULT NULL,
-  `jugadores_eliminados` int(11) DEFAULT NULL,
-  `dano_cuerpo` int(11) DEFAULT NULL,
-  `id_arma` int(11) DEFAULT NULL
+  `id_sala` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `vida_actual` int(11) DEFAULT 100,
+  `eliminado` tinyint(1) DEFAULT 0,
+  `fecha_registro` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -145,8 +204,15 @@ CREATE TABLE `personaje` (
   `id_personaje` int(11) NOT NULL,
   `nombre_personaje` varchar(100) NOT NULL,
   `imagen_personaje` varchar(255) DEFAULT NULL,
-  `descripcion_personaje` text DEFAULT NULL
+  `rango_requerido` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `personaje`
+--
+
+INSERT INTO `personaje` (`id_personaje`, `nombre_personaje`, `imagen_personaje`, `rango_requerido`) VALUES
+(1, 'Jett', 'Jett.png', 1);
 
 -- --------------------------------------------------------
 
@@ -180,12 +246,13 @@ INSERT INTO `rango` (`id_rango`, `nombre_rango`, `icono`, `puntos_requeridos`) V
 
 CREATE TABLE `sala` (
   `id_sala` int(11) NOT NULL,
+  `nombre_sala` varchar(100) NOT NULL,
   `max_jugadores` int(11) NOT NULL,
-  `estado` varchar(50) DEFAULT NULL,
+  `estado` enum('disponible','en_juego','cerrada') DEFAULT 'disponible',
   `fecha_creacion` datetime DEFAULT current_timestamp(),
-  `imagen_fondo` varchar(255) DEFAULT NULL,
   `id_nivel_min` int(11) DEFAULT NULL,
-  `id_mapa` int(11) DEFAULT NULL
+  `id_mapa` int(11) DEFAULT NULL,
+  `tipo_juego` enum('Multijugador','1vs1') NOT NULL DEFAULT 'Multijugador'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -225,8 +292,8 @@ CREATE TABLE `tip_user` (
 --
 
 INSERT INTO `tip_user` (`id_tipo_user`, `tipo_user`) VALUES
-(1, 'Usuario'),
-(2, 'Administrador');
+(1, 'Administrador'),
+(2, 'Usuario');
 
 -- --------------------------------------------------------
 
@@ -240,41 +307,24 @@ CREATE TABLE `user` (
   `usuario` varchar(100) NOT NULL,
   `email` varchar(150) NOT NULL,
   `contrasena` varchar(255) NOT NULL,
-  `avatar` varchar(255) DEFAULT 'avatar_logo.jpeg',
+  `avatar` varchar(255) DEFAULT NULL,
   `ultimo_login` datetime DEFAULT NULL,
   `id_tipo_user` int(11) DEFAULT NULL,
   `id_estado` int(11) DEFAULT NULL,
   `id_rango` int(11) DEFAULT NULL,
-  `id_banner` int(11) DEFAULT NULL
+  `id_banner` int(11) DEFAULT 1,
+  `id_avatar` int(11) NOT NULL DEFAULT 1,
+  `id_personaje` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `user`
 --
 
-INSERT INTO `user` (`id_user`, `nombre`, `usuario`, `email`, `contrasena`, `avatar`, `ultimo_login`, `id_tipo_user`, `id_estado`, `id_rango`, `id_banner`) VALUES
-(3, 'Luis', 'Zeus', 'luis123@gmail.com', '$2y$12$BSCnQ/ifAw3.8df8HzuOLO6YpcF/AuoIuGL7REq7v5sjtJJgR4BQ6', 'avatar_logo.jpeg', '2025-10-27 05:30:42', 1, 1, 1, NULL),
-(4, 'Jordan', 'Dark', 'jordan1234@gmail.com123', '$2y$12$wLfrTWRV4U8yHnPkWHncU.PwCFNY./7fSYERt.ChlYAh9Smx5JX1m', 'avatar_logo.jpeg', NULL, 1, 2, 1, NULL),
-(5, 'Didier', 'Didi', 'didier1234@gmail.com123', '$2y$12$Oc.odDJqtDd8MriQr05UNui24jzfvIkCawZT5PXqWQK7Vi4joaP9W', 'avatar_logo.jpeg', NULL, 1, 1, 1, NULL),
-(6, 'Dylan', 'Sova', 'Dilan12345@gmail.com', '$2y$12$BZI5bRyjxE6z9QcAvORu4ebiOEFZChP.7RkcbP4P/GhvJ1ooLMMZu', 'avatar_logo.jpeg', NULL, 1, 2, 1, NULL),
-(7, 'Jose', 'Kakaroto', 'jose1234@gmail.com', '$2y$12$KqJN4aiifk8XHFr2vaupnuOn0n98IJOZyuTn9xLn18n9hSXdCsQS2', 'avatar_logo.jpeg', NULL, 1, 1, 1, NULL),
-(8, 'Luisa', 'James', 'luisa12345@gmail.com', '$2y$12$svmLAndZNUNSFOiBk7d/SecMaWDkGGSontq5bqKY3Lor2Rm32YO5C', 'avatar_logo.jpeg', NULL, 1, 1, 1, NULL),
-(10, 'Stevan', 'GmStevan', 'bastobrayan246@gmail.com', '$2y$12$BpB6gqwrURvrOJNlxmvP6OvbRkI.Z/Fh6eN8R9tuYXTfr6OdmPSiG', 'avatar_logo.jpeg', '2025-10-27 06:51:30', 2, 1, 5, NULL),
-(11, 'tata', 'Dagsa', 'tata123@gmail.com', '$2y$12$0ue7Ys./hpWtuy2rQZFq9.iAWnB5QLDbKeHN6HFR1SHOKFA3nqS8m', 'avatar_logo.jpeg', NULL, 1, 1, 1, NULL),
-(12, 'Juan Suaza', 'Deimon_zz', 'juansuaza1528@gmail.com', '$2y$12$LpqSaDNgcT5srNV5zGcKH.I0.NxZ3FJXAAbVobPPLrOERuhsHX3CO', 'avatar_logo.jpeg', NULL, 1, 2, 1, NULL);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `user_personaje`
---
-
-CREATE TABLE `user_personaje` (
-  `id_user_per` int(11) NOT NULL,
-  `id_user` int(11) DEFAULT NULL,
-  `id_personaje` int(11) DEFAULT NULL,
-  `predeterminado` tinyint(1) DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `user` (`id_user`, `nombre`, `usuario`, `email`, `contrasena`, `avatar`, `ultimo_login`, `id_tipo_user`, `id_estado`, `id_rango`, `id_banner`, `id_avatar`, `id_personaje`) VALUES
+(1, 'jose luis', 'jose365', 'jose@gmail.com', '123', 'imagen.png', '2025-09-17 00:00:00', 2, 2, 1, 5, 4, 1),
+(5, 'Jose Luis', 'jose', 'joseluis1409rodriguez@gmail.com', '$2y$12$vBhUc4u0qbb4mg32FeRcWu5iHVrok2lsiYLEGeenw96hTQMEB9oJ2', NULL, '2025-10-28 22:17:50', 1, 1, 1, 1, 1, 1),
+(6, 'pepe', 'pedro', 'pedro@gmail.com', '$2y$12$G/u9MJ/IdwfOAGPn6NIVR.Un0BtcF5ZeIaVvVwc077.cn.beBMMc6', NULL, '2025-10-29 19:25:43', 2, 1, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -301,6 +351,12 @@ ALTER TABLE `arma`
   ADD KEY `id_tipo_arma` (`id_tipo_arma`);
 
 --
+-- Indices de la tabla `avatar`
+--
+ALTER TABLE `avatar`
+  ADD PRIMARY KEY (`id_avatar`);
+
+--
 -- Indices de la tabla `banner`
 --
 ALTER TABLE `banner`
@@ -311,6 +367,17 @@ ALTER TABLE `banner`
 --
 ALTER TABLE `estado`
   ADD PRIMARY KEY (`id_estado`);
+
+--
+-- Indices de la tabla `log_disparos`
+--
+ALTER TABLE `log_disparos`
+  ADD PRIMARY KEY (`id_log`),
+  ADD KEY `id_partida` (`id_partida`),
+  ADD KEY `id_sala` (`id_sala`),
+  ADD KEY `id_atacante` (`id_atacante`),
+  ADD KEY `id_objetivo` (`id_objetivo`),
+  ADD KEY `id_arma` (`id_arma`);
 
 --
 -- Indices de la tabla `mapa`
@@ -331,16 +398,15 @@ ALTER TABLE `partida`
 --
 ALTER TABLE `partida_jugador`
   ADD PRIMARY KEY (`id_partida_jugador`),
-  ADD KEY `id_partida` (`id_partida`),
-  ADD KEY `id_objetivo` (`id_objetivo`),
-  ADD KEY `id_atacante` (`id_atacante`),
-  ADD KEY `id_arma` (`id_arma`);
+  ADD KEY `id_sala` (`id_sala`),
+  ADD KEY `id_user` (`id_user`);
 
 --
 -- Indices de la tabla `personaje`
 --
 ALTER TABLE `personaje`
-  ADD PRIMARY KEY (`id_personaje`);
+  ADD PRIMARY KEY (`id_personaje`),
+  ADD KEY `rango_requerido` (`rango_requerido`);
 
 --
 -- Indices de la tabla `rango`
@@ -378,14 +444,8 @@ ALTER TABLE `user`
   ADD KEY `id_tipo_user` (`id_tipo_user`),
   ADD KEY `id_estado` (`id_estado`),
   ADD KEY `id_rango` (`id_rango`),
-  ADD KEY `id_avatar` (`id_banner`);
-
---
--- Indices de la tabla `user_personaje`
---
-ALTER TABLE `user_personaje`
-  ADD PRIMARY KEY (`id_user_per`),
-  ADD KEY `id_user` (`id_user`),
+  ADD KEY `id_avatar` (`id_banner`),
+  ADD KEY `user_ibfk_5` (`id_avatar`),
   ADD KEY `id_personaje` (`id_personaje`);
 
 --
@@ -407,10 +467,16 @@ ALTER TABLE `arma`
   MODIFY `id_arma` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
+-- AUTO_INCREMENT de la tabla `avatar`
+--
+ALTER TABLE `avatar`
+  MODIFY `id_avatar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT de la tabla `banner`
 --
 ALTER TABLE `banner`
-  MODIFY `id_banner` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_banner` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `estado`
@@ -419,10 +485,16 @@ ALTER TABLE `estado`
   MODIFY `id_estado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT de la tabla `log_disparos`
+--
+ALTER TABLE `log_disparos`
+  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `mapa`
 --
 ALTER TABLE `mapa`
-  MODIFY `id_mapa` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_mapa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `partida`
@@ -440,7 +512,7 @@ ALTER TABLE `partida_jugador`
 -- AUTO_INCREMENT de la tabla `personaje`
 --
 ALTER TABLE `personaje`
-  MODIFY `id_personaje` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_personaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `rango`
@@ -452,7 +524,7 @@ ALTER TABLE `rango`
 -- AUTO_INCREMENT de la tabla `sala`
 --
 ALTER TABLE `sala`
-  MODIFY `id_sala` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_sala` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_arma`
@@ -470,19 +542,13 @@ ALTER TABLE `tip_user`
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
--- AUTO_INCREMENT de la tabla `user_personaje`
---
-ALTER TABLE `user_personaje`
-  MODIFY `id_user_per` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario_sala`
 --
 ALTER TABLE `usuario_sala`
-  MODIFY `id_usu_sala` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_usu_sala` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Restricciones para tablas volcadas
@@ -495,6 +561,16 @@ ALTER TABLE `arma`
   ADD CONSTRAINT `arma_ibfk_1` FOREIGN KEY (`id_tipo_arma`) REFERENCES `tipo_arma` (`id_tipo_arma`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
+-- Filtros para la tabla `log_disparos`
+--
+ALTER TABLE `log_disparos`
+  ADD CONSTRAINT `log_disparos_fk_arma` FOREIGN KEY (`id_arma`) REFERENCES `arma` (`id_arma`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `log_disparos_fk_atacante` FOREIGN KEY (`id_atacante`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `log_disparos_fk_objetivo` FOREIGN KEY (`id_objetivo`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `log_disparos_fk_partida` FOREIGN KEY (`id_partida`) REFERENCES `partida` (`id_partida`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `log_disparos_fk_sala` FOREIGN KEY (`id_sala`) REFERENCES `sala` (`id_sala`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
 -- Filtros para la tabla `partida`
 --
 ALTER TABLE `partida`
@@ -505,10 +581,14 @@ ALTER TABLE `partida`
 -- Filtros para la tabla `partida_jugador`
 --
 ALTER TABLE `partida_jugador`
-  ADD CONSTRAINT `partida_jugador_ibfk_1` FOREIGN KEY (`id_partida`) REFERENCES `partida` (`id_partida`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `partida_jugador_ibfk_2` FOREIGN KEY (`id_objetivo`) REFERENCES `user` (`id_user`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `partida_jugador_ibfk_3` FOREIGN KEY (`id_atacante`) REFERENCES `user` (`id_user`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `partida_jugador_ibfk_4` FOREIGN KEY (`id_arma`) REFERENCES `arma` (`id_arma`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `partida_jugador_ibfk_1` FOREIGN KEY (`id_sala`) REFERENCES `sala` (`id_sala`) ON DELETE CASCADE,
+  ADD CONSTRAINT `partida_jugador_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `personaje`
+--
+ALTER TABLE `personaje`
+  ADD CONSTRAINT `personaje_ibfk_1` FOREIGN KEY (`rango_requerido`) REFERENCES `rango` (`id_rango`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `sala`
@@ -524,14 +604,9 @@ ALTER TABLE `user`
   ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`id_tipo_user`) REFERENCES `tip_user` (`id_tipo_user`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `user_ibfk_2` FOREIGN KEY (`id_estado`) REFERENCES `estado` (`id_estado`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `user_ibfk_3` FOREIGN KEY (`id_rango`) REFERENCES `rango` (`id_rango`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `user_ibfk_4` FOREIGN KEY (`id_banner`) REFERENCES `banner` (`id_banner`) ON DELETE SET NULL ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `user_personaje`
---
-ALTER TABLE `user_personaje`
-  ADD CONSTRAINT `user_personaje_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `user_personaje_ibfk_2` FOREIGN KEY (`id_personaje`) REFERENCES `personaje` (`id_personaje`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `user_ibfk_4` FOREIGN KEY (`id_banner`) REFERENCES `banner` (`id_banner`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_ibfk_5` FOREIGN KEY (`id_avatar`) REFERENCES `avatar` (`id_avatar`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_ibfk_6` FOREIGN KEY (`id_personaje`) REFERENCES `personaje` (`id_personaje`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `usuario_sala`
