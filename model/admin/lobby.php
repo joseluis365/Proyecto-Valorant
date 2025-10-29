@@ -104,7 +104,7 @@ $fila = $sql->fetch(PDO::FETCH_ASSOC);
   <div class="d-flex align-items-center">
     <span class="rombo"></span>
   </div>
-  <a href="#" class=" d-flex align-items-center text-white text-decoration-none">AGENTES</a>
+  <a href="agentes.php" class=" d-flex align-items-center text-white text-decoration-none">AGENTES</a>
 </div>
 
 <div class="d-flex menu-option1">
