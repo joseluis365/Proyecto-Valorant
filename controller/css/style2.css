@@ -526,6 +526,18 @@ body, html {
 
 #mensajes {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
 }
+
+#mensajes::-webkit-scrollbar {
+  display: none; /* Chrome, Safari y Opera */
+}
+
+#mensajes p {
+  font-size: 0.75rem;
+  margin: 2px 0;
+}
+
+
+
 

@@ -232,7 +232,7 @@ $rutaBanner = "../../controller/multimedia/banners/";
 
 <!-- Chat inferior izquierdo -->
 <div id="chat-box" class="position-fixed bottom-0 start-0 bg-dark text-light border-top border-end"
-     style="width:320px; height:170px; border-radius:10px 10px 0 0; display:flex; flex-direction:column;">
+     style="width:450px; height:180px; border-radius: 2px 2px 0 0; display:flex; flex-direction:column;">
 
     <!-- Contenedor de mensajes con scroll -->
     <div id="mensajes" style="flex:1; overflow-y:auto; padding:8px;"></div>
