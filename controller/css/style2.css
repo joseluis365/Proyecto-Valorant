@@ -4,8 +4,13 @@ body, html {
   font-family: Arial, sans-serif;
   color: white;
   background-image: url('../multimedia/img/fondo_sala.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   background-size: cover;
+  background-position: center;
+  background-color: #000; /* fondo de seguridad */
 }
+
 
 
 
@@ -360,7 +365,7 @@ body, html {
   font-weight: 1000;
   text-transform: uppercase;
   letter-spacing: 1px;
-  font-size: 1.8rem; /* puedes ajustar el tamaño */
+  font-size: 1.5rem; /* puedes ajustar el tamaño */
   margin-bottom: 10px;
 }
 
@@ -369,7 +374,7 @@ body, html {
   font-weight: 1000;
   text-transform: uppercase;
   letter-spacing: 1px;
-  font-size: 1.4rem; /* puedes ajustar el tamaño */
+  font-size: 1.3rem; /* puedes ajustar el tamaño */
   margin-bottom: 10px;
 }
 
@@ -433,6 +438,8 @@ body, html {
 .img-wrapper {
     height: 400px;
     overflow: hidden;
+    background: url("../../controller/multimedia/Personajes/Fondo.png") no-repeat center center;
+    background-size: cover;
 }
 
 .img-wrapper img {
@@ -447,6 +454,10 @@ body, html {
     transform: scale(1.1);
 }
 
+.agent-card:hover {
+  background-color: #36e4a5;
+}
+
 .card,
 .card-img-top,
 .agent-card,
@@ -454,3 +465,67 @@ body, html {
 .agent-name {
     border-radius: 0 !important;
 }
+
+.agent-card {
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.agent-card.bloqueado {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.candado-overlay {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 50%;
+    padding: 6px;
+}
+
+.candado-overlay img.candado {
+    width: 45px;
+    height: auto;
+    opacity: 0.95;
+}
+
+
+.candado {
+  width: 60px;
+  height: 60px;
+  filter: drop-shadow(0 0 5px black);
+}
+
+/* 🔹 Card seleccionada */
+.agent-card.seleccionado {
+    border: 3px solid #36e4a5;
+    box-shadow: 0 0 15px rgba(144, 241, 170, 0.5);
+    transform: scale(1.02);
+    transition: all 0.2s ease;
+    background-color: #36e4a5;
+}
+
+/* 🔹 Texto que dice "Seleccionado" */
+.seleccion-overlay {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #36e4a5;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 3px 10px;
+    border-radius: 3px;
+    text-align: center;
+    opacity: 0.9;
+}
+
+#mensajes {
+  display: flex;
+  flex-direction: column-reverse;
+}
+

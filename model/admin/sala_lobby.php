@@ -17,6 +17,39 @@ if (!isset($_GET['id_sala'])) {
 $id_sala = $_GET['id_sala'];
 $user_id = $_SESSION['id_usuario'];
 
+// --- Si se envía un mensaje (AJAX POST) ---
+if (isset($_POST['accion']) && $_POST['accion'] === 'enviar') {
+    $mensaje = trim($_POST['mensaje'] ?? '');
+    if ($mensaje !== '') {
+        $stmt = $con->prepare("INSERT INTO chat (mensaje, id_sala, id_user, fecha_mensaje) VALUES (?, ?, ?, NOW())");
+        $stmt->execute([$mensaje, $id_sala, $user_id]);
+    }
+    exit; // termina aquí si fue AJAX
+}
+
+// --- Si se solicitan mensajes (AJAX GET) ---
+if (isset($_GET['accion']) && $_GET['accion'] === 'obtener') {
+    $stmt = $con->prepare("
+        SELECT c.mensaje, c.fecha_mensaje, u.usuario 
+        FROM chat c
+        INNER JOIN user u ON c.id_user = u.id_user
+        WHERE c.id_sala = ?
+        ORDER BY c.id_chat ASC
+        LIMIT 30
+    ");
+    $stmt->execute([$id_sala]);
+    $mensajes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach ($mensajes as $m) {
+        $hash = substr(md5($m['usuario']), 0, 6);
+    $color = "#" . $hash;
+
+    echo "<p><strong style='color:{$color};'>{$m['usuario']}:</strong> {$m['mensaje']} 
+          <span style='font-size:0.8em;color:gray;'>({$m['fecha_mensaje']})</span></p>";
+    }
+    exit;
+}
+
 // 1. OBTENER DATOS DE LA SALA
 $stmt = $con->prepare("SELECT s.*, m.nombre_mapa
     FROM sala s
@@ -196,6 +229,62 @@ $rutaBanner = "../../controller/multimedia/banners/";
         <?php endif; ?>
     </div>
 </div>
+
+<!-- Chat inferior izquierdo -->
+<div id="chat-box" class="position-fixed bottom-0 start-0 bg-dark text-light border-top border-end"
+     style="width:320px; height:170px; border-radius:10px 10px 0 0; display:flex; flex-direction:column;">
+
+    <!-- Contenedor de mensajes con scroll -->
+    <div id="mensajes" style="flex:1; overflow-y:auto; padding:8px;"></div>
+
+    <!-- Input fijo al fondo -->
+    <form id="formChat" class="d-flex p-2 border-top border-secondary bg-dark">
+        <input type="text" name="mensaje" id="mensaje" class="form-control-sm me-2" autocomplete="off" placeholder="Escribe algo...">
+        <button class="btn btn-danger btn-sm w-50">Enviar</button>
+    </form>
+</div>
+
+
+<script>
+const idSala = <?php echo json_encode($id_sala); ?>;
+
+function cargarMensajes() {
+    fetch(`?accion=obtener&id_sala=${idSala}`)
+        .then(res => res.text())
+        .then(data => {
+            const contenedor = document.getElementById("mensajes");
+            contenedor.scrollTop = contenedor.scrollHeight;
+            const estabaAbajo = contenedor.scrollHeight - contenedor.scrollTop === contenedor.clientHeight;
+            contenedor.innerHTML = data;
+            
+            // Si estaba abajo, sigue bajando automáticamente
+            if (estabaAbajo) {
+                contenedor.scrollTop = contenedor.scrollHeight;
+            }
+        });
+}
+
+
+setInterval(cargarMensajes, 2000);
+cargarMensajes();
+
+document.getElementById("formChat").addEventListener("submit", e => {
+    e.preventDefault();
+    const mensaje = document.getElementById("mensaje").value.trim();
+    if (mensaje === "") return;
+
+    const formData = new FormData();
+    formData.append("accion", "enviar");
+    formData.append("mensaje", mensaje);
+    formData.append("id_sala", idSala);
+
+    fetch(`?id_sala=${idSala}`, { method: "POST", body: formData })
+        .then(() => {
+            document.getElementById("mensaje").value = "";
+            cargarMensajes();
+        });
+});
+</script>
 
 </body>
 </html>

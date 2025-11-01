@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1:3307
--- Tiempo de generación: 29-10-2025 a las 20:31:23
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 29-10-2025 a las 23:18:44
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -212,7 +212,18 @@ CREATE TABLE `personaje` (
 --
 
 INSERT INTO `personaje` (`id_personaje`, `nombre_personaje`, `imagen_personaje`, `rango_requerido`) VALUES
-(1, 'Jett', 'Jett.png', 1);
+(1, 'Jett', 'Jett.png', 1),
+(2, 'Chamber', 'Chamber.png', 1),
+(3, 'Sova', 'Sova.png', 1),
+(4, 'Phoenix', 'Phoenix.png', 1),
+(5, 'Omen', 'Omen.png', 2),
+(6, 'Brimstone', 'Brimstone.png', 2),
+(7, 'Reyna', 'Reyna.png', 3),
+(8, 'Sage', 'Sage.png', 3),
+(9, 'Viper', 'Viper.png', 4),
+(10, 'Deadlock', 'Deadlock.png', 4),
+(11, 'Neon', 'Neon.png', 5),
+(12, 'Fade', 'Fade.png', 5);
 
 -- --------------------------------------------------------
 
@@ -307,7 +318,6 @@ CREATE TABLE `user` (
   `usuario` varchar(100) NOT NULL,
   `email` varchar(150) NOT NULL,
   `contrasena` varchar(255) NOT NULL,
-  `avatar` varchar(255) DEFAULT NULL,
   `ultimo_login` datetime DEFAULT NULL,
   `id_tipo_user` int(11) DEFAULT NULL,
   `id_estado` int(11) DEFAULT NULL,
@@ -321,10 +331,10 @@ CREATE TABLE `user` (
 -- Volcado de datos para la tabla `user`
 --
 
-INSERT INTO `user` (`id_user`, `nombre`, `usuario`, `email`, `contrasena`, `avatar`, `ultimo_login`, `id_tipo_user`, `id_estado`, `id_rango`, `id_banner`, `id_avatar`, `id_personaje`) VALUES
-(1, 'jose luis', 'jose365', 'jose@gmail.com', '123', 'imagen.png', '2025-09-17 00:00:00', 2, 2, 1, 5, 4, 1),
-(5, 'Jose Luis', 'jose', 'joseluis1409rodriguez@gmail.com', '$2y$12$vBhUc4u0qbb4mg32FeRcWu5iHVrok2lsiYLEGeenw96hTQMEB9oJ2', NULL, '2025-10-28 22:17:50', 1, 1, 1, 1, 1, 1),
-(6, 'pepe', 'pedro', 'pedro@gmail.com', '$2y$12$G/u9MJ/IdwfOAGPn6NIVR.Un0BtcF5ZeIaVvVwc077.cn.beBMMc6', NULL, '2025-10-29 19:25:43', 2, 1, 1, 1, 1, 1);
+INSERT INTO `user` (`id_user`, `nombre`, `usuario`, `email`, `contrasena`, `ultimo_login`, `id_tipo_user`, `id_estado`, `id_rango`, `id_banner`, `id_avatar`, `id_personaje`) VALUES
+(1, 'jose luis', 'jose365', 'jose@gmail.com', '123', '2025-09-17 00:00:00', 2, 2, 1, 5, 4, 1),
+(5, 'Jose Luis', 'jose', 'joseluis1409rodriguez@gmail.com', '$2y$12$vBhUc4u0qbb4mg32FeRcWu5iHVrok2lsiYLEGeenw96hTQMEB9oJ2', '2025-10-29 21:43:16', 1, 1, 1, 1, 1, 1),
+(6, 'pepe', 'pedro', 'pedro@gmail.com', '$2y$12$G/u9MJ/IdwfOAGPn6NIVR.Un0BtcF5ZeIaVvVwc077.cn.beBMMc6', '2025-10-29 20:50:49', 2, 1, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -512,7 +522,7 @@ ALTER TABLE `partida_jugador`
 -- AUTO_INCREMENT de la tabla `personaje`
 --
 ALTER TABLE `personaje`
-  MODIFY `id_personaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_personaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `rango`
@@ -524,7 +534,7 @@ ALTER TABLE `rango`
 -- AUTO_INCREMENT de la tabla `sala`
 --
 ALTER TABLE `sala`
-  MODIFY `id_sala` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_sala` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_arma`
@@ -548,7 +558,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `usuario_sala`
 --
 ALTER TABLE `usuario_sala`
-  MODIFY `id_usu_sala` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_usu_sala` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Restricciones para tablas volcadas
