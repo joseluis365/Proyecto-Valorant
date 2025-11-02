@@ -17,6 +17,7 @@ if (isset($_GET['pagina'])) {
 $empieza = ($pagina - 1) * $por_pagina;
 
 $salida = "";
+
 $query = $query = "SELECT *, avatar.avatar FROM user 
             INNER JOIN estado 
             ON user.id_estado = estado.id_estado
@@ -39,7 +40,11 @@ if (isset($_POST['consulta'])) {
             ON user.id_estado = estado.id_estado
             INNER JOIN rango
             ON user.id_rango = rango.id_rango
+<<<<<<< HEAD
             INNER JOIN avatar 
+=======
+            INNER JOIN avatar
+>>>>>>> sombrah
             ON user.id_avatar = avatar.id_avatar
             INNER JOIN tip_user
             ON user.id_tipo_user = tip_user.id_tipo_user
@@ -62,6 +67,7 @@ if ($result->num_rows > 0) {
     while ($fila = $result->fetch_assoc()) {
 
         // Generar una imagen de perfil provisional (puedes cambiar por tu campo real)
+
         $avatar = "../../controller/multimedia/avatars/" . $fila['avatar'];
 
         $colorEstado = ($fila['id_estado'] == 1) ? 'text-success' : 'text-danger';

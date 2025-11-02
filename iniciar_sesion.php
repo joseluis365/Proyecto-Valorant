@@ -34,6 +34,7 @@ try {
 
             // Lógica de acceso según tipo y estado
             if ($fila['id_tipo_user'] == 2 && $fila['id_estado'] == 1) {
+
                 echo json_encode(["entrar" => "Bienvenido usuario", "redirect" => "model/usuario/lobby_offi.php"]);
                 exit();
             }

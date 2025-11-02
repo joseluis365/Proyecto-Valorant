@@ -32,6 +32,7 @@ $con = $db->conectar();
                     <img src="controller/img/riot_icono1.png" alt="Logo" width="120" class="img-fluid">
                 </div>
                 <h2 class="jugar mb-4 text-center fw-bold mt-2">INICIAR SESIÓN</h2>
+
                 <form id="login" method="POST">
                     <div class="mb-2 col-md-8 text-center mx-auto">
                         <label for="nombre" class="form-label">Usuario</label>

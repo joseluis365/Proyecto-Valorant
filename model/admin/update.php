@@ -12,11 +12,6 @@ require_once("../../database/connection.php");
 $db = new Database();
 $con = $db->conectar();
 
-// Obtener ID del usuario desde la URL (viene del modal)
-if (!isset($_GET['id'])) {
-    die("ID de usuario no especificado");
-}
-
 $id_user = $_GET['id'];
 
 // Consultar datos del usuario
@@ -25,11 +20,7 @@ $query->bindParam(":id_user", $id_user);
 $query->execute();
 $usuario = $query->fetch(PDO::FETCH_ASSOC);
 
-if (!$usuario) {
-    die("Usuario no encontrado");
-}
-
-// ✅ Si se presiona el botón para desbloquear
+// Si se presiona el botón para desbloquear
 if (isset($_POST['desbloquear'])) {
     try {
         // Cambiar estado a activo
@@ -42,12 +33,13 @@ if (isset($_POST['desbloquear'])) {
         $mail->isSMTP();
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'emailsphp80@gmail.com';
-        $mail->Password   = 'oijw ccza mqdc ivbf';
+        $mail->Username   = 'bastobrayan246@gmail.com';
+        $mail->Password   = 'buhk pmqz fugv ruar';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port       = 587;
 
-        $mail->setFrom('emailsphp80@gmail.com', 'Administrador Valorant');
+        $mail->setFrom('bastobrayan246@gmail.com', 'Administrador Valorant');
+
         $mail->addAddress($usuario['email'], $usuario['nombre']);
 
         $mail->isHTML(true);
@@ -69,7 +61,7 @@ if (isset($_POST['desbloquear'])) {
     }
 }
 
-// ✅ Si se presiona el botón para bloquear
+// Si se presiona el botón para bloquear
 if (isset($_POST['bloquear'])) {
     try {
         // Cambiar estado a bloqueado
@@ -82,12 +74,12 @@ if (isset($_POST['bloquear'])) {
         $mail->isSMTP();
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'emailsphp80@gmail.com';
-        $mail->Password   = 'oijw ccza mqdc ivbf';
+        $mail->Username   = 'bastobrayan246@gmail.com';
+        $mail->Password   = 'buhk pmqz fugv ruar';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port       = 587;
 
-        $mail->setFrom('emailsphp80@gmail.com', 'Administrador Valorant');
+        $mail->setFrom('bastobrayan246@gmail.com', 'Administrador Valorant');
         $mail->addAddress($usuario['email'], $usuario['nombre']);
 
         $mail->isHTML(true);
@@ -135,7 +127,7 @@ if (isset($_POST['bloquear'])) {
     </p>
 
     <?php if ($usuario['id_estado'] == 2): ?>
-        <!-- 🔓 Desbloquear -->
+        <!-- Desbloquear -->
         <form method="POST" action="update.php?id=<?= $usuario['id_user'] ?>">
             <button type="submit" name="desbloquear" class="btn btn-outline-success w-100 jugar2">
                 DESBLOQUEAR
@@ -143,7 +135,7 @@ if (isset($_POST['bloquear'])) {
         </form>
 
     <?php else: ?>
-        <!-- 🔒 Bloquear -->
+        <!-- Bloquear -->
         <form method="POST" action="update.php?id=<?= $usuario['id_user'] ?>">
             <button type="submit" name="bloquear" class="btn btn-outline-danger w-100 jugar2">
                 BLOQUEAR

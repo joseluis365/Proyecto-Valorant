@@ -2,6 +2,7 @@
 session_start();
 require_once("../../database/connection.php");
 $db = new Database;
+
 $con = $db-> conectar();
 
 $id_user = $_SESSION['id_usuario'];
@@ -44,8 +45,6 @@ $fila = $sql->fetch(PDO::FETCH_ASSOC);
       <span class="divider">//</span>
       <span class="text-light">SOLICITUD</span>
     </div>
-
-
 
   <main class="container py-4">
     <header class="mb-4">

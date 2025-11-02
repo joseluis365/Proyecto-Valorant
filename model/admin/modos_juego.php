@@ -1,3 +1,48 @@
+<?php
+session_start();
+
+// Evitar que el navegador use el caché
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+header("Expires: 0");
+
+require_once("../../database/connection.php");
+$db = new Database;
+$con = $db->conectar();
+
+// Si no hay sesión activa, redirige al login
+if (!isset($_SESSION['id_usuario'])) {
+  header("Location: ../../index.php");
+  exit();
+}
+
+if (isset($_POST['cerrar'])) {
+  session_destroy(); // destruye la sesión
+  header("Location: ../../index.php");
+  exit();
+}
+
+$id_user = $_SESSION['id_usuario'];
+
+$sql = $con->prepare("SELECT user.*, tip_user.tipo_user, rango.*, avatar.avatar
+    FROM user
+    INNER JOIN tip_user ON user.id_tipo_user = tip_user.id_tipo_user
+    INNER JOIN rango ON user.id_rango = rango.id_rango
+    INNER JOIN avatar ON user.id_avatar = avatar.id_avatar
+    WHERE user.id_user = $id_user");
+
+$sql->execute();
+$fila = $sql->fetch(PDO::FETCH_ASSOC);
+
+// Si por alguna razón no existe el usuario, destruye sesión también
+if (!$fila) {
+  session_destroy();
+  header("Location: ../../index.php");
+  exit();
+}
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -92,5 +137,6 @@ document.getElementById('btnSeleccionar').addEventListener('click', e => {
     document.getElementById('mapForm').submit();
 });
 </script>
+
 </body>
 </html>
