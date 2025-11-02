@@ -5,7 +5,7 @@
         private $username = "root";
         private $password = "";
         private $charset = "utf8";
-        private $port = "3307";
+        private $port = "3306";
         function conectar()
         {
             try{

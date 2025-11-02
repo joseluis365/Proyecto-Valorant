@@ -9,7 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../controller/css/style2.css">
 </head>
 
@@ -25,7 +25,7 @@
     <div class="container text-center">
         <div class="row d-flex justify-content-">
             <div class="title-container d-flex justify-content-center align-items-start flex">
-                <h1 class="jugar title" style="font-size: 4rem;">AGENTES</h1>
+                <h1 class="jugar title" style="font-size: 5rem;">AGENTES</h1>
             </div>
             <div class="text-container mt-0 d-flex justify-content-center">
                 <p><span class="fw-bold ">VALORANT CUENTA CON DOCE PERSONAJES QUE PUEDES IR DESBLOQUEANDO AL SUBIR DE RANGO </p>

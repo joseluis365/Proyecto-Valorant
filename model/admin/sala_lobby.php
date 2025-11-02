@@ -26,6 +26,35 @@ $stmt = $con->prepare("SELECT s.*, m.nombre_mapa
 $stmt->execute([$id_sala]);
 $sala = $stmt->fetch(PDO::FETCH_ASSOC);
 
+// 2. Verificar si el usuario ya está en la sala
+$stmt = $con->prepare("SELECT COUNT(*) FROM usuario_sala WHERE id_user = ? AND id_sala = ?");
+$stmt->execute([$user_id, $id_sala]);
+$yaDentro = $stmt->fetchColumn();
+
+if ($yaDentro == 0) {
+    // Verificar cuántos jugadores hay en la sala
+    $stmt = $con->prepare("SELECT COUNT(*) FROM usuario_sala WHERE id_sala = ?");
+    $stmt->execute([$id_sala]);
+    $numJugadores = $stmt->fetchColumn();
+
+    // Obtener máximo de jugadores
+    $maxJugadores = 5;
+
+    // Si la sala está llena, redirigir
+    if ($numJugadores >= $maxJugadores) {
+        echo "<script>alert('La sala está llena.'); window.location.href='listar_salas.php';</script>";
+        exit;
+    }
+
+    // Asignar rol
+    $rol = ($numJugadores == 0) ? 'Host' : 'Jugador';
+
+    // Insertar al usuario en la sala
+    $stmt = $con->prepare("INSERT INTO usuario_sala (id_user, id_sala, rol) VALUES (?, ?, ?)");
+    $stmt->execute([$user_id, $id_sala, $rol]);
+}
+
+
 if (!$sala) {
     die("Sala no encontrada.");
 }
@@ -79,15 +108,10 @@ $rutaBanner = "../../controller/multimedia/banners/";
 </div>
 
 <div class="container">
-    <h2 class="title text-center mb-4" style="font-size: 4rem;">LOBBY DE LA SALA <span style="font-size: 4rem;"><?php echo strtoupper($sala['tipo_juego']); ?></span></h2>
+    <h2 class="title text-center mb-4" style="font-size: 4rem;">SALA <?php echo strtoupper($sala['tipo_juego']); ?></h2>
 
-    <!-- <div class="card bg-secondary text-light p-3 mb-4">
-        <p><strong>Mapa:</strong> <?php echo $sala['nombre_mapa']; ?></p>
-        <p><strong>Modo de juego:</strong> <?php echo $sala['tipo_juego']; ?></p>
-        <p><strong>Capacidad:</strong> <?php echo $maxJugadores; ?> jugadores</p>
-    </div> -->
-
-    <div class="row justify-content-center text-center">
+    <!-- CONTENEDOR PRINCIPAL DE JUGADORES -->
+<div id="contenedor-jugadores" class="d-flex flex-wrap justify-content-center align-items-start gap-4 text-center">
     <?php
     // Dividimos jugadores en host y otros
     $host = null;
@@ -100,102 +124,144 @@ $rutaBanner = "../../controller/multimedia/banners/";
         }
     }
 
-    // Render de los jugadores a la izquierda (máx 2)
-    $izquierda = array_slice($otros, 0, 2);
-
-    // Render de los jugadores a la derecha (máx 2)
-    $derecha = array_slice($otros, 2, 2);
-
-    // Contador total ocupados
-    $ocupados = count($jugadores);
-    $rutaBanner = "../../controller/multimedia/banners/";
-
-    // Función para mostrar un jugador
+    // Render de los jugadores
     function mostrarJugador($jug, $rutaBanner) {
         $banner = !empty($jug['banner']) ? $rutaBanner . $jug['banner'] : $rutaBanner . "default.png";
+        $rolBadge = ($jug['rol'] === 'Host') ? '<span class="badge bg-warning text-dark mt-2">HOST</span>' : '';
         return '
-            <div class="xx col-12 col-md-2 mb-4 d-flex justify-content-center">
-                <div class="">
-                    <div class="banner-frame mx-auto mb-2">
-                        <img src="'.$banner.'" alt="banner" class="banner-img">
-                    <p class="nombre mb-1 text-black fw-bold">'.strtoupper($jug['usuario']).'</p>
-                    <img class="icono-rango" src="../../controller/multimedia/rangos/'.$jug['icono'].'" alt="Rango" height="45" width="40"">
-                    </div>
-                </div>
-            </div>'
-        // return '
-        //     <div class="col-6 col-md-2 mb-4 d-flex justify-content-center">
-        //         <div>
-        //             <div class="banner-frame mx-auto mb-2">
-        //                 <img src="'.$banner.'" alt="banner" class="banner-img">
-        //             </div>
-        //             <p class="mb-1">'.$jug['usuario'].'</p>
-        //             <span class="badge bg-info">'.$jug['rol'].'</span>
-        //         </div>
-        //     </div>';
-    ;}
-
-    // Render izquierda
-    foreach ($izquierda as $jug) echo mostrarJugador($jug, $rutaBanner);
-
-    // Si faltan jugadores a la izquierda, agregar placeholders
-    for ($i = count($izquierda); $i < 2; $i++) {
-        echo '
-        <div class="col-6 col-md-2 mb-4 d-flex justify-content-center">
-            <div class="esperando-jugador card p-2 d-flex align-items-center justify-content-center">
-                <span class="text-muted">Esperando jugador...</span>
-            </div>
-        </div>';
-    }
-
-    // Render Host (centrado)
-    if ($host) {
-    $bannerHost = !empty($host['banner']) ? $rutaBanner . $host['banner'] : $rutaBanner . "default.png";
-    echo '
-    <div class="xx col-12 col-md-2 mb-4 d-flex justify-content-center">
-        <div class="">
+        <div class="jugador-card">
             <div class="banner-frame mx-auto mb-2">
-                <img src="'.$bannerHost.'" alt="banner" class="banner-img">
-            <p class="nombre mb-1 text-black fw-bold">'.strtoupper($host['usuario']).'</p>
-            <img class="icono-rango" src="../../controller/multimedia/rangos/'.$host['icono'].'" alt="Rango" height="45" width="40"">
+                <img src="'.$banner.'" alt="banner" class="banner-img">
+                <p class="nombre mb-1 text-black fw-bold">'.strtoupper($jug['usuario']).'</p>
+                <img class="icono-rango" src="../../controller/multimedia/rangos/'.$jug['icono'].'" alt="Rango" height="45" width="40">
             </div>
-            <span class="badge bg-warning text-dark">HOST</span>
-        </div>
-    </div>';
-} else {
-        // Si no hay host
-        echo '
-        <div class="col-12 col-md-2 mb-4 d-flex justify-content-center">
-            <div class="card bg-dark border-secondary p-2 d-flex align-items-center justify-content-center" style="width:170px; height:180px;">
-                <span class="text-muted">Esperando HOST...</span>
-            </div>
+            '.$rolBadge.'
         </div>';
     }
 
-    // Render derecha
-    foreach ($derecha as $jug) echo mostrarJugador($jug, $rutaBanner);
+    // Mostrar host primero
+    if ($host) echo mostrarJugador($host, $rutaBanner);
 
-    // Si faltan jugadores a la derecha, agregar placeholders
-    for ($i = count($derecha); $i < 2; $i++) {
+    // Mostrar los demás jugadores
+    foreach ($otros as $jug) echo mostrarJugador($jug, $rutaBanner);
+
+    // Agregar placeholders si faltan jugadores
+    $totalJugadores = count($jugadores);
+    for ($i = $totalJugadores; $i < $maxJugadores; $i++) {
         echo '
-        <div class="col-6 col-md-2 mb-4 d-flex justify-content-center">
-            <div class="esperando-jugador card p-2 d-flex align-items-center justify-content-center">
-                <span class="text-muted">Esperando jugador...</span>
-            </div>
+        <div class="jugador-card esperando-jugador card p-3 d-flex align-items-center justify-content-center" 
+             style="width:170px; height:180px;">
+            <span class="text-muted">Esperando jugador...</span>
         </div>';
     }
     ?>
 </div>
 
 
+
     <div class="text-center mt-4">
-        <?php if ($soyHost): ?>
-            <a href="iniciar_partida.php?id_sala=<?php echo $id_sala; ?>" class="text-white btn btn-lg boton-custom">Iniciar partida</a>
-        <?php else: ?>
-            <p class="text-muted">Esperando a que el host inicie la partida...</p>
-        <?php endif; ?>
+    <?php if ($soyHost): ?>
+    <button id="botonIniciar" class="btn btn-lg btn-secondary" disabled>
+        Esperando jugadores (<?php echo count($jugadores); ?>/<?php echo $maxJugadores; ?>)
+    </button>
+<?php else: ?>
+    <p class="text-muted">Esperando a que el host inicie la partida...</p>
+<?php endif; ?>
     </div>
+
 </div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+const idSala = <?php echo json_encode($id_sala); ?>;
+const soyHost = <?php echo $soyHost ? 'true' : 'false'; ?>;
+let contando = false;
+let inicio_ts_global = null;
+
+function refreshLobby(){
+  $.get('obtener_jugadores.php', { id_sala: idSala }, function(res){
+    try {
+      const info = typeof res === 'string' ? JSON.parse(res) : res;
+      if (info.error) { console.error(info.error); return; }
+
+      // actualizar HTML del contenedor
+      $('#contenedor-jugadores').html(info.html);
+
+      // actualizar boton (si soy host)
+      if (soyHost) {
+        if (info.count >= info.max) {
+          $('#botonIniciar').prop('disabled', false).text('Iniciar partida');
+        } else {
+          $('#botonIniciar').prop('disabled', true).text(`Esperando jugadores (${info.count}/${info.max})`);
+        }
+      }
+
+      // detectar estado iniciando
+      if (info.estado === 'iniciando') {
+        if (!contando) {
+          // iniciar cuenta usando el inicio_ts del servidor
+          inicio_ts_global = info.inicio_ts ? parseInt(info.inicio_ts) : (Math.floor(Date.now()/1000) + 5);
+          startCountdown(inicio_ts_global);
+        }
+      } else if (info.estado === 'en_juego') {
+        // si ya está en juego, redirigir a la partida (o cargar la vista)
+        window.location.href = 'partida.php?id_sala=' + idSala;
+      } else {
+        // estado normal
+      }
+
+    } catch (e) { console.error('parse error', e); }
+  });
+}
+
+// manejar click iniciar
+$('#botonIniciar').on('click', function(){
+  if (!soyHost) return;
+  $.post('iniciar_partida.php', { id_sala: idSala }, function(resp){
+    // la respuesta no importa demasiado, la próxima refresh detectará el estado 'iniciando'
+    refreshLobby();
+  });
+});
+
+// cuenta regresiva centralizada
+function startCountdown(inicio_ts) {
+  contando = true;
+  // bloquear salida visualmente y advertir en beforeunload
+  $('#salirLink').hide();
+  window.onbeforeunload = function(){ return "La partida está por iniciar, ¿deseas salir?"; };
+
+  const intervalo = setInterval(function(){
+    const ahora = Math.floor(Date.now()/1000);
+    const rem = inicio_ts - ahora;
+    if (rem > 0) {
+      // mostrar overlay o mensaje grande
+      if ($('#contadorOverlay').length === 0) {
+        $('body').append('<div id="contadorOverlay" style="position:fixed;left:0;top:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;z-index:9999;"><div style="background:rgba(0,0,0,0.7);padding:30px;border-radius:12px;color:#fff;font-size:2rem;">La partida comienza en <span id="segundos">'+rem+'</span> s</div></div>');
+      } else {
+        $('#segundos').text(rem);
+      }
+    } else {
+      clearInterval(intervalo);
+      // quitar overlay
+      $('#contadorOverlay').remove();
+      window.onbeforeunload = null;
+      // confirmar inicio en servidor y redirigir
+      $.post('confirmar_inicio.php', { id_sala: idSala }, function(r){
+        // redirigir a la pantalla de partida
+        window.location.href = 'partida.php?id_sala=' + idSala;
+      });
+    }
+  }, 300); // frecuencia interna para mostrar seg decreciente (300ms)
+}
+
+// arrancar polling corto
+refreshLobby();
+setInterval(refreshLobby, 1000); // 1s, ajustar si quieres menos carga
+</script>
+
 
 </body>
 </html>

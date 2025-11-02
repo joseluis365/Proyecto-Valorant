@@ -4,7 +4,7 @@ require_once("../../database/connection.php");
 $db = new Database;
 $con = $db->conectar();
 
-$mysqli = new mysqli("localhost", "root", "", "valorant", 3307);
+$mysqli = new mysqli("localhost", "root", "", "valorant");
 
 $por_pagina = 17;
 
@@ -39,6 +39,8 @@ if (isset($_POST['consulta'])) {
             ON user.id_estado = estado.id_estado
             INNER JOIN rango
             ON user.id_rango = rango.id_rango
+            INNER JOIN avatar 
+            ON user.id_avatar = avatar.id_avatar
             INNER JOIN tip_user
             ON user.id_tipo_user = tip_user.id_tipo_user
             WHERE estado.id_estado IN (1,2)

@@ -50,7 +50,7 @@ $fila = $sql->fetch(PDO::FETCH_ASSOC);
   <main class="container py-4">
     <header class="mb-4">
       <h1 class="jugar text-white">Solicitudes de jugadores</h1>
-      <p class="text-white fw-bold">Aquí Puedes Aceptar O Rechazar Las Solicitudes De Jugadores Bloqueados.</p>
+      <p class="text-danger fw-bold">Aquí Puedes Aceptar O Rechazar Las Solicitudes De Jugadores Bloqueados.</p>
     </header>
     <section class="card shadow-sm">
       <div class="card-body">

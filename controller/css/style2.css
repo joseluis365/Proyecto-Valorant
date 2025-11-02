@@ -358,7 +358,7 @@ body, html {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1px;
-  font-size: 1.0rem; /* puedes ajustar el tamaño */
+  font-size: 2rem; /* puedes ajustar el tamaño */
   margin-bottom: 10px;
 }
 
@@ -383,10 +383,10 @@ body, html {
 }
 .banner-img {
   position: absolute;
-  transform: translate(0%, -25%);
+  transform: translate(0%, -24.5%);
   width: 78%;
   height: 54%;
-  object-fit: cover;
+  object-fit:fill;
 }
 .nombre {
   font-family: 'Fugaz One';
@@ -412,6 +412,11 @@ body, html {
 }
 .xx {
   margin-top: -3%;
+  transition: transform 0.3s ease;
+  margin-right: 100px;
+}
+.xx:hover {
+  transform: scale(1.03);
 }
 
 
@@ -445,6 +450,29 @@ body, html {
 .agent-name {
     border-radius: 0 !important;
 }
+
+/* Espaciado entre jugadores del lobby */
+#contenedor-jugadores .col-md-2,
+#contenedor-jugadores .col-6 {
+  margin-bottom: 1.5rem; /* separa verticalmente */
+}
+
+/* Asegura que no se monten horizontalmente */
+#contenedor-jugadores {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem; /* separa los banners entre sí */
+}
+
+/* Los banners deben mantenerse centrados */
+.banner-frame {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 
 
 
