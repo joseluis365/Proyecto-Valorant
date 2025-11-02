@@ -9,7 +9,7 @@ header("Expires: 0");
 
 require_once("../../database/connection.php");
 $db = new Database;
-$con = $db->conectar();
+$con = $db-> conectar();
 
 // Si no hay sesión activa, redirige al login
 if (!isset($_SESSION['id_usuario'])) {

@@ -29,14 +29,12 @@ if (isset($_POST['accion']) && $_POST['accion'] === 'enviar') {
 
 // --- Si se solicitan mensajes (AJAX GET) ---
 if (isset($_GET['accion']) && $_GET['accion'] === 'obtener') {
-    $stmt = $con->prepare("
-        SELECT c.mensaje, c.fecha_mensaje, u.usuario 
+    $stmt = $con->prepare("SELECT c.mensaje, c.fecha_mensaje, u.usuario 
         FROM chat c
         INNER JOIN user u ON c.id_user = u.id_user
         WHERE c.id_sala = ?
         ORDER BY c.id_chat ASC
-        LIMIT 30
-    ");
+        LIMIT 30");
     $stmt->execute([$id_sala]);
     $mensajes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -203,9 +201,6 @@ $rutaBanner = "../../controller/multimedia/banners/";
     </div>
 
 </div>
-
-<<<<<<< HEAD
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -295,9 +290,6 @@ function startCountdown(inicio_ts) {
 refreshLobby();
 setInterval(refreshLobby, 1000); // 1s, ajustar si quieres menos carga
 </script>
-
-
-=======
 <!-- Chat inferior izquierdo -->
 <div id="chat-box" class="position-fixed bottom-0 start-0 bg-dark text-light border-top border-end"
      style="width:450px; height:180px; border-radius: 2px 2px 0 0; display:flex; flex-direction:column;">
@@ -314,28 +306,27 @@ setInterval(refreshLobby, 1000); // 1s, ajustar si quieres menos carga
 
 
 <script>
-const idSala = <?php echo json_encode($id_sala); ?>;
-
 function cargarMensajes() {
-    fetch(`?accion=obtener&id_sala=${idSala}`)
-        .then(res => res.text())
-        .then(data => {
-            const contenedor = document.getElementById("mensajes");
-            contenedor.scrollTop = contenedor.scrollHeight;
-            const estabaAbajo = contenedor.scrollHeight - contenedor.scrollTop === contenedor.clientHeight;
-            contenedor.innerHTML = data;
-            
-            // Si estaba abajo, sigue bajando automáticamente
-            if (estabaAbajo) {
-                contenedor.scrollTop = contenedor.scrollHeight;
-            }
-        });
-}
+    fetch(`sala_lobby.php?accion=obtener&id_sala=${idSala}`, {
+    method: 'GET',
+    credentials: 'same-origin'
+    })
 
+
+    .then(res => res.text())
+    .then(data => {
+        const contenedor = document.getElementById("mensajes");
+        const estabaAbajo = (contenedor.scrollHeight - contenedor.scrollTop) <= (contenedor.clientHeight + 5);
+        contenedor.innerHTML = data;
+        if (estabaAbajo) contenedor.scrollTop = contenedor.scrollHeight;
+    })
+    .catch(err => console.error('error cargarMensajes:', err));
+}
 
 setInterval(cargarMensajes, 2000);
 cargarMensajes();
 
+// submit
 document.getElementById("formChat").addEventListener("submit", e => {
     e.preventDefault();
     const mensaje = document.getElementById("mensaje").value.trim();
@@ -346,14 +337,22 @@ document.getElementById("formChat").addEventListener("submit", e => {
     formData.append("mensaje", mensaje);
     formData.append("id_sala", idSala);
 
-    fetch(`?id_sala=${idSala}`, { method: "POST", body: formData })
-        .then(() => {
-            document.getElementById("mensaje").value = "";
-            cargarMensajes();
-        });
+    fetch(`sala_lobby.php?id_sala=${idSala}`, {
+    method: "POST",
+    credentials: 'same-origin',
+    body: formData
+    })
+
+
+    .then(res => res.text())
+    .then(() => {
+        document.getElementById("mensaje").value = "";
+        cargarMensajes();
+    })
+    .catch(err => {
+        console.error('error enviar mensaje:', err);
+    });
 });
 </script>
-
->>>>>>> sombrah
 </body>
 </html>
