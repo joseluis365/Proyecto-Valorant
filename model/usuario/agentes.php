@@ -57,7 +57,7 @@ $personajes = $query_personajes->fetchAll(PDO::FETCH_ASSOC);
 
 <body class="agent">
     <div class="top-bar">
-        <a href="lobby.php" class="back-link">
+        <a href="lobby_offi.php" class="back-link">
             <div class="back-icon"></div>
             <span class="text-muted">ATRÁS</span>
         </a>
