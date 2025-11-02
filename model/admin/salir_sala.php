@@ -4,12 +4,25 @@ require_once "../../database/connection.php";
 $db = new database;
 $con = $db->conectar();
 
-if (!isset($_SESSION['id_usuario'])) {
-    die("No autenticado");
-}
-
+if (!isset($_SESSION['id_usuario'])) die('no auth');
 $user_id = intval($_SESSION['id_usuario']);
 $id_sala = intval($_GET['id_sala'] ?? 0);
+
+if ($id_sala <= 0) header("Location: listar_salas.php");
+
+// comprobar estado
+$stmt = $con->prepare("SELECT estado FROM sala WHERE id_sala = ?");
+$stmt->execute([$id_sala]);
+$estado = $stmt->fetchColumn();
+
+if (in_array($estado, ['iniciando','en_juego'])) {
+    echo "<script>alert('No puedes abandonar la sala mientras la partida se inicia o está en curso.'); window.location='sala_lobby.php?id_sala={$id_sala}';</script>";
+    exit;
+}
+
+// ahora procedes con la lógica de borrado/reasignación como ya tenías...
+// (DELETE FROM usuario_sala; reasignar host; eliminar sala si vacía; commit; redirect)
+
 
 try {
     $con->beginTransaction();

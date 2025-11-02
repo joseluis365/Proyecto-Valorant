@@ -40,7 +40,11 @@ if (isset($_POST['consulta'])) {
             ON user.id_estado = estado.id_estado
             INNER JOIN rango
             ON user.id_rango = rango.id_rango
+<<<<<<< HEAD
+            INNER JOIN avatar 
+=======
             INNER JOIN avatar
+>>>>>>> sombrah
             ON user.id_avatar = avatar.id_avatar
             INNER JOIN tip_user
             ON user.id_tipo_user = tip_user.id_tipo_user

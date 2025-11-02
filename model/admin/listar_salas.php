@@ -111,7 +111,7 @@ if ($tipoJuego === "1vs1") {
     </div>
 
     <div class="col-12 col-md-3">
-      <a href="join_sala.php?id_sala=<?php echo $sala['id_sala']; ?>" 
+      <a href="sala_lobby.php?id_sala=<?php echo $sala['id_sala']; ?>" 
           class="btn btn-danger boton-custom btn-lg">
           Unirse
       </a>

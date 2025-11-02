@@ -96,3 +96,53 @@ body > * {
   border-color: none !important; 
   color: #111;
 }
+.fondo{
+  margin: 0;
+  overflow: hidden;
+}
+.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+#bg-image {
+  display: block;
+}
+#bg-video {
+  display: none;
+}
+button.hud-button {
+  width: 100px;
+  height: 100px;
+  background-color: #1c1c1c;
+  border-radius: 50%;
+  border: 3px solid white; 
+  box-shadow: 0 0 10px 4px gold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.3s ease;
+  outline: none;
+}
+.icono {
+  width: 200%;
+  filter: drop-shadow(0 0 5px white);
+  pointer-events: none;
+}
+button {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 10;
+}
+button:disabled {
+  cursor: not-allowed;
+}
