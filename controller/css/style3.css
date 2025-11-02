@@ -362,3 +362,16 @@ body {
 .mad {
   display: flex;
 }
+
+.footer {
+  display: flex;
+  justify-content: center; /* centra horizontalmente */   /* centra verticalmente */
+  height: 100vh;           /* ocupa toda la altura de la pantalla */
+}
+
+.nav-link.active {
+  color: #ff4655 !important;
+  font-weight: bold;
+  border-bottom: 2px solid #ff4655;
+  transition: all 0.3s ease;
+}

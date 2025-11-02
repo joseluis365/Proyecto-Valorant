@@ -13,14 +13,14 @@ $con = $db->conectar();
 
 // Si no hay sesión activa, redirige al login
 if (!isset($_SESSION['id_usuario'])) {
-  header("Location: ../../index.php");
+  header("Location: ../../login.php");
   exit();
 }
 
 if (isset($_POST['cerrar'])) {
   session_unset();   // elimina las variables de sesión
   session_destroy(); // destruye la sesión
-  header("Location: ../../index.php");
+  header("Location: ../../login.php");
   exit();
 }
 

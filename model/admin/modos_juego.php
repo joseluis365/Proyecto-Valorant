@@ -13,13 +13,13 @@ $con = $db->conectar();
 
 // Si no hay sesión activa, redirige al login
 if (!isset($_SESSION['id_usuario'])) {
-  header("Location: ../../index.php");
+  header("Location: ../../login.php");
   exit();
 }
 
 if (isset($_POST['cerrar'])) {
   session_destroy(); // destruye la sesión
-  header("Location: ../../index.php");
+  header("Location: ../../login.php");
   exit();
 }
 
@@ -38,7 +38,7 @@ $fila = $sql->fetch(PDO::FETCH_ASSOC);
 // Si por alguna razón no existe el usuario, destruye sesión también
 if (!$fila) {
   session_destroy();
-  header("Location: ../../index.php");
+  header("Location: ../../login.php");
   exit();
 }
 
@@ -137,6 +137,13 @@ document.getElementById('btnSeleccionar').addEventListener('click', e => {
     document.getElementById('mapForm').submit();
 });
 </script>
-
+<script>
+    // Si el usuario vuelve atrás, forzamos una recarga real desde el servidor
+    window.addEventListener("pageshow", function(event) {
+      if (event.persisted) {
+        window.location.reload();
+      }
+    });
+  </script>
 </body>
 </html>

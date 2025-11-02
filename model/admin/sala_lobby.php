@@ -239,7 +239,7 @@ $rutaBanner = "../../controller/multimedia/banners/";
 
     <!-- Input fijo al fondo -->
     <form id="formChat" class="d-flex p-2 border-top border-secondary bg-dark">
-        <input type="text" name="mensaje" id="mensaje" class="form-control-sm me-2" autocomplete="off" placeholder="Escribe algo...">
+        <input type="text" name="mensaje" id="mensaje" class="w-75 form-control-sm me-2" autocomplete="off" placeholder="Escribe algo...">
         <button class="btn btn-danger btn-sm w-50">Enviar</button>
     </form>
 </div>

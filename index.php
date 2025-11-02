@@ -17,23 +17,23 @@
   <header>
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top cabeza">
       <div class="container-fluid">
-        <a class="navbar-brand d-flex align-items-center" href="#">
+        <a class="navbar-brand d-flex align-items-center" href="#inicio">
           <img src="controller/img/riot-icons.png" alt="Logo" height="40" width="100" class="me-2">
           <img src="controller/img/logo_valo.png" alt="Logo" width="70" class="me-2">
         </a>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a class="nav-link active" href="#"><strong>Inicio</strong></a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Noticias</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Personajes</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Armas</a></li>
+            <li class="nav-item"><a class="nav-link active" href="#inicio"><strong>Inicio</strong></a></li>
+            <li class="nav-item"><a class="nav-link" href="#noticias">Noticias</a></li>
+            <li class="nav-item"><a class="nav-link" href="#personajes">Personajes</a></li>
+            <li class="nav-item"><a class="nav-link" href="#armas">Armas</a></li>
           </ul>
         </div>
       </div>
     </nav>
   </header>
 
-  <section class="hero d-flex flex-column justify-content-center align-items-center text-center text-white">
+  <section class="hero d-flex flex-column justify-content-center align-items-center text-center text-white" id="inicio">
     <video class="bg-video" muted autoplay loop src="controller/multimedia/Animaciones/Video_valorant.mp4"></video>
     <div class="overlay"></div>
     <div class="content">
@@ -44,7 +44,7 @@
     </div>
   </section>
 
-    <section class="container my-5">
+    <section class="container my-5" id="noticias">
     <h2 class="fw-bold mb-4 text-uppercase little">Noticias más recientes</h2>
 
     <div class="row g-4">
@@ -55,7 +55,7 @@
           <div class="card-body">
             <p class="text-danger text-uppercase mb-1 small fw-bold">Actualizaciones del juego | 5/10/2025</p>
             <h5 class="card-title fw-bold">Balance En El Campeon: YET</h5>
-            <p class="card-text">Arruina los planes del enemigo y pelea bajo tus propias reglas con el nuevo centinela: Veto.</p>
+            <p class="card-text">Arruina los planes del enemigo y pelea bajo tus propias reglas</p>
           </div>
         </div>
       </div>
@@ -66,8 +66,8 @@
           <img src="controller/img/noticias2.jpg" class="card-img-top" alt="NO LES DEN NADA // Tráiler de Veto - VALORANT">
           <div class="card-body">
             <p class="text-danger text-uppercase mb-1 small fw-bold">Actualizaciones del juego | 5/10/2025</p>
-            <h5 class="card-title fw-bold">NO LES DEN NADA // Tráiler de Veto - VALORANT</h5>
-            <p class="card-text">Tu pelea. Sus reglas. Este es el nuevo agente de VALORANT: Veto.</p>
+            <h5 class="card-title fw-bold">NO LES DEN NADA // BALANCE - VALORANT</h5>
+            <p class="card-text">Nuevos balances en los personajes</p>
           </div>
         </div>
       </div>
@@ -78,8 +78,8 @@
           <img src="controller/img/noticias3.jpg" class="card-img-top" alt="NO LES DEN NADA // Tráiler de Veto - VALORANT">
           <div class="card-body">
             <p class="text-danger text-uppercase mb-1 small fw-bold">Actualizaciones del juego | 5/10/2025</p>
-            <h5 class="card-title fw-bold">NO LES DEN NADA // Tráiler de Veto - VALORANT</h5>
-            <p class="card-text">Tu pelea. Sus reglas. Este es el nuevo agente de VALORANT: Veto.</p>
+            <h5 class="card-title fw-bold">ENTRA YA // Reclama Tu Llavero - VALORANT</h5>
+            <p class="card-text">Entra Y Reclama Tu Llavero Gratis</p>
           </div>
         </div>
       </div>
@@ -90,7 +90,7 @@
     <hr class="my-4" style="border: 3px solid #ccc;">
   </section>
 
-<section class="personajes-section1 text-white my-5">
+<section class="personajes-section1 text-white my-5" id="personajes">
   <div class="container1">
     <h1 class="fw-bold mb-4 text-uppercase text-custom">Personajes Destacados</h1>
 
@@ -146,7 +146,7 @@
   </div>
 </section>
 
-<section class="container my-5 arma-section">
+<section class="container my-5 arma-section" id="armas">
   <h1 class="fw-bold mb-4 text-uppercase little text-custom1">Armas Destacadas</h1>
   <div class="container2">
     <div class="row g-4 mt-2">
@@ -206,14 +206,14 @@
   <hr class="my-4" style="border: 3px solid #ccc;">
 </section>
 
-<footer class="footer bg-dark text-white pt-5 pb-3 mt-5">
+<section class="footer bg-dark text-white pt-5 pb-3 mt-5">
   <div class="container">
     <div class="row gy-4">
       <!-- Columna 1 -->
       <div class="col-md-4">
-        <h5 class="fw-bold mb-3">Mi Sitio</h5>
+        <h5 class="fw-bold mb-3">VALORANT</h5>
         <p class="text-secondary">
-          Un espacio donde compartimos las últimas noticias, proyectos y desarrollos web.
+          Un espacio donde compartimos las últimas noticias, De nuestro juego.
         </p>
       </div>
 
@@ -221,7 +221,7 @@
       <div class="col-md-4">
         <h5 class="fw-bold mb-3">Enlaces útiles</h5>
         <ul class="list-unstyled">
-          <li><a href="#" class="text-secondary text-decoration-none hover-link">Inicio</a></li>
+          <li><a href="#inicio" class="text-secondary text-decoration-none hover-link">Inicio</a></li>
           <li><a href="#" class="text-secondary text-decoration-none hover-link">Nosotros</a></li>
           <li><a href="#" class="text-secondary text-decoration-none hover-link">Servicios</a></li>
           <li><a href="#" class="text-secondary text-decoration-none hover-link">Contacto</a></li>
@@ -243,11 +243,22 @@
     <hr class="border-secondary my-4">
 
     <div class="text-center text-secondary small">
-      © 2025 <span class="text-white fw-semibold">Mi Sitio</span>. Todos los derechos reservados.
+      © 2025 <span class="text-white fw-semibold">V4LORANT</span>. Todos los derechos reservados.
     </div>
   </div>
-</footer>
+</section>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.forEach(l => l.classList.remove('active')); // quita el active actual
+      link.classList.add('active'); // activa el clickeado
+    });
+  });
+</script>
+
 </body>
 
 </html>
