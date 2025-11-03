@@ -6,9 +6,10 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
   <meta content="" name="description">
-  <link rel="stylesheet" href="controller/css/style3.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="controller/css/style3.css">
+
 
   integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
@@ -27,6 +28,7 @@
             <li class="nav-item"><a class="nav-link" href="#noticias">Noticias</a></li>
             <li class="nav-item"><a class="nav-link" href="#personajes">Personajes</a></li>
             <li class="nav-item"><a class="nav-link" href="#armas">Armas</a></li>
+            <li class="nav-item"><a class="nav-link" href="#mas">Más</a></li>
           </ul>
         </div>
       </div>
@@ -206,14 +208,19 @@
   <hr class="my-4" style="border: 3px solid #ccc;">
 </section>
 
-<section class="footer bg-dark text-white pt-5 pb-3 mt-5">
+<section class="footer text-white pt-7 pb-5 mt-5" id="mas">
   <div class="container">
-    <div class="row gy-4">
+    <div class="row gy-5">
+      
       <!-- Columna 1 -->
       <div class="col-md-4">
-        <h5 class="fw-bold mb-3">VALORANT</h5>
+        <h5 class="fw-bold mb-3 neon-text">V4LORANT</h5>
         <p class="text-secondary">
-          Un espacio donde compartimos las últimas noticias, De nuestro juego.
+          Un espacio donde compartimos las últimas noticias, actualizaciones y estrategias de juego. 
+          Mantente al día con lo más reciente del universo Valorant.
+        </p>
+        <p class="text-secondary mt-3">
+           Comunidad global •  Precisión táctica •  Conecta con jugadores de todo el mundo.
         </p>
       </div>
 
@@ -221,41 +228,66 @@
       <div class="col-md-4">
         <h5 class="fw-bold mb-3">Enlaces útiles</h5>
         <ul class="list-unstyled">
-          <li><a href="#inicio" class="text-secondary text-decoration-none hover-link">Inicio</a></li>
-          <li><a href="#" class="text-secondary text-decoration-none hover-link">Nosotros</a></li>
-          <li><a href="#" class="text-secondary text-decoration-none hover-link">Servicios</a></li>
-          <li><a href="#" class="text-secondary text-decoration-none hover-link">Contacto</a></li>
+          <li><a href="#inicio" class="footer-link">Inicio</a></li>
+          <li><a href="#noticias" class="footer-link">Noticias</a></li>
+          <li><a href="#personajes" class="footer-link">Personajes</a></li>
+          <li><a href="#armas" class="footer-link">Armas</a></li>
+          <li><a href="#" class="footer-link">Eventos</a></li>
+          <li><a href="#" class="footer-link">Soporte</a></li>
         </ul>
       </div>
 
       <!-- Columna 3 -->
       <div class="col-md-4">
-        <h5 class="fw-bold mb-3">Síguenos</h5>
-        <div class="d-flex gap-3">
-          <a href="#" class="text-secondary fs-4 social-link"><i class="bi bi-facebook"></i></a>
-          <a href="#" class="text-secondary fs-4 social-link"><i class="bi bi-instagram"></i></a>
-          <a href="#" class="text-secondary fs-4 social-link"><i class="bi bi-twitter-x"></i></a>
-          <a href="#" class="text-secondary fs-4 social-link"><i class="bi bi-github"></i></a>
+        <h5 class="fw-bold mb-3">Suscríbete</h5>
+        <p class="text-secondary">Recibe actualizaciones exclusivas, skins, torneos y más.</p>
+
+        <div class="mt-4">
+          <h6 class="fw-bold mb-3">Síguenos</h6>
+          <div class="d-flex gap-3">
+            <a href="https://www.facebook.com/latamVALORANT/?locale=es_LA" class="social-link"><i class="bi bi-facebook"></i></a>
+            <a href="https://www.instagram.com/valorant/?hl=es" class="social-link"><i class="bi bi-instagram"></i></a>
+            <a href="https://github.com/Brayan-Stevan" class="social-link"><i class="bi bi-github"></i></a>
+          </div>
         </div>
       </div>
     </div>
 
-    <hr class="border-secondary my-4">
+    <hr class="my-5 border-light">
 
     <div class="text-center text-secondary small">
-      © 2025 <span class="text-white fw-semibold">V4LORANT</span>. Todos los derechos reservados.
+      © 2025 <span class="text-white fw-semibold neon-text">V4LORANT</span>. Todos los derechos reservados.
     </div>
   </div>
 </section>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
+<script>
+  // Selecciona todos los enlaces del navbar
   const navLinks = document.querySelectorAll('.nav-link');
 
-  navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      navLinks.forEach(l => l.classList.remove('active')); // quita el active actual
-      link.classList.add('active'); // activa el clickeado
+  // Mapea las secciones a sus IDs (usando los href del menú)
+  const sections = Array.from(navLinks).map(link => {
+    const id = link.getAttribute('href').substring(1);
+    return document.getElementById(id);
+  });
+
+  // Observador para detectar qué sección está visible
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Remueve el "active" de todos los enlaces
+        navLinks.forEach(link => link.classList.remove('active'));
+
+        // Busca el link correspondiente a la sección visible
+        const visibleLink = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+        if (visibleLink) visibleLink.classList.add('active');
+      }
     });
+  }, { threshold: 0.5 }); // 0.5 = cuando la mitad de la sección está visible
+
+  // Observa cada sección
+  sections.forEach(section => {
+    if (section) observer.observe(section);
   });
 </script>
 

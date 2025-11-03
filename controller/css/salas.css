@@ -86,15 +86,19 @@ body > * {
 .boton {
   background-color: #e9e9eb !important;
   border-radius: 0% !important;
-  height: 25%;
   border: 2px solid #ccc !important;
   border-color: none !important; 
   font-family: 'Fugaz One', sans-serif;
 }
+
 .boton:hover {
   border: 3px solid #e15064 !important;
   border-color: none !important; 
   color: #111;
+}
+.modal-footer{
+  display: flex;
+  flex-direction: row;
 }
 .fondo{
   margin: 0;
@@ -114,7 +118,7 @@ body > * {
 #bg-video {
   display: none;
 }
-button.hud-button {
+.boton-partida.hud-button {
   width: 100px;
   height: 100px;
   background-color: #1c1c1c;
@@ -133,7 +137,7 @@ button.hud-button {
   filter: drop-shadow(0 0 5px white);
   pointer-events: none;
 }
-button {
+.boton-partida {
   position: fixed;
   bottom: 20px;
   left: 50%;
@@ -143,6 +147,6 @@ button {
   cursor: pointer;
   z-index: 10;
 }
-button:disabled {
+.boton-partida:disabled {
   cursor: not-allowed;
 }

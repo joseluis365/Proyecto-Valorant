@@ -563,5 +563,32 @@ body, html {
   margin: 2px 0;
 }
 
+#mensajes {
+  background-color: rgba(14, 13, 13, 0.142); 
+  backdrop-filter: blur(6px);
+}
+
+#chat-box {
+  background-color: transparent; /* o rgba(0,0,0,0.3) si quieres un leve fondo */
+}
+
+/* Forzar estilo del input del chat */
+#chat-box input#mensaje,
+#chat-box .input-dark {
+  background-color: transparent !important;
+  color: #fff !important;
+  border: 2px solid rgba(255, 255, 255, 0.071) !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+#chat-box {
+  border-color: #373636 !important; /* o el color que prefieras */
+  border-width: 2px; /* si quieres ajustar grosor */
+}
+
+
+
+
 
 

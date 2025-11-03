@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="../../controller/css/salas.css">
 <title>Partida</title>
 </head>
 <body class="fondo">
@@ -10,7 +11,7 @@
 
 <video id="bg-video" class="fullscreen" src="../../controller/multimedia/Mapas/Ascent/pistolas/video_pistola1.mp4"></video>
 
-<button id="playVideo" class="hud-button">
+<button class="boton-partida" id="playVideo" class="hud-button">
     <img class="icono" src="../../controller/multimedia/img/boton_disparo.png" alt="">
 </button>
 

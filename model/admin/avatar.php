@@ -3,7 +3,7 @@ session_start();
 require_once "../../database/connection.php";
 $db = new database;
 $con = $db->conectar();
-$id_user = 1;
+$id_user = $_SESSION['id_usuario'];
 
 // OBTENER AVATAR ACTUAL
 $queryUser = $con->prepare("SELECT id_avatar FROM user WHERE id_user = :id");

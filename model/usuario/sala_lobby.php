@@ -9,13 +9,12 @@ $con = $db->conectar();
 //     exit;
 // }
 
-$id_sala = $_GET['id_sala'] ?? $_POST['id_sala'] ?? null;
-
-if (!$id_sala) {
+if (!isset($_GET['id_sala'])) {
     header("Location: listar_salas.php");
     exit;
 }
 
+$id_sala = $_GET['id_sala'];
 $user_id = $_SESSION['id_usuario'];
 
 // --- Si se envía un mensaje (AJAX POST) ---
@@ -298,7 +297,7 @@ setInterval(refreshLobby, 1000); // 1s, ajustar si quieres menos carga
 
 
 <!-- Chat inferior izquierdo -->
-<div id="chat-box" class="position-fixed bottom-0 start-0 bg-dark text-light border-top border-end"
+<div id="chat-box" class="position-fixed bottom-0 start-0 text-light"
      style="width:450px; height:180px; border-radius: 2px 2px 0 0; display:flex; flex-direction:column;">
 
     <!-- Contenedor de mensajes con scroll -->
@@ -306,35 +305,34 @@ setInterval(refreshLobby, 1000); // 1s, ajustar si quieres menos carga
 
     <!-- Input fijo al fondo -->
     <form id="formChat" class="d-flex p-2 border-top border-secondary bg-dark">
-        <input type="text" name="mensaje" id="mensaje" class="w-75 form-control-sm me-2" autocomplete="off" placeholder="Escribe algo...">
-        <button class="btn btn-danger btn-sm w-50">Enviar</button>
+        <input type="text" name="mensaje" id="mensaje" class="w-75 form-control-sm me-2 input-dark" autocomplete="off" placeholder="Escribe algo...">
+        <button class="btn btn-danger btn-sm w-25">Enviar</button>
     </form>
 </div>
 
 
 <script>
-const idSala = <?php echo json_encode($id_sala); ?>;
-
 function cargarMensajes() {
-    fetch(`?accion=obtener&id_sala=${idSala}`)
-        .then(res => res.text())
-        .then(data => {
-            const contenedor = document.getElementById("mensajes");
-            contenedor.scrollTop = contenedor.scrollHeight;
-            const estabaAbajo = contenedor.scrollHeight - contenedor.scrollTop === contenedor.clientHeight;
-            contenedor.innerHTML = data;
-            
-            // Si estaba abajo, sigue bajando automáticamente
-            if (estabaAbajo) {
-                contenedor.scrollTop = contenedor.scrollHeight;
-            }
-        });
-}
+    fetch(`sala_lobby.php?accion=obtener&id_sala=${idSala}`, {
+    method: 'GET',
+    credentials: 'same-origin'
+    })
 
+
+    .then(res => res.text())
+    .then(data => {
+        const contenedor = document.getElementById("mensajes");
+        const estabaAbajo = (contenedor.scrollHeight - contenedor.scrollTop) <= (contenedor.clientHeight + 5);
+        contenedor.innerHTML = data;
+        if (estabaAbajo) contenedor.scrollTop = contenedor.scrollHeight;
+    })
+    .catch(err => console.error('error cargarMensajes:', err));
+}
 
 setInterval(cargarMensajes, 2000);
 cargarMensajes();
 
+// submit
 document.getElementById("formChat").addEventListener("submit", e => {
     e.preventDefault();
     const mensaje = document.getElementById("mensaje").value.trim();
@@ -345,11 +343,21 @@ document.getElementById("formChat").addEventListener("submit", e => {
     formData.append("mensaje", mensaje);
     formData.append("id_sala", idSala);
 
-    fetch(`?id_sala=${idSala}`, { method: "POST", body: formData })
-        .then(() => {
-            document.getElementById("mensaje").value = "";
-            cargarMensajes();
-        });
+    fetch(`sala_lobby.php?id_sala=${idSala}`, {
+    method: "POST",
+    credentials: 'same-origin',
+    body: formData
+    })
+
+
+    .then(res => res.text())
+    .then(() => {
+        document.getElementById("mensaje").value = "";
+        cargarMensajes();
+    })
+    .catch(err => {
+        console.error('error enviar mensaje:', err);
+    });
 });
 </script>
 

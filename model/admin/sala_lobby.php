@@ -29,14 +29,12 @@ if (isset($_POST['accion']) && $_POST['accion'] === 'enviar') {
 
 // --- Si se solicitan mensajes (AJAX GET) ---
 if (isset($_GET['accion']) && $_GET['accion'] === 'obtener') {
-    $stmt = $con->prepare("
-        SELECT c.mensaje, c.fecha_mensaje, u.usuario 
+    $stmt = $con->prepare("SELECT c.mensaje, c.fecha_mensaje, u.usuario 
         FROM chat c
         INNER JOIN user u ON c.id_user = u.id_user
         WHERE c.id_sala = ?
         ORDER BY c.id_chat ASC
-        LIMIT 30
-    ");
+        LIMIT 30");
     $stmt->execute([$id_sala]);
     $mensajes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -292,9 +290,8 @@ refreshLobby();
 setInterval(refreshLobby, 1000); // 1s, ajustar si quieres menos carga
 </script>
 
-
 <!-- Chat inferior izquierdo -->
-<div id="chat-box" class="position-fixed bottom-0 start-0 bg-dark text-light border-top border-end"
+<div id="chat-box" class="position-fixed bottom-0 start-0 text-light"
      style="width:450px; height:180px; border-radius: 2px 2px 0 0; display:flex; flex-direction:column;">
 
     <!-- Contenedor de mensajes con scroll -->
@@ -302,8 +299,8 @@ setInterval(refreshLobby, 1000); // 1s, ajustar si quieres menos carga
 
     <!-- Input fijo al fondo -->
     <form id="formChat" class="d-flex p-2 border-top border-secondary bg-dark">
-        <input type="text" name="mensaje" id="mensaje" class="w-75 form-control-sm me-2" autocomplete="off" placeholder="Escribe algo...">
-        <button class="btn btn-danger btn-sm w-50">Enviar</button>
+        <input type="text" name="mensaje" id="mensaje" class="w-75 form-control-sm me-2 input-dark" autocomplete="off" placeholder="Escribe algo...">
+        <button class="btn btn-danger btn-sm w-25">Enviar</button>
     </form>
 </div>
 
@@ -358,7 +355,5 @@ document.getElementById("formChat").addEventListener("submit", e => {
     });
 });
 </script>
-
-
 </body>
 </html>

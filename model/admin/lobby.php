@@ -9,12 +9,17 @@ header("Expires: 0");
 
 require_once("../../database/connection.php");
 $db = new Database;
-$con = $db->conectar();
+$con = $db-> conectar();
 
 // Si no hay sesión activa, redirige al login
 if (!isset($_SESSION['id_usuario'])) {
   header("Location: ../../login.php");
   exit();
+}
+
+if ($_SESSION['tipo'] != 1) {
+    header("Location: ../usuario/lobby_offi.php");
+    exit;
 }
 
 if (isset($_POST['cerrar'])) {
@@ -86,10 +91,12 @@ if (!$fila) {
         <p class="small">Reyna</p>
       </div>
     </a>
-    <div class="card-custom card-4 d-flex flex-column justify-content-end">
+    <a href="modos_juego.php" class="text-decoration-none">
+    <div class="card-custom text-white card-4 d-flex flex-column justify-content-end">
       <h6 class="fw-bold mb-1">Modos destacados</h6>
       <p class="mb-0 small">Multigugador </p>
     </div>
+    </a>
   </div>
 
   <header class="d-flex justify-content-end align-items-center">
@@ -183,12 +190,11 @@ if (!$fila) {
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
       <div class="jugar2 modal-body text-center">
-        <p>Selecciona una opción:</p>
+        <p>Selecciona una opción</p>
 
-        <!-- Aquí puedes agregar más opciones si quieres -->
-        <button class="jugar4 btn btn-outline-light w-75 boton-custom1 mb-1">Cambiar Nombre</button>
+        <!-- Aquí puedes agregar más opciones-->
+        <!-- <button class="jugar4 btn btn-outline-light w-75 boton-custom1 mb-1">Cambiar Nombre</button> -->
 
-        <!-- Botón para cerrar sesión -->
         <form method="POST">
           <button type="submit" name="cerrar" class="jugar4 mt-1 btn btn-danger boton-custom w-75 btn-lg">Cerrar sesión</button>
         </form>

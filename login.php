@@ -36,11 +36,11 @@ $con = $db->conectar();
                 <form id="login" method="POST">
                     <div class="mb-2 col-md-8 text-center mx-auto">
                         <label for="nombre" class="form-label">Usuario</label>
-                        <input type="text" class="form-control py-2" id="usuario" name="usuario" class="form-control" placeholder="Tú Usuario">
+                        <input type="text" class="form-control py-2" id="usuario" name="usuario" class="form-control" placeholder="Tú Usuario" required>
                     </div>
                     <div class="mb-2 col-md-8 text-center mx-auto">
                         <label for="contraseña" class="form-label">Contraseña</label>
-                        <input type="password" class="form-control py-2" id="contrasena" name="contrasena" class="form-control" placeholder="********">
+                        <input type="password" class="form-control py-2" id="contrasena" name="contrasena" class="form-control" placeholder="********" required>
                     </div>
                     <div class="mad">
                         <div class="mb-2 col-md-3 ms-auto">

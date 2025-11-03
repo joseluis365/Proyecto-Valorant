@@ -109,7 +109,14 @@ body, html {
   background-size: cover;
   background-position: center;
   height: 150px;
+  transition: opacity 1s ease, transform 0.8s ease;
 }
+
+.card-4:hover {
+  border: 3px solid #36e4a5;
+  background-size: 105%;
+}
+
 .card-3 {
   background-image: url('../multimedia/img/nuevo_personaje.jpg');
   background-size: cover;

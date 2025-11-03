@@ -116,21 +116,20 @@ if ($tipoJuego === "1vs1") {
           Unirse
       </a>
     </div>
-
+          
   </div>
+  
 </div>
 
-
-
-
         <?php endforeach; ?>
+        
     <?php endif; ?>
-
-    <div class="text-center mt-4">
+    <div class="text-center mt-4 contenedor-boton">
         <button class="btn btn-lg boton" data-bs-toggle="modal" data-bs-target="#modalCrearSala">
             CREAR NUEVA SALA
         </button>
     </div>
+    
 </div>
 
 
@@ -161,7 +160,7 @@ if ($tipoJuego === "1vs1") {
             <p><strong>Modo de juego:</strong> <?php echo htmlspecialchars($tipoJuego); ?></p>
             <p><strong>Mapa:</strong> <?php echo htmlspecialchars($mapaSeleccionado); ?></p>
             <p><strong>Capacidad:</strong> <?php echo $capacidad; ?> jugadores</p>
-            <p><strong>Nivel mínimo:</strong> <?php echo htmlspecialchars($nombre_rango); ?></p>
+            <p><strong>Nivel requerido:</strong> <?php echo htmlspecialchars($nombre_rango); ?></p>
         </div>
         <div class="modal-footer">
             <button type="submit" class="btn boton-custom text-white">Confirmar</button>

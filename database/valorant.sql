@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 29-10-2025 a las 23:18:44
+-- Servidor: 127.0.0.1:3306
+-- Tiempo de generación: 02-11-2025 a las 21:41:22
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -101,6 +101,20 @@ INSERT INTO `banner` (`id_banner`, `banner`) VALUES
 (5, 'banner_005.jpg'),
 (6, 'banner_006.jpg'),
 (7, 'banner_007.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `chat`
+--
+
+CREATE TABLE `chat` (
+  `id_chat` int(11) NOT NULL,
+  `mensaje` varchar(255) NOT NULL,
+  `fecha_mensaje` time NOT NULL,
+  `id_sala` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -212,18 +226,7 @@ CREATE TABLE `personaje` (
 --
 
 INSERT INTO `personaje` (`id_personaje`, `nombre_personaje`, `imagen_personaje`, `rango_requerido`) VALUES
-(1, 'Jett', 'Jett.png', 1),
-(2, 'Chamber', 'Chamber.png', 1),
-(3, 'Sova', 'Sova.png', 1),
-(4, 'Phoenix', 'Phoenix.png', 1),
-(5, 'Omen', 'Omen.png', 2),
-(6, 'Brimstone', 'Brimstone.png', 2),
-(7, 'Reyna', 'Reyna.png', 3),
-(8, 'Sage', 'Sage.png', 3),
-(9, 'Viper', 'Viper.png', 4),
-(10, 'Deadlock', 'Deadlock.png', 4),
-(11, 'Neon', 'Neon.png', 5),
-(12, 'Fade', 'Fade.png', 5);
+(1, 'Jett', 'Jett.png', 1);
 
 -- --------------------------------------------------------
 
@@ -259,12 +262,21 @@ CREATE TABLE `sala` (
   `id_sala` int(11) NOT NULL,
   `nombre_sala` varchar(100) NOT NULL,
   `max_jugadores` int(11) NOT NULL,
-  `estado` enum('disponible','en_juego','cerrada') DEFAULT 'disponible',
+  `estado` enum('disponible','en_juego','cerrada','iniciando','') DEFAULT 'disponible',
   `fecha_creacion` datetime DEFAULT current_timestamp(),
   `id_nivel_min` int(11) DEFAULT NULL,
   `id_mapa` int(11) DEFAULT NULL,
-  `tipo_juego` enum('Multijugador','1vs1') NOT NULL DEFAULT 'Multijugador'
+  `tipo_juego` enum('Multijugador','1vs1') NOT NULL DEFAULT 'Multijugador',
+  `inicio_ts` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `sala`
+--
+
+INSERT INTO `sala` (`id_sala`, `nombre_sala`, `max_jugadores`, `estado`, `fecha_creacion`, `id_nivel_min`, `id_mapa`, `tipo_juego`, `inicio_ts`) VALUES
+(21, 'xx', 2, 'en_juego', '2025-10-31 15:14:25', 1, 1, 'Multijugador', 1761941771),
+(23, 'hola', 2, 'en_juego', '2025-11-02 14:42:51', 1, 1, 'Multijugador', 1762113048);
 
 -- --------------------------------------------------------
 
@@ -318,6 +330,7 @@ CREATE TABLE `user` (
   `usuario` varchar(100) NOT NULL,
   `email` varchar(150) NOT NULL,
   `contrasena` varchar(255) NOT NULL,
+  `avatar` varchar(255) DEFAULT NULL,
   `ultimo_login` datetime DEFAULT NULL,
   `id_tipo_user` int(11) DEFAULT NULL,
   `id_estado` int(11) DEFAULT NULL,
@@ -331,10 +344,12 @@ CREATE TABLE `user` (
 -- Volcado de datos para la tabla `user`
 --
 
-INSERT INTO `user` (`id_user`, `nombre`, `usuario`, `email`, `contrasena`, `ultimo_login`, `id_tipo_user`, `id_estado`, `id_rango`, `id_banner`, `id_avatar`, `id_personaje`) VALUES
-(1, 'jose luis', 'jose365', 'jose@gmail.com', '123', '2025-09-17 00:00:00', 2, 2, 1, 5, 4, 1),
-(5, 'Jose Luis', 'jose', 'joseluis1409rodriguez@gmail.com', '$2y$12$vBhUc4u0qbb4mg32FeRcWu5iHVrok2lsiYLEGeenw96hTQMEB9oJ2', '2025-10-29 21:43:16', 1, 1, 1, 1, 1, 1),
-(6, 'pepe', 'pedro', 'pedro@gmail.com', '$2y$12$G/u9MJ/IdwfOAGPn6NIVR.Un0BtcF5ZeIaVvVwc077.cn.beBMMc6', '2025-10-29 20:50:49', 2, 1, 1, 1, 1, 1);
+INSERT INTO `user` (`id_user`, `nombre`, `usuario`, `email`, `contrasena`, `avatar`, `ultimo_login`, `id_tipo_user`, `id_estado`, `id_rango`, `id_banner`, `id_avatar`, `id_personaje`) VALUES
+(5, 'Jose Luis', 'jose', 'joseluis1409rodriguez@gmail.com', '$2y$12$vBhUc4u0qbb4mg32FeRcWu5iHVrok2lsiYLEGeenw96hTQMEB9oJ2', NULL, '2025-11-02 20:28:32', 1, 1, 1, 2, 1, 1),
+(6, 'pepe', 'pedro', 'pedro@gmail.com', '$2y$12$G/u9MJ/IdwfOAGPn6NIVR.Un0BtcF5ZeIaVvVwc077.cn.beBMMc6', NULL, '2025-11-02 20:28:58', 2, 1, 1, 1, 1, 1),
+(7, 'didier', 'didier', 'didierreyes003@gmail.com', '$2y$12$Ej32GDa7TLz01qhIPnE6deoHQQkplaVfGOej58ndhaZuwrFoOFsCy', NULL, '2025-10-29 23:05:18', 2, 1, 1, 1, 1, 1),
+(8, 'brayan', 'brayan', 'bastobrayan246@gmail.com', '$2y$12$OixYE85KhvT9Fg0oBxDkgexZuI60keHOfDTf1Y.qhaCp87KFSFy72', NULL, '2025-10-29 23:06:24', 2, 1, 1, 1, 1, 1),
+(9, 'pepe', 'pepe', 'pepe@gmail.com', '$2y$12$0HPRET8RP6PbbwVvij5HZuVG/IwFLqH35H3GK71wAqG8sNU1LjeTi', NULL, '2025-10-29 23:06:58', 2, 1, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -346,8 +361,20 @@ CREATE TABLE `usuario_sala` (
   `id_usu_sala` int(11) NOT NULL,
   `rol` varchar(50) DEFAULT NULL,
   `id_sala` int(11) DEFAULT NULL,
-  `id_user` int(11) DEFAULT NULL
+  `id_user` int(11) DEFAULT NULL,
+  `joined_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `usuario_sala`
+--
+
+INSERT INTO `usuario_sala` (`id_usu_sala`, `rol`, `id_sala`, `id_user`, `joined_at`) VALUES
+(33, 'Host', 21, 6, '2025-10-31 20:14:38'),
+(34, 'Jugador', 21, 5, '2025-10-31 20:14:57'),
+(35, 'Jugador', 21, NULL, '2025-11-02 19:27:37'),
+(37, 'Host', 23, 6, '2025-11-02 19:42:51'),
+(39, 'Jugador', 23, 5, '2025-11-02 19:46:33');
 
 --
 -- Índices para tablas volcadas
@@ -371,6 +398,14 @@ ALTER TABLE `avatar`
 --
 ALTER TABLE `banner`
   ADD PRIMARY KEY (`id_banner`);
+
+--
+-- Indices de la tabla `chat`
+--
+ALTER TABLE `chat`
+  ADD PRIMARY KEY (`id_chat`),
+  ADD KEY `id_sala` (`id_sala`),
+  ADD KEY `id_user` (`id_user`);
 
 --
 -- Indices de la tabla `estado`
@@ -463,8 +498,8 @@ ALTER TABLE `user`
 --
 ALTER TABLE `usuario_sala`
   ADD PRIMARY KEY (`id_usu_sala`),
-  ADD KEY `id_sala` (`id_sala`),
-  ADD KEY `id_user` (`id_user`);
+  ADD UNIQUE KEY `id_user` (`id_user`,`id_sala`),
+  ADD KEY `id_sala` (`id_sala`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -487,6 +522,12 @@ ALTER TABLE `avatar`
 --
 ALTER TABLE `banner`
   MODIFY `id_banner` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de la tabla `chat`
+--
+ALTER TABLE `chat`
+  MODIFY `id_chat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT de la tabla `estado`
@@ -522,7 +563,7 @@ ALTER TABLE `partida_jugador`
 -- AUTO_INCREMENT de la tabla `personaje`
 --
 ALTER TABLE `personaje`
-  MODIFY `id_personaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_personaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `rango`
@@ -534,7 +575,7 @@ ALTER TABLE `rango`
 -- AUTO_INCREMENT de la tabla `sala`
 --
 ALTER TABLE `sala`
-  MODIFY `id_sala` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_sala` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_arma`
@@ -552,13 +593,13 @@ ALTER TABLE `tip_user`
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario_sala`
 --
 ALTER TABLE `usuario_sala`
-  MODIFY `id_usu_sala` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_usu_sala` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- Restricciones para tablas volcadas
@@ -569,6 +610,13 @@ ALTER TABLE `usuario_sala`
 --
 ALTER TABLE `arma`
   ADD CONSTRAINT `arma_ibfk_1` FOREIGN KEY (`id_tipo_arma`) REFERENCES `tipo_arma` (`id_tipo_arma`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `chat`
+--
+ALTER TABLE `chat`
+  ADD CONSTRAINT `chat_ibfk_1` FOREIGN KEY (`id_sala`) REFERENCES `sala` (`id_sala`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `chat_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `log_disparos`
