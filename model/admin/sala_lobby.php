@@ -190,13 +190,13 @@ $rutaBanner = "../../controller/multimedia/banners/";
 
 
 
-    <div class="text-center mt-4">
+    <div class="text-center mt-2">
     <?php if ($soyHost): ?>
     <button id="botonIniciar" class="btn btn-lg btn-secondary" disabled>
         Esperando jugadores (<?php echo count($jugadores); ?>/<?php echo $maxJugadores; ?>)
     </button>
 <?php else: ?>
-    <p class="text-muted">Esperando a que el host inicie la partida...</p>
+    <p class="text-muted mt-5">Esperando a que el host inicie la partida...</p>
 <?php endif; ?>
     </div>
 
