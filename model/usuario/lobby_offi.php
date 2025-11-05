@@ -64,7 +64,7 @@ if (!$fila) {
 </head>
 
 <body>
-  <video class="bg-video" id="bg-video" autoplay loop muted src="../../controller/multimedia/Animaciones/fondo_animacion.mp4"></video>
+  <img class="bg-video" id="bg-video" src="../../controller/img/fondo1.jpg" alt="Fondo animación">
   <div class="overlay"></div>
   <!-- Panel lateral derecho -->
   <div class="position-absolute top-0 end-0 mt-5 me-4 d-flex flex-column gap-3" style="width: 18rem; margin-right: 5rem !important;">
@@ -151,7 +151,7 @@ if (!$fila) {
           <div class="d-flex align-items-center">
             <span class="rombo"></span>
           </div>
-          <a href="#" class=" d-flex align-items-center text-white text-decoration-none">TIENDA</a>
+          <a href="#" class=" d-flex align-items-center text-white text-decoration-none">CARRERA</a>
         </div>
 
       </div>
