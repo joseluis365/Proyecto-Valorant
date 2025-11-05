@@ -29,7 +29,7 @@ $id_user = $_SESSION['id_usuario'];
 </head>
 <body class="bg-light login-custom">
     <div class="top-bar">
-      <a href="lobby.php" class="back-link">
+      <a href="lobby_offi.php" class="back-link">
         <div class="back-icon"></div>
         <span class="text-muted">ATRÁS</span>
       </a>
