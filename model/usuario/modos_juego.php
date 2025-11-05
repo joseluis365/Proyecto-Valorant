@@ -60,7 +60,7 @@ $fila = $sql->fetch(PDO::FETCH_ASSOC);
 <body>
     
     <div class="top-bar">
-    <a href="lobby_offi.php" class="back-link">
+    <a href="lobby.php" class="back-link">
         <div class="back-icon"></div>
         <span class="text-muted">ATRÁS</span>
     </a>

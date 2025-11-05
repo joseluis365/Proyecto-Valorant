@@ -29,14 +29,12 @@ if (isset($_POST['accion']) && $_POST['accion'] === 'enviar') {
 
 // --- Si se solicitan mensajes (AJAX GET) ---
 if (isset($_GET['accion']) && $_GET['accion'] === 'obtener') {
-    $stmt = $con->prepare("
-        SELECT c.mensaje, c.fecha_mensaje, u.usuario 
+    $stmt = $con->prepare("SELECT c.mensaje, c.fecha_mensaje, u.usuario 
         FROM chat c
         INNER JOIN user u ON c.id_user = u.id_user
         WHERE c.id_sala = ?
         ORDER BY c.id_chat ASC
-        LIMIT 30
-    ");
+        LIMIT 30");
     $stmt->execute([$id_sala]);
     $mensajes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -145,67 +143,22 @@ $rutaBanner = "../../controller/multimedia/banners/";
 
     <!-- CONTENEDOR PRINCIPAL DE JUGADORES -->
 <div id="contenedor-jugadores" class="d-flex flex-wrap justify-content-center align-items-start gap-4 text-center">
-    <?php
-    // Dividimos jugadores en host y otros
-    $host = null;
-    $otros = [];
-    foreach ($jugadores as $jug) {
-        if ($jug['rol'] === "Host") {
-            $host = $jug;
-        } else {
-            $otros[] = $jug;
-        }
-    }
-
-    // Render de los jugadores
-    function mostrarJugador($jug, $rutaBanner) {
-        $banner = !empty($jug['banner']) ? $rutaBanner . $jug['banner'] : $rutaBanner . "default.png";
-        $rolBadge = ($jug['rol'] === 'Host') ? '<span class="badge bg-warning text-dark mt-2">HOST</span>' : '';
-        return '
-        <div class="jugador-card">
-            <div class="banner-frame mx-auto mb-2">
-                <img src="'.$banner.'" alt="banner" class="banner-img">
-                <p class="nombre mb-1 text-black fw-bold">'.strtoupper($jug['usuario']).'</p>
-                <img class="icono-rango" src="../../controller/multimedia/rangos/'.$jug['icono'].'" alt="Rango" height="45" width="40">
-            </div>
-            '.$rolBadge.'
-        </div>';
-    }
-
-    // Mostrar host primero
-    if ($host) echo mostrarJugador($host, $rutaBanner);
-
-    // Mostrar los demás jugadores
-    foreach ($otros as $jug) echo mostrarJugador($jug, $rutaBanner);
-
-    // Agregar placeholders si faltan jugadores
-    $totalJugadores = count($jugadores);
-    for ($i = $totalJugadores; $i < $maxJugadores; $i++) {
-        echo '
-        <div class="jugador-card esperando-jugador card p-3 d-flex align-items-center justify-content-center" 
-             style="width:170px; height:180px;">
-            <span class="text-muted">Esperando jugador...</span>
-        </div>';
-    }
-    ?>
+    
 </div>
 
 
 
-    <div class="text-center mt-4">
+    <div class="text-center mt-2">
     <?php if ($soyHost): ?>
     <button id="botonIniciar" class="btn btn-lg btn-secondary" disabled>
         Esperando jugadores (<?php echo count($jugadores); ?>/<?php echo $maxJugadores; ?>)
     </button>
 <?php else: ?>
-    <p class="text-muted">Esperando a que el host inicie la partida...</p>
+    <p class="text-muted mt-5">Esperando a que el host inicie la partida...</p>
 <?php endif; ?>
     </div>
 
 </div>
-
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -224,79 +177,84 @@ function refreshLobby(){
       $('#contenedor-jugadores').html(info.html);
 
       // actualizar boton (si soy host)
-      if (soyHost) {
-        if (info.count >= info.max) {
-          $('#botonIniciar').prop('disabled', false).text('Iniciar partida');
-        } else {
-          $('#botonIniciar').prop('disabled', true).text(`Esperando jugadores (${info.count}/${info.max})`);
-        }
-      }
+      // actualizar boton (si soy host)
+if (soyHost) {
+    if (info.count === info.max && info.estado === 'disponible') {
+        $('#botonIniciar').prop('disabled', false).text('Iniciar partida');
+    } else {
+        $('#botonIniciar')
+            .prop('disabled', true)
+            .text(`Esperando jugadores (${info.count}/${info.max})`);
+    }
+}
 
-      // detectar estado iniciando
+
+      // detectar estado iniciando (cuenta regresiva en progreso)
       if (info.estado === 'iniciando') {
         if (!contando) {
-          // iniciar cuenta usando el inicio_ts del servidor
           inicio_ts_global = info.inicio_ts ? parseInt(info.inicio_ts) : (Math.floor(Date.now()/1000) + 5);
           startCountdown(inicio_ts_global);
         }
-      } else if (info.estado === 'en_juego') {
-        // si ya está en juego, redirigir a la partida (o cargar la vista)
+      } 
+      
+      // si ya está en juego, redirigir a la partida
+      else if (info.estado === 'en_juego') {
         window.location.href = 'partida.php?id_sala=' + idSala;
-      } else {
-        // estado normal
       }
 
     } catch (e) { console.error('parse error', e); }
   });
 }
 
-// manejar click iniciar
+// manejar click iniciar (solo host)
 $('#botonIniciar').on('click', function(){
   if (!soyHost) return;
   $.post('iniciar_partida.php', { id_sala: idSala }, function(resp){
-    // la respuesta no importa demasiado, la próxima refresh detectará el estado 'iniciando'
-    refreshLobby();
+    refreshLobby(); // forzar actualización
   });
 });
 
-// cuenta regresiva centralizada
+// cuenta regresiva global sincronizada por servidor
 function startCountdown(inicio_ts) {
   contando = true;
-  // bloquear salida visualmente y advertir en beforeunload
   $('#salirLink').hide();
-  window.onbeforeunload = function(){ return "La partida está por iniciar, ¿deseas salir?"; };
+  window.onbeforeunload = () => "La partida está por iniciar, ¿deseas salir?";
 
   const intervalo = setInterval(function(){
     const ahora = Math.floor(Date.now()/1000);
     const rem = inicio_ts - ahora;
     if (rem > 0) {
-      // mostrar overlay o mensaje grande
       if ($('#contadorOverlay').length === 0) {
-        $('body').append('<div id="contadorOverlay" style="position:fixed;left:0;top:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;z-index:9999;"><div style="background:rgba(0,0,0,0.7);padding:30px;border-radius:12px;color:#fff;font-size:2rem;">La partida comienza en <span id="segundos">'+rem+'</span> s</div></div>');
+        $('body').append(`
+          <div id="contadorOverlay" style="position:fixed;left:0;top:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;z-index:9999;">
+            <div style="background:rgba(0,0,0,0.7);padding:30px;border-radius:12px;color:#fff;font-size:2rem;">
+              La partida comienza en <span id="segundos">${rem}</span> s
+            </div>
+          </div>
+        `);
       } else {
         $('#segundos').text(rem);
       }
     } else {
       clearInterval(intervalo);
-      // quitar overlay
       $('#contadorOverlay').remove();
       window.onbeforeunload = null;
-      // confirmar inicio en servidor y redirigir
-      $.post('confirmar_inicio.php', { id_sala: idSala }, function(r){
-        // redirigir a la pantalla de partida
+
+      // confirmar inicio real en servidor → crea partida → cambia estado
+      $.post('confirmar_inicio.php', { id_sala: idSala }, function(){
         window.location.href = 'partida.php?id_sala=' + idSala;
       });
     }
-  }, 300); // frecuencia interna para mostrar seg decreciente (300ms)
+  }, 300);
 }
 
-// arrancar polling corto
+// iniciar ciclo de polling del lobby
 refreshLobby();
-setInterval(refreshLobby, 1000); // 1s, ajustar si quieres menos carga
+setInterval(refreshLobby, 1000);
 </script>
 
-
 <!-- Chat inferior izquierdo -->
+
 <div id="chat-box" class="position-fixed bottom-0 start-0 text-light"
      style="width:450px; height:180px; border-radius: 2px 2px 0 0; display:flex; flex-direction:column;">
 
@@ -311,6 +269,7 @@ setInterval(refreshLobby, 1000); // 1s, ajustar si quieres menos carga
 </div>
 
 
+<!-- suponiendo que idSala ya fue declarado arriba una única vez -->
 <script>
 function cargarMensajes() {
     fetch(`sala_lobby.php?accion=obtener&id_sala=${idSala}`, {
@@ -360,6 +319,5 @@ document.getElementById("formChat").addEventListener("submit", e => {
     });
 });
 </script>
-
 </body>
 </html>

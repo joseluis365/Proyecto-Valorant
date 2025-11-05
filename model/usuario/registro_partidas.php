@@ -7,6 +7,28 @@ $con = $db-> conectar();
 
 $id_user = $_SESSION['id_usuario'];
 
+$stmt = $con->prepare("SELECT 
+        p.id_partida,
+        s.nombre_sala,
+        s.tipo_juego,
+        p.estado,
+        p.fecha_inicio,
+        p.fecha_fin,
+        pj.kills,
+        pj.resultado,
+        CASE 
+            WHEN p.id_ganador = pj.id_user THEN 'GANADA'
+            ELSE 'PERDIDA'
+        END AS resultado_real
+    FROM partida_jugador pj
+    JOIN partida p ON pj.id_partida = p.id_partida
+    JOIN sala s ON p.id_sala = s.id_sala
+    WHERE pj.id_user = ?
+    ORDER BY p.fecha_inicio DESC
+");
+$stmt->execute([$id_user]);
+$partidas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -42,6 +64,20 @@ $id_user = $_SESSION['id_usuario'];
       <h1 class="jugar text-white">CARERA</h1>
       <p class="text-danger fw-bold">Aquí Puedes ver los registros de tus partidas</p>
     </header>
+
+    <?php foreach ($partidas as $p) {
+    echo "<tr>
+        <td>{$p['id_partida']}</td>
+        <td>{$p['nombre_sala']}</td>
+        <td>{$p['tipo_juego']}</td>
+        <td>{$p['fecha_inicio']}</td>
+        <td>{$p['resultado_real']}</td>
+        <td>{$p['kills']}</td>
+    </tr>";
+
+    
+}
+?>
   </main>
 
   <!-- <div class="container">
