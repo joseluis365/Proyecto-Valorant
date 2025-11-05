@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 05-11-2025 a las 18:06:43
+-- Tiempo de generación: 05-11-2025 a las 18:18:51
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -577,7 +577,8 @@ INSERT INTO `user` (`id_user`, `nombre`, `usuario`, `email`, `contrasena`, `avat
 (6, 'pepe', 'pedro', 'pedro@gmail.com', '$2y$12$G/u9MJ/IdwfOAGPn6NIVR.Un0BtcF5ZeIaVvVwc077.cn.beBMMc6', NULL, '2025-11-05 17:44:22', 1459, 2, 1, 5, 1, 1, 3),
 (7, 'didier', 'didier', 'didierreyes003@gmail.com', '$2y$12$Ej32GDa7TLz01qhIPnE6deoHQQkplaVfGOej58ndhaZuwrFoOFsCy', NULL, '2025-11-05 18:04:29', 0, 2, 1, 1, 1, 1, 1),
 (8, 'brayan', 'brayan', 'bastobrayan246@gmail.com', '$2y$12$OixYE85KhvT9Fg0oBxDkgexZuI60keHOfDTf1Y.qhaCp87KFSFy72', NULL, '2025-10-29 23:06:24', 0, 2, 1, 1, 1, 1, 1),
-(9, 'pepe', 'pepe', 'pepe@gmail.com', '$2y$12$0HPRET8RP6PbbwVvij5HZuVG/IwFLqH35H3GK71wAqG8sNU1LjeTi', NULL, '2025-10-29 23:06:58', 0, 2, 1, 1, 1, 1, 1);
+(9, 'pepe', 'pepe', 'pepe@gmail.com', '$2y$12$0HPRET8RP6PbbwVvij5HZuVG/IwFLqH35H3GK71wAqG8sNU1LjeTi', NULL, '2025-10-29 23:06:58', 0, 2, 1, 1, 1, 1, 1),
+(10, 'jose luis', 'joseadmin', 'joseluis14@gmail.com', '$2y$12$t5yZ9gfrsAaAz5bkkIERa.sBmXdYtNcQRUB.f5STXYlrAeZ.WL1Zy', NULL, NULL, 0, 1, 1, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -845,7 +846,7 @@ ALTER TABLE `tip_user`
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario_sala`
