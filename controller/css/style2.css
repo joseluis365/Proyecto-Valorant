@@ -10,10 +10,6 @@ body, html {
   background-position: center;
   background-color: #000; /* fondo de seguridad */
 }
-
-
-
-
 .madre {
   display: flex;
   justify-content: space-between;
@@ -562,7 +558,36 @@ body, html {
   font-size: 0.75rem;
   margin: 2px 0;
 }
-
+.container{ 
+  max-width:900px; margin:0 auto; 
+}
+.card{ 
+  background:#111; 
+  padding:16px; 
+  border-radius:8px; 
+  margin-bottom:12px; 
+}
+.winner{ 
+  color:#00ff7f; 
+  font-weight:bold; 
+}
+.loser{ 
+  color:#ff6b6b; 
+}
+table { 
+  width:100%; 
+  border-collapse:collapse; 
+  margin-top:8px; 
+}
+th,td { 
+  padding:8px 10px; 
+  text-align:left; 
+  border-bottom:1px solid rgba(255,255,255,0.05); 
+}
+th {
+  color:#bbb; 
+  font-size:0.9rem; 
+}
 
 
 

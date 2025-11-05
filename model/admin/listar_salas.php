@@ -36,7 +36,7 @@ $sql = "SELECT s.id_sala, s.max_jugadores, s.nombre_sala, s.estado,
         FROM sala s
         WHERE s.tipo_juego = :tipoJuego
           AND s.estado = 'Disponible'
-          AND s.id_nivel_min = :rango
+          AND s.id_nivel_min <= :rango
         HAVING ocupacion < s.max_jugadores
         ORDER BY s.id_sala DESC";
 

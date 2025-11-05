@@ -93,7 +93,7 @@ if (!$fila) {
   </div>
 
   <header class="d-flex justify-content-end align-items-center">
-    <p class="mt-3 fw-bold" style="font-size: large;"> Puntos <?php echo $fila['puntos_requeridos']; ?></p>
+    <p class="mt-3 fw-bold" style="font-size: large;"> Puntos: <?php echo $fila['puntos']; ?></p>
     <img src="../../controller/multimedia/rangos/<?php echo $fila['icono']; ?>" alt="Rango diamante" height="50" width="50" style="margin-left: 5px; margin-right: 5px; margin-top: 5px;">
     <h3 class="mt-1" style="margin-right: 15px; font-family: sans-serif;"><?php echo $fila['usuario']; ?></h3>
     <!-- Botón del icono de configuración -->

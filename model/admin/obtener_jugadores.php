@@ -1,7 +1,7 @@
 <?php
 require_once "../../database/connection.php";
 $db = new database;
-$con = $db->conectar();
+$con = $db-> conectar();
 
 $id_sala = $_GET['id_sala'] ?? null;
 if (!$id_sala) {
@@ -64,7 +64,7 @@ if ($jugadores) {
         $html .= '<div class="jugador-card esperando-jugador card p-3 d-flex align-items-center justify-content-center" 
                     style="width:170px; height:180px;">
                     <span class="text-muted">Esperando jugador...</span>
-                  </div>';
+                </div>';
     }
 }
 

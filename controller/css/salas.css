@@ -103,6 +103,9 @@ body > * {
 .fondo{
   margin: 0;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: end;
 }
 .fullscreen {
   position: fixed;
@@ -118,7 +121,7 @@ body > * {
 #bg-video {
   display: none;
 }
-.boton-partida.hud-button {
+.buton button.hud-button {
   width: 100px;
   height: 100px;
   background-color: #1c1c1c;
@@ -131,13 +134,14 @@ body > * {
   cursor: pointer;
   transition: transform 0.1s ease, box-shadow 0.3s ease;
   outline: none;
+  z-index: 5;
 }
 .icono {
   width: 200%;
   filter: drop-shadow(0 0 5px white);
   pointer-events: none;
 }
-.boton-partida {
+.buton button {
   position: fixed;
   bottom: 20px;
   left: 50%;
@@ -147,6 +151,200 @@ body > * {
   cursor: pointer;
   z-index: 10;
 }
-.boton-partida:disabled {
+.buton button:disabled {
   cursor: not-allowed;
 }
+.contenedor-avatares { 
+  display: flex; 
+  gap:10px; 
+  max-width:800px; 
+  margin:0 auto; 
+  z-index: 50; 
+  position: relative; 
+  justify-content: center; 
+  align-items: start; 
+  margin-bottom: 250px; 
+  margin-right: 150px; 
+}
+.selector-avatar { 
+  position: relative; 
+  display:inline-block; 
+  border-radius:12px; 
+  overflow:visible; 
+}
+.imagen-contenedor { 
+  position: relative; 
+  width:250px; 
+  max-width:100%; 
+  border-radius:12px; 
+  overflow:hidden; 
+  cursor:pointer; 
+}
+.imagen-contenedor img { 
+  display:block; 
+  width:100%; height:auto; 
+  border-radius:12px; 
+}
+.overlay { 
+  position:absolute; 
+  left:0; width:100%; 
+  opacity:0; transition: opacity .25s ease; 
+  pointer-events:none; border-radius:12px; 
+}
+.overlay.cabeza { 
+  top:0; 
+  height:40%; 
+  background:rgba(0,200,255,0.25); 
+}
+.overlay.cuerpo { 
+  bottom:0; 
+  height:60%; 
+  background:rgba(255,80,0,0.25); 
+}
+
+.opciones {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background: rgba(0, 0, 0, 0.75);
+  border-radius: 8px;
+  padding: 12px 16px;
+  z-index: 30;            
+  min-width: 100px;
+  width: 100%;
+  height: 100%;
+}
+.opciones button {
+margin-top: 20px;
+border: none;
+background: #444;
+color: white;
+font-weight: 600;
+border-radius: 6px;
+padding: 8px;
+cursor: pointer;
+transition: background 0.2s;
+position: relative;
+width: 95%;
+height: 50px;
+}
+.opciones button:hover {
+  background: #666;
+}
+.selector-avatar.seleccionado .imagen-contenedor {
+  box-shadow:0 0 0 4px rgba(0,200,255,0.12); 
+}
+.contenedor-avatares.bloqueado .selector-avatar:not(.seleccionado) {
+  opacity:0.45; pointer-events:none; 
+}
+.selector-arma {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 100px;
+  height: 100px;
+  background: rgba(20, 20, 20, 0.9);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 50;
+  overflow: visible;
+  transition: transform 0.2s ease;
+}
+.selector-arma:hover {
+  transform: scale(1.05);
+}
+.arma-seleccionada img {
+  width: 80%;
+  height: auto;
+  user-select: none;
+  pointer-events: none;
+}
+.lista-armas {
+  position: absolute;
+  bottom: 110%;
+  left: 0;
+  display: none;
+  flex-direction: column-reverse;
+  gap: 8px;
+  background: rgba(20, 20, 20, 0.95);
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.lista-armas img {
+  width: 80px;
+  height: auto;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.2s ease, border 0.2s ease;
+}
+.lista-armas img:hover {
+  transform: scale(1.1);
+  border: 2px solid #00d4ff;
+}
+.barra-vida-contenedor {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  height: 25px;
+  background: rgba(30, 30, 30, 0.8);
+  border: 2px solid #111;
+  border-radius: 15px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  box-shadow: 0 0 10px rgba(0,0,0,0.6);
+  z-index: 50;
+}
+#imagenFondo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    z-index: 0; 
+    display: block;      
+}
+#contenedorHUD, .hud, .ui-superior, .selector-armas, #btnDisparar {
+    position: relative;
+    z-index: 5;
+}
+.lista-armas {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+.barra-vida {
+    width: 80%;
+    height: 6px;
+    background: #333;
+    border-radius: 4px;
+    margin: 4px auto 0;
+    overflow: hidden;
+}
+.barra-vida-fill {
+    height: 100%;
+    background: #0f0;
+    transition: width .25s linear;
+}
+.jugador-desactivado .barra-vida-fill {
+    background: red !important;
+}
+
