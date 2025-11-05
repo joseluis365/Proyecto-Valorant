@@ -14,48 +14,72 @@ try {
         $sql->execute([$usuario]);
         $fila = $sql->fetch(PDO::FETCH_ASSOC);
 
-        if ($fila && password_verify($contra, $fila['contrasena'])) {
+        if ($fila) {
 
-            // Guardar fecha y hora actual en ultimo_login
-            $fecha_login = date('Y-m-d H:i:s');
-            $update = $con->prepare("UPDATE user SET ultimo_login = :fecha WHERE id_user = :id");
-            $update->bindParam(':fecha', $fecha_login);
-            $update->bindParam(':id', $fila['id_user']);
-            $update->execute();
+            // Verificar si han pasado más de 2 meses desde el último login
+            if (!empty($fila['ultimo_login'])) {
+                $ultimo_login = new DateTime($fila['ultimo_login']);
+                $ahora = new DateTime();
+                $diferencia = $ultimo_login->diff($ahora);
 
-            // Guardar datos en sesión
-            $_SESSION['nombre'] = $fila['nombre'];
-            $_SESSION['usuario'] = $fila['usuario'];
-            $_SESSION['email'] = $fila['email'];
-            $_SESSION['tipo'] = $fila['id_tipo_user'];
-            $_SESSION['estado'] = $fila['id_estado'];
-            $_SESSION['rango'] = $fila['id_rango'];
-            $_SESSION['id_usuario'] = $fila['id_user'];
+                if ($diferencia->m >= 2 || $diferencia->y > 0) {
+                    // Bloquear la cuenta si pasaron más de 2 meses
+                    $bloquear = $con->prepare("UPDATE user SET id_estado = 2 WHERE id_user = :id");
+                    $bloquear->bindParam(':id', $fila['id_user']);
+                    $bloquear->execute();
 
-            // Lógica de acceso según tipo y estado
-            if ($fila['id_tipo_user'] == 2 && $fila['id_estado'] == 1) {
-
-                echo json_encode(["entrar" => "Bienvenido usuario", "redirect" => "model/usuario/lobby_offi.php"]);
-                exit();
+                    echo json_encode(["error" => "Tu cuenta fue bloqueada por inactividad (más de 2 meses)."]);
+                    exit();
+                }
             }
 
-            if ($fila['id_tipo_user'] == 2 && $fila['id_estado'] == 2) {
-                echo json_encode(["error" => "Tu cuenta está bloqueada. Comunícate con un administrador."]);
-                exit();
-            }
+            // Verifica contraseña
+            if (password_verify($contra, $fila['contrasena'])) {
 
-            if ($fila['id_tipo_user'] == 1 && $fila['id_estado'] == 1) {
-                echo json_encode(["entrar" => "Bienvenido administrador", "redirect" => "model/admin/lobby.php"]);
-                exit();
-            }
+                // Guardar fecha y hora actual en ultimo_login
+                $fecha_login = date('Y-m-d H:i:s');
+                $update = $con->prepare("UPDATE user SET ultimo_login = :fecha WHERE id_user = :id");
+                $update->bindParam(':fecha', $fecha_login);
+                $update->bindParam(':id', $fila['id_user']);
+                $update->execute();
 
-            if ($fila['id_tipo_user'] == 1 && $fila['id_estado'] == 2) {
-                echo json_encode(["error" => "Tu cuenta de administrador está bloqueada."]);
+
+                $_SESSION['nombre'] = $fila['nombre'];
+                $_SESSION['usuario'] = $fila['usuario'];
+                $_SESSION['email'] = $fila['email'];
+                $_SESSION['tipo'] = $fila['id_tipo_user'];
+                $_SESSION['estado'] = $fila['id_estado'];
+                $_SESSION['rango'] = $fila['id_rango'];
+                $_SESSION['id_usuario'] = $fila['id_user'];
+
+                
+                if ($fila['id_tipo_user'] == 2 && $fila['id_estado'] == 1) {
+                    echo json_encode(["entrar" => "Bienvenido usuario", "redirect" => "model/usuario/lobby_offi.php"]);
+                    exit();
+                }
+
+                if ($fila['id_tipo_user'] == 2 && $fila['id_estado'] == 2) {
+                    echo json_encode(["error" => "Tu cuenta está bloqueada. Comunícate con un administrador."]);
+                    exit();
+                }
+
+                if ($fila['id_tipo_user'] == 1 && $fila['id_estado'] == 1) {
+                    echo json_encode(["entrar" => "Bienvenido administrador", "redirect" => "model/admin/lobby.php"]);
+                    exit();
+                }
+
+                if ($fila['id_tipo_user'] == 1 && $fila['id_estado'] == 2) {
+                    echo json_encode(["error" => "Tu cuenta de administrador está bloqueada."]);
+                    exit();
+                }
+
+            } else {
+                echo json_encode(["error" => "Usuario o contraseña incorrectos."]);
                 exit();
             }
 
         } else {
-            echo json_encode(["error" => "Usuario o contraseña incorrectos."]);
+            echo json_encode(["error" => "El Usuario No Existe"]);
             exit();
         }
 

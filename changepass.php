@@ -15,24 +15,22 @@ if (isset($_POST["enviar"])) {
     // Validación de formato (solo letras y números)
     else if (!preg_match("/^[a-zA-Z0-9]+$/", $contrasena)) {
         echo "<script>alert('La contraseña solo puede contener letras y números.');</script>";
-    }
-    else {
+    } else {
         // Encriptar la contraseña
         $encripted = password_hash($contrasena, PASSWORD_BCRYPT, array("cost" => 12));
 
         // Verificar que coincidan
-      if ($contrasena === $contrasena_Verify) {
-    $sql = $con->prepare("UPDATE user SET contrasena = :password WHERE id_user = :user");
-    $sql->bindParam(":password", $encripted, PDO::PARAM_STR);
-    $sql->bindParam(":user", $_SESSION['user'], PDO::PARAM_STR);
-    $sql->execute();
+        if ($contrasena === $contrasena_Verify) {
+            $sql = $con->prepare("UPDATE user SET contrasena = :password WHERE id_user = :user");
+            $sql->bindParam(":password", $encripted, PDO::PARAM_STR);
+            $sql->bindParam(":user", $_SESSION['user'], PDO::PARAM_STR);
+            $sql->execute();
 
-    header("Location: destruir_contra.php");
-    exit();
-} else {
-    echo "<script>alert('CONTRASEÑAS DESIGUALES');</script>";
-}
-
+            header("Location: destruir_contra.php");
+            exit();
+        } else {
+            echo "<script>alert('CONTRASEÑAS DESIGUALES');</script>";
+        }
     }
 }
 ?>
@@ -40,16 +38,18 @@ if (isset($_POST["enviar"])) {
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="controller/css/style.css">
-  <title>Cambiar Contraseña</title>
-  <link rel="stylesheet" href="controller/css/style3.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="controller/css/style.css">
+    <title>Cambiar Contraseña</title>
+    <link rel="stylesheet" href="controller/css/style3.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
+
 <body class="login-custom1">
 
     <div class="container-fluid vh-100">
@@ -85,16 +85,13 @@ if (isset($_POST["enviar"])) {
 
             <!-- Lado Derecho (Video) -->
             <div class="col-md-6 p-0 right-section position-relative">
-                <video id="videoFondo" autoplay muted loop class="w-100 h-100 object-fit-cover">
-                    <source src="controller/multimedia/Animaciones/valorant-login.mp4" type="video/mp4">
-                    Tu navegador no soporta el video.
-                </video>
-
+                <img src="controller/img/fondo6.jpg" alt="Fondo" class="img-fluid w-100 h-100" style="object-fit: cover;">
                 <button id="toggleSound"
                     class="btn btn-light rounded-circle position-absolute bottom-0 end-0 m-3 shadow">
                     <i class="bi bi-volume-mute-fill"></i>
                 </button>
             </div>
+
         </div>
     </div>
 
@@ -104,9 +101,9 @@ if (isset($_POST["enviar"])) {
 
         btn.addEventListener('click', () => {
             video.muted = !video.muted;
-            btn.innerHTML = video.muted
-                ? '<i class="bi bi-volume-mute-fill"></i>'
-                : '<i class="bi bi-volume-up-fill"></i>';
+            btn.innerHTML = video.muted ?
+                '<i class="bi bi-volume-mute-fill"></i>' :
+                '<i class="bi bi-volume-up-fill"></i>';
         });
     </script>
 </body>
