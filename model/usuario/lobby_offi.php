@@ -151,7 +151,7 @@ if (!$fila) {
           <div class="d-flex align-items-center">
             <span class="rombo"></span>
           </div>
-          <a href="#" class=" d-flex align-items-center text-white text-decoration-none">CARRERA</a>
+          <a href="registro_partidas.php" class=" d-flex align-items-center text-white text-decoration-none">CARRERA</a>
         </div>
 
       </div>
