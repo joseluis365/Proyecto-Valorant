@@ -15,10 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_personaje'])) {
     }
 }
 
-// Consultar datos del usuario
-$avatar = $con->prepare("SELECT id_avatar FROM user WHERE id_user = :id");
-$avatar->execute([':id' => $id_user]);
-
 // Consultar el personaje seleccionado actualmente
 $query_personaje_sel = $con->prepare("SELECT id_personaje FROM user WHERE id_user = ?");
 $query_personaje_sel->execute([$id_user]);

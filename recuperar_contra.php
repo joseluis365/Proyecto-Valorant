@@ -89,7 +89,7 @@ if (isset($_POST['enviar'])) {
     <link rel="stylesheet" href="controller/css/style3.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 
 <body class="login-custom1">
@@ -112,7 +112,7 @@ if (isset($_POST['enviar'])) {
                         <label for="input_correo" class="form-label">Correo:</label>
                         <input type="email" name="input_correo" id="input_correo" class="form-control py-2" placeholder="example@gmail.com" required>
                     </div>
-                    
+
                     <div class="botones text-center mt-4">
                         <button type="submit" name="enviar" class="btn btn-custom w-75 mb-2">Enviar Código</button>
                         <button type="button" onclick="window.location.href='login.php'" class="btn btn-outline-secondary w-75 volver">Volver</button>
@@ -122,16 +122,13 @@ if (isset($_POST['enviar'])) {
 
             <!-- Lado Derecho (Video) -->
             <div class="col-md-6 p-0 right-section position-relative">
-                <video id="videoFondo" autoplay muted loop class="w-100 h-100 object-fit-cover">
-                    <source src="controller/multimedia/Animaciones/valorant-login.mp4" type="video/mp4">
-                    Tu navegador no soporta el video.
-                </video>
-
+                <img src="controller/img/fondo4.jpg" alt="Fondo" class="img-fluid w-100 h-100" style="object-fit: cover;">
                 <button id="toggleSound"
                     class="btn btn-light rounded-circle position-absolute bottom-0 end-0 m-3 shadow">
                     <i class="bi bi-volume-mute-fill"></i>
                 </button>
             </div>
+
         </div>
     </div>
 
@@ -141,9 +138,9 @@ if (isset($_POST['enviar'])) {
 
         btn.addEventListener('click', () => {
             video.muted = !video.muted;
-            btn.innerHTML = video.muted
-                ? '<i class="bi bi-volume-mute-fill"></i>'
-                : '<i class="bi bi-volume-up-fill"></i>';
+            btn.innerHTML = video.muted ?
+                '<i class="bi bi-volume-mute-fill"></i>' :
+                '<i class="bi bi-volume-up-fill"></i>';
         });
     </script>
 </body>

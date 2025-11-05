@@ -43,7 +43,7 @@ try {
                 $update->bindParam(':id', $fila['id_user']);
                 $update->execute();
 
-                // Guardar datos en sesión
+
                 $_SESSION['nombre'] = $fila['nombre'];
                 $_SESSION['usuario'] = $fila['usuario'];
                 $_SESSION['email'] = $fila['email'];
@@ -52,7 +52,7 @@ try {
                 $_SESSION['rango'] = $fila['id_rango'];
                 $_SESSION['id_usuario'] = $fila['id_user'];
 
-                // Lógica de acceso según tipo y estado
+                
                 if ($fila['id_tipo_user'] == 2 && $fila['id_estado'] == 1) {
                     echo json_encode(["entrar" => "Bienvenido usuario", "redirect" => "model/usuario/lobby_offi.php"]);
                     exit();

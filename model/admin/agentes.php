@@ -15,10 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_personaje'])) {
     }
 }
 
-// Consultar datos del usuario
-$avatar = $con->prepare("SELECT id_avatar FROM user WHERE id_user = :id");
-$avatar->execute([':id' => $id_user]);
-
 // Consultar el personaje seleccionado actualmente
 $query_personaje_sel = $con->prepare("SELECT id_personaje FROM user WHERE id_user = ?");
 $query_personaje_sel->execute([$id_user]);
@@ -30,12 +26,9 @@ $query_rango->execute([$id_user]);
 $user_rango = $query_rango->fetch(PDO::FETCH_ASSOC)['id_rango'];
 
 // Consultar personajes con su rango e icono
-$query_personajes = $con->prepare("
-    SELECT p.*, r.icono AS icono_rango
+$query_personajes = $con->prepare("SELECT p.*, r.icono AS icono_rango
     FROM personaje p
-    LEFT JOIN rango r ON p.rango_requerido = r.id_rango
-");
-
+    LEFT JOIN rango r ON p.rango_requerido = r.id_rango");
 $query_personajes->execute();
 $personajes = $query_personajes->fetchAll(PDO::FETCH_ASSOC);
 

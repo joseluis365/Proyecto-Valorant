@@ -2,7 +2,7 @@
 session_start();
 require_once("database/connection.php");
 $db = new Database;
-$con = $db-> conectar();
+$con = $db->conectar();
 ?>
 
 <!DOCTYPE html>
@@ -54,16 +54,14 @@ $con = $db-> conectar();
             </div>
 
             <!-- Lado Derecho (Video) -->
-            <div class="col-md-6 p-0 right-section">
-                <video id="videoFondo" autoplay muted loop>
-                    <source src="controller/multimedia/Animaciones/Valo-login.mp4" type="video/mp4">
-                    Tu navegador no soporta el video.
-                </video>
+            <div class="col-md-6 p-0 right-section position-relative">
+                <img src="controller/img/fondo2.jpg" alt="Fondo" class="img-fluid w-100 h-100" style="object-fit: cover;">
                 <button id="toggleSound"
                     class="btn btn-light rounded-circle position-absolute bottom-0 end-0 m-3 shadow">
                     <i class="bi bi-volume-mute-fill"></i>
                 </button>
             </div>
+
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
